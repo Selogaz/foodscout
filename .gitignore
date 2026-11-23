@@ -1,0 +1,22 @@
+artefacts/
+
+# --- IDE ---
+.idea/
+.vscode/
+
+# --- Node / Next.js ---
+node_modules
+.next/
+out/
+build/
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+
+# --- Окружение и секреты ---
+.env
+.env*.local
+
+# --- Локальные данные ---
+*.db
+*.sqlite
