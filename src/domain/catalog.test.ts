@@ -33,4 +33,14 @@ describe("справочники", () => {
     expect(findCity("novosibirsk")?.city.yandexLr).toBe(65);
     expect(findCity("moscow")?.city.yandexLr).toBe(213);
   });
+
+  it("у каждого города и региона есть предложный падеж с предлогом", () => {
+    for (const r of REGIONS) {
+      expect(r.locative).toMatch(/^во? [А-ЯЁ]/);
+      for (const c of r.cities) expect(c.locative).toMatch(/^во? [А-ЯЁ]/);
+    }
+    expect(findCity("moscow")?.city.locative).toBe("в Москве");
+    expect(findCity("vladivostok")?.city.locative).toBe("во Владивостоке");
+    expect(REGIONS.find((r) => r.id === "tatarstan")?.locative).toBe("в Республике Татарстан");
+  });
 });

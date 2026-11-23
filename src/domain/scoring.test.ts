@@ -7,6 +7,7 @@ import {
   spicesSupplier,
   supplierFixtures,
 } from "./__fixtures__/suppliers";
+import { REGIONS } from "./catalog";
 import { emptyField, field } from "./field";
 import { SearchQuerySchema, type SearchQueryInput } from "./query";
 import { rankSuppliers, SCORING_CONFIG, scoreSupplier } from "./scoring";
@@ -36,7 +37,7 @@ describe("scoreSupplier", () => {
     const r = scoreSupplier(fullSupplier, moscowFlour);
     expect(r.total).toBeGreaterThanOrEqual(80);
     expect(r.total).toBeLessThanOrEqual(100);
-    expect(r.pros).toContain("Доставка в Москва указана на сайте");
+    expect(r.pros).toContain("Доставка в Москве указана на сайте");
     expect(r.pros.some((p) => p.includes("ГОСТ") && p.includes("ХАССП"))).toBe(true);
     // нарушений нет; в cons — только предупреждение о низкой уверенности одного поля
     expect(r.cons.filter((c) => !c.startsWith("Полей с низкой уверенностью"))).toEqual([]);
@@ -72,7 +73,7 @@ describe("scoreSupplier", () => {
 
   it("город не в зоне доставки: cons с перечнем регионов поставщика", () => {
     const r = scoreSupplier(fullSupplier, novosibirskFree);
-    expect(r.cons.some((c) => c.startsWith("Доставка в Новосибирск не указана (работает: Москва"))).toBe(true);
+    expect(r.cons.some((c) => c.startsWith("Доставка в Новосибирске не указана (работает: Москва"))).toBe(true);
   });
 
   it("монотонность: добавление нужного сертификата не снижает балл", () => {
@@ -184,5 +185,68 @@ describe("rankSuppliers", () => {
 
   it("пустой список даёт пустой результат", () => {
     expect(rankSuppliers([], moscowFlour)).toEqual([]);
+  });
+});
+
+describe("падежи в причинах скоринга", () => {
+  const allNotes = (r: ReturnType<typeof scoreSupplier>) => [...r.pros, ...r.cons, ...r.missing];
+
+  it("место из справочника ставится в предложный падеж", () => {
+    const moscow = scoreSupplier(fullSupplier, moscowFlour);
+    expect(moscow.pros).toContain("Доставка в Москве указана на сайте");
+    const nsk = scoreSupplier(fullSupplier, novosibirskFree);
+    expect(nsk.cons.some((c) => c.startsWith("Доставка в Новосибирске не указана"))).toBe(true);
+    const vlad = q({
+      category: { kind: "free", text: "рыба" },
+      location: { regionId: "primorsky-krai", cityId: "vladivostok" },
+      needDelivery: true,
+    });
+    expect(allNotes(scoreSupplier(fullSupplier, vlad)).join("\n")).toContain("Доставка во Владивостоке не указана");
+  });
+
+  it("регион без города тоже склоняется", () => {
+    const region = q({
+      category: { kind: "free", text: "рыба" },
+      location: { regionId: "krasnodar-krai", cityId: null },
+      needDelivery: true,
+    });
+    const text = allNotes(scoreSupplier(fullSupplier, region)).join("\n");
+    expect(text).toContain("Доставка в Краснодарском крае не указана");
+  });
+
+  it("место вне справочника подставляется без склонения и без «в <именительный>»", () => {
+    const unknown = { ...moscowFlour, location: { regionId: "Тульская область", cityId: null } };
+    const miss = scoreSupplier(fullSupplier, unknown);
+    expect(miss.cons.some((c) => c.startsWith("Доставка (Тульская область) не указана"))).toBe(true);
+    expect(allNotes(miss).join("\n")).not.toMatch(/\bв\s+Тульская/);
+  });
+
+  it("страж: нет шаблона «в <название в именительном падеже>» для мест справочника", () => {
+    // несклоняемые названия (Сочи) совпадают в обоих падежах — в проверку не входят
+    const names = [...new Set(REGIONS.flatMap((r) => [r.name, ...r.cities.map((c) => c.name)]))].filter(
+      (n) => n !== "Сочи",
+    );
+    const bad = new RegExp(`(?:^|[^а-яё])во?\\s+(?:${names.join("|")})(?![а-яё])`, "i");
+    // контроль самого регэкспа
+    expect(bad.test("Доставка в Москва указана")).toBe(true);
+    expect(bad.test("Доставка в Москве указана")).toBe(false);
+    const queries = [
+      moscowFlour,
+      krasnodarFrozen,
+      novosibirskFree,
+      ...REGIONS.flatMap((r) => [
+        q({ category: { kind: "free", text: "товар" }, location: { regionId: r.id, cityId: null }, needDelivery: true }),
+        ...r.cities.map((c) =>
+          q({ category: { kind: "free", text: "товар" }, location: { regionId: r.id, cityId: c.id }, needDelivery: true }),
+        ),
+      ]),
+    ];
+    for (const query of queries) {
+      for (const supplier of supplierFixtures) {
+        for (const note of allNotes(scoreSupplier(supplier, query))) {
+          expect(note).not.toMatch(bad);
+        }
+      }
+    }
   });
 });

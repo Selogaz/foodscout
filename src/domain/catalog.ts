@@ -93,6 +93,8 @@ export const CATEGORIES: readonly CatalogCategory[] = [
 export type CatalogCity = {
   id: string;
   name: string;
+  /** Предложный падеж с предлогом («в Москве», «во Владивостоке»): для фраз «Доставка в …». */
+  locative: string;
   /** Названия-синонимы для нормализации ввода (в нижнем регистре). */
   aliases: readonly string[];
   yandexLr: number | null;
@@ -101,6 +103,8 @@ export type CatalogCity = {
 export type CatalogRegion = {
   id: string;
   name: string;
+  /** Предложный падеж с предлогом («в Новосибирской области»). */
+  locative: string;
   aliases: readonly string[];
   yandexLr: number | null;
   cities: readonly CatalogCity[];
@@ -109,59 +113,60 @@ export type CatalogRegion = {
 const city = (
   id: string,
   name: string,
+  locative: string,
   yandexLr: number | null,
   millionPlus: boolean,
   aliases: string[] = [],
-): CatalogCity => ({ id, name, yandexLr, millionPlus, aliases });
+): CatalogCity => ({ id, name, locative, yandexLr, millionPlus, aliases });
 
 export const REGIONS: readonly CatalogRegion[] = [
-  { id: "moscow", name: "Москва", aliases: ["мск", "г. москва"], yandexLr: 213,
-    cities: [city("moscow", "Москва", 213, true, ["мск"])] },
+  { id: "moscow", name: "Москва", locative: "в Москве", aliases: ["мск", "г. москва"], yandexLr: 213,
+    cities: [city("moscow", "Москва", "в Москве", 213, true, ["мск"])] },
   // lr=1 в справочнике Яндекса — «Москва и Московская область»
-  { id: "moscow-oblast", name: "Московская область", aliases: ["подмосковье", "мо"], yandexLr: 1, cities: [] },
-  { id: "saint-petersburg", name: "Санкт-Петербург", aliases: ["спб", "питер", "санкт петербург"], yandexLr: 2,
-    cities: [city("saint-petersburg", "Санкт-Петербург", 2, true, ["спб", "питер", "санкт петербург"])] },
-  { id: "leningrad-oblast", name: "Ленинградская область", aliases: ["ло"], yandexLr: null, cities: [] },
-  { id: "novosibirsk-oblast", name: "Новосибирская область", aliases: [], yandexLr: null,
-    cities: [city("novosibirsk", "Новосибирск", 65, true)] },
-  { id: "sverdlovsk-oblast", name: "Свердловская область", aliases: [], yandexLr: null,
-    cities: [city("yekaterinburg", "Екатеринбург", 54, true, ["екб"])] },
-  { id: "tatarstan", name: "Республика Татарстан", aliases: ["татарстан"], yandexLr: null,
-    cities: [city("kazan", "Казань", 43, true)] },
-  { id: "nizhny-novgorod-oblast", name: "Нижегородская область", aliases: [], yandexLr: null,
-    cities: [city("nizhny-novgorod", "Нижний Новгород", 47, true, ["нижний"])] },
-  { id: "chelyabinsk-oblast", name: "Челябинская область", aliases: [], yandexLr: null,
-    cities: [city("chelyabinsk", "Челябинск", 56, true)] },
-  { id: "samara-oblast", name: "Самарская область", aliases: [], yandexLr: null,
-    cities: [city("samara", "Самара", 51, true)] },
-  { id: "omsk-oblast", name: "Омская область", aliases: [], yandexLr: null,
-    cities: [city("omsk", "Омск", 66, true)] },
-  { id: "rostov-oblast", name: "Ростовская область", aliases: [], yandexLr: null,
-    cities: [city("rostov-on-don", "Ростов-на-Дону", 39, true, ["ростов"])] },
-  { id: "bashkortostan", name: "Республика Башкортостан", aliases: ["башкирия"], yandexLr: null,
-    cities: [city("ufa", "Уфа", 172, true)] },
-  { id: "krasnoyarsk-krai", name: "Красноярский край", aliases: [], yandexLr: null,
-    cities: [city("krasnoyarsk", "Красноярск", 62, true)] },
-  { id: "voronezh-oblast", name: "Воронежская область", aliases: [], yandexLr: null,
-    cities: [city("voronezh", "Воронеж", 193, true)] },
-  { id: "perm-krai", name: "Пермский край", aliases: [], yandexLr: null,
-    cities: [city("perm", "Пермь", 50, true)] },
-  { id: "volgograd-oblast", name: "Волгоградская область", aliases: [], yandexLr: null,
-    cities: [city("volgograd", "Волгоград", 38, true)] },
-  { id: "krasnodar-krai", name: "Краснодарский край", aliases: ["кубань"], yandexLr: null,
-    cities: [city("krasnodar", "Краснодар", 35, true), city("sochi", "Сочи", 239, false)] },
-  { id: "altai-krai", name: "Алтайский край", aliases: ["алтай"], yandexLr: null,
-    cities: [city("barnaul", "Барнаул", 197, false)] },
-  { id: "primorsky-krai", name: "Приморский край", aliases: ["приморье"], yandexLr: null,
-    cities: [city("vladivostok", "Владивосток", 75, false)] },
-  { id: "khabarovsk-krai", name: "Хабаровский край", aliases: [], yandexLr: null,
-    cities: [city("khabarovsk", "Хабаровск", 76, false)] },
-  { id: "irkutsk-oblast", name: "Иркутская область", aliases: [], yandexLr: null,
-    cities: [city("irkutsk", "Иркутск", 63, false)] },
-  { id: "kaliningrad-oblast", name: "Калининградская область", aliases: [], yandexLr: null,
-    cities: [city("kaliningrad", "Калининград", 22, false)] },
-  { id: "stavropol-krai", name: "Ставропольский край", aliases: [], yandexLr: null,
-    cities: [city("stavropol", "Ставрополь", 36, false)] },
+  { id: "moscow-oblast", name: "Московская область", locative: "в Московской области", aliases: ["подмосковье", "мо"], yandexLr: 1, cities: [] },
+  { id: "saint-petersburg", name: "Санкт-Петербург", locative: "в Санкт-Петербурге", aliases: ["спб", "питер", "санкт петербург"], yandexLr: 2,
+    cities: [city("saint-petersburg", "Санкт-Петербург", "в Санкт-Петербурге", 2, true, ["спб", "питер", "санкт петербург"])] },
+  { id: "leningrad-oblast", name: "Ленинградская область", locative: "в Ленинградской области", aliases: ["ло"], yandexLr: null, cities: [] },
+  { id: "novosibirsk-oblast", name: "Новосибирская область", locative: "в Новосибирской области", aliases: [], yandexLr: null,
+    cities: [city("novosibirsk", "Новосибирск", "в Новосибирске", 65, true)] },
+  { id: "sverdlovsk-oblast", name: "Свердловская область", locative: "в Свердловской области", aliases: [], yandexLr: null,
+    cities: [city("yekaterinburg", "Екатеринбург", "в Екатеринбурге", 54, true, ["екб"])] },
+  { id: "tatarstan", name: "Республика Татарстан", locative: "в Республике Татарстан", aliases: ["татарстан"], yandexLr: null,
+    cities: [city("kazan", "Казань", "в Казани", 43, true)] },
+  { id: "nizhny-novgorod-oblast", name: "Нижегородская область", locative: "в Нижегородской области", aliases: [], yandexLr: null,
+    cities: [city("nizhny-novgorod", "Нижний Новгород", "в Нижнем Новгороде", 47, true, ["нижний"])] },
+  { id: "chelyabinsk-oblast", name: "Челябинская область", locative: "в Челябинской области", aliases: [], yandexLr: null,
+    cities: [city("chelyabinsk", "Челябинск", "в Челябинске", 56, true)] },
+  { id: "samara-oblast", name: "Самарская область", locative: "в Самарской области", aliases: [], yandexLr: null,
+    cities: [city("samara", "Самара", "в Самаре", 51, true)] },
+  { id: "omsk-oblast", name: "Омская область", locative: "в Омской области", aliases: [], yandexLr: null,
+    cities: [city("omsk", "Омск", "в Омске", 66, true)] },
+  { id: "rostov-oblast", name: "Ростовская область", locative: "в Ростовской области", aliases: [], yandexLr: null,
+    cities: [city("rostov-on-don", "Ростов-на-Дону", "в Ростове-на-Дону", 39, true, ["ростов"])] },
+  { id: "bashkortostan", name: "Республика Башкортостан", locative: "в Республике Башкортостан", aliases: ["башкирия"], yandexLr: null,
+    cities: [city("ufa", "Уфа", "в Уфе", 172, true)] },
+  { id: "krasnoyarsk-krai", name: "Красноярский край", locative: "в Красноярском крае", aliases: [], yandexLr: null,
+    cities: [city("krasnoyarsk", "Красноярск", "в Красноярске", 62, true)] },
+  { id: "voronezh-oblast", name: "Воронежская область", locative: "в Воронежской области", aliases: [], yandexLr: null,
+    cities: [city("voronezh", "Воронеж", "в Воронеже", 193, true)] },
+  { id: "perm-krai", name: "Пермский край", locative: "в Пермском крае", aliases: [], yandexLr: null,
+    cities: [city("perm", "Пермь", "в Перми", 50, true)] },
+  { id: "volgograd-oblast", name: "Волгоградская область", locative: "в Волгоградской области", aliases: [], yandexLr: null,
+    cities: [city("volgograd", "Волгоград", "в Волгограде", 38, true)] },
+  { id: "krasnodar-krai", name: "Краснодарский край", locative: "в Краснодарском крае", aliases: ["кубань"], yandexLr: null,
+    cities: [city("krasnodar", "Краснодар", "в Краснодаре", 35, true), city("sochi", "Сочи", "в Сочи", 239, false)] },
+  { id: "altai-krai", name: "Алтайский край", locative: "в Алтайском крае", aliases: ["алтай"], yandexLr: null,
+    cities: [city("barnaul", "Барнаул", "в Барнауле", 197, false)] },
+  { id: "primorsky-krai", name: "Приморский край", locative: "в Приморском крае", aliases: ["приморье"], yandexLr: null,
+    cities: [city("vladivostok", "Владивосток", "во Владивостоке", 75, false)] },
+  { id: "khabarovsk-krai", name: "Хабаровский край", locative: "в Хабаровском крае", aliases: [], yandexLr: null,
+    cities: [city("khabarovsk", "Хабаровск", "в Хабаровске", 76, false)] },
+  { id: "irkutsk-oblast", name: "Иркутская область", locative: "в Иркутской области", aliases: [], yandexLr: null,
+    cities: [city("irkutsk", "Иркутск", "в Иркутске", 63, false)] },
+  { id: "kaliningrad-oblast", name: "Калининградская область", locative: "в Калининградской области", aliases: [], yandexLr: null,
+    cities: [city("kaliningrad", "Калининград", "в Калининграде", 22, false)] },
+  { id: "stavropol-krai", name: "Ставропольский край", locative: "в Ставропольском крае", aliases: [], yandexLr: null,
+    cities: [city("stavropol", "Ставрополь", "в Ставрополе", 36, false)] },
 ];
 
 export function findCategory(id: string): CatalogCategory | undefined {
