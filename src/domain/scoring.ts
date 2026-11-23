@@ -130,9 +130,19 @@ const CATEGORY_LABELS = new Map<string, string>(
 );
 const categoryLabel = (id: string) => CATEGORY_LABELS.get(id) ?? id;
 
-function queryLocationLabel(q: SearchQuery): string {
-  const city = q.location.cityId ? findCity(q.location.cityId)?.city.name : undefined;
-  return city ?? findRegion(q.location.regionId)?.name ?? q.location.regionId;
+type LocationText = {
+  /** Название в именительном падеже (для конструкций «Адрес — X», «работает: X»). */
+  name: string;
+  /** Форма после предлога: «в Москве» из справочника, иначе «(Тульская область)» без склонения. */
+  place: string;
+};
+
+function queryLocationText(q: SearchQuery): LocationText {
+  const c = q.location.cityId ? findCity(q.location.cityId)?.city : undefined;
+  const known = c ?? findRegion(q.location.regionId);
+  if (known) return { name: known.name, place: known.locative };
+  const name = q.location.regionId;
+  return { name, place: `(${name})` };
 }
 
 function knownRegions(s: Supplier): string[] {
@@ -281,24 +291,24 @@ function regionHit(s: Supplier, q: SearchQuery): RegionHit | null {
 
 function regionCriterion(s: Supplier, q: SearchQuery): { score: number } & Notes {
   const n = noNotes();
-  const loc = queryLocationLabel(q);
+  const loc = queryLocationText(q);
   const L = SCORING_CONFIG.regionLevel;
   const hit = regionHit(s, q);
   if (hit) {
     const low = hit.conf === "low";
     const tail = low ? " (данные ненадёжны, проверьте)" : "";
     const phrase = {
-      delivery: `Доставка в ${loc} указана на сайте${tail}`,
-      work: `Работает в регионе: ${loc}${tail}`,
-      address: `Адрес поставщика — ${loc}${tail}`,
-      russiaWide: `Заявлена доставка по России, ${loc} не назван — уточните${tail}`,
+      delivery: `Доставка ${loc.place} указана на сайте${tail}`,
+      work: `Работает в регионе: ${loc.name}${tail}`,
+      address: `Адрес поставщика — ${loc.name}${tail}`,
+      russiaWide: `Заявлена доставка по России, но доставка ${loc.place} отдельно не указана — уточните${tail}`,
     }[hit.level];
     n.pros.push(phrase);
     return { score: clamp01(L[hit.level] * cf(hit.conf)), ...n };
   }
   const known = knownRegions(s);
   if (known.length > 0) {
-    n.cons.push(`Доставка в ${loc} не указана (работает: ${list(known)})`);
+    n.cons.push(`Доставка ${loc.place} не указана (работает: ${list(known)})`);
   } else {
     n.missing.push("Нет данных о регионе работы и доставки");
   }
@@ -308,7 +318,7 @@ function regionCriterion(s: Supplier, q: SearchQuery): { score: number } & Notes
 function filtersCriterion(s: Supplier, q: SearchQuery): { score: number; applicable: boolean } & Notes {
   const n = noNotes();
   const parts: Part[] = [];
-  const loc = queryLocationLabel(q);
+  const loc = queryLocationText(q);
 
   if (q.needCertificates.length > 0) {
     const need = q.needCertificates;
@@ -352,8 +362,8 @@ function filtersCriterion(s: Supplier, q: SearchQuery): { score: number; applica
     if (present(regions)) {
       const ok = regions.value.some((e) => resolveRegionId(e) === q.location.regionId);
       parts.push({ score: ok ? cf(regions.confidence) : 0 });
-      if (ok) n.pros.push(`Доставка в ${loc} указана на сайте`);
-      else n.cons.push(`Доставка в ${loc} не указана (работает: ${list(knownRegions(s))})`);
+      if (ok) n.pros.push(`Доставка ${loc.place} указана на сайте`);
+      else n.cons.push(`Доставка ${loc.place} не указана (работает: ${list(knownRegions(s))})`);
     } else if (present(s.delivery.terms)) {
       parts.push({ score: 0.5 * cf(s.delivery.terms.confidence) });
       n.pros.push("Условия доставки указаны, регион нужно уточнить");
