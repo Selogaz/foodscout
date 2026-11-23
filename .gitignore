@@ -20,3 +20,9 @@ next-env.d.ts
 # --- Локальные данные ---
 *.db
 *.sqlite
+
+# --- Прочее ---
+/coverage
+.DS_Store
+*.pem
+npm-debug.log*
