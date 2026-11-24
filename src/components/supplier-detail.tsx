@@ -1,13 +1,14 @@
 "use client";
 
-import { BookmarkCheckIcon, CheckIcon, FileTextIcon, InfoIcon, PlusIcon, XIcon } from "lucide-react";
+import { BookmarkCheckIcon, CheckIcon, FileTextIcon, InfoIcon, MailPlusIcon, PlusIcon, XIcon } from "lucide-react";
 import type { ReactNode } from "react";
+import { DraftRequest } from "@/components/draft-request";
 import { NoData, SourcedList, SourcedValue } from "@/components/sourced-value";
 import { scoreTone, telHref } from "@/components/supplier-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { CERTIFICATE_LABELS, type RankedSupplier } from "@/domain";
+import { CERTIFICATE_LABELS, type RankedSupplier, type SearchQuery } from "@/domain";
 import { formatDate, hostOf, MESSENGER_LABELS, regionNames, SOURCE_TYPE_LABELS } from "@/lib/supplierFormat";
 import { cn } from "@/lib/utils";
 
@@ -250,10 +251,14 @@ type SheetProps = {
   /** Кнопка «в шортлист» в шапке карточки; без колбэка не показывается. */
   shortlisted?: boolean;
   onToggleShortlist?: ((id: string) => void) | null;
+  /** Запрос, по которому найден поставщик: нужен для «Черновика запроса»; без него кнопка скрыта. */
+  query?: SearchQuery | null;
+  draftOpen?: boolean;
+  onDraftOpenChange?: ((open: boolean) => void) | null;
 };
 
 /** Карточка в боковой панели: на десктопе справа, на мобиле — на весь экран. */
-export function SupplierDetailSheet({ open, item, status, onClose, onRestore, shortlisted = false, onToggleShortlist = null }: SheetProps) {
+export function SupplierDetailSheet({ open, item, status, onClose, onRestore, shortlisted = false, onToggleShortlist = null, query = null, draftOpen = false, onDraftOpenChange = null }: SheetProps) {
   const tone = item ? scoreTone(item.score.total) : null;
   return (
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
@@ -272,23 +277,35 @@ export function SupplierDetailSheet({ open, item, status, onClose, onRestore, sh
               ? `#${item.rank} в выдаче · балл ${item.score.total}/100, ${tone.label}`
               : "Данные со ссылками на источники"}
           </SheetDescription>
-          {item && status === "ready" && onToggleShortlist && (
-            <Button
-              type="button"
-              size="sm"
-              variant={shortlisted ? "secondary" : "default"}
-              className="mt-1 w-fit"
-              aria-pressed={shortlisted}
-              title={shortlisted ? "Нажмите, чтобы убрать из шортлиста" : "Сохранить в шортлист"}
-              onClick={() => onToggleShortlist(item.supplier.id)}
-            >
-              {shortlisted ? <BookmarkCheckIcon data-icon="inline-start" /> : <PlusIcon data-icon="inline-start" />}
-              {shortlisted ? "В шортлисте" : "В шортлист"}
-            </Button>
+          {item && status === "ready" && (onToggleShortlist || (query && onDraftOpenChange)) && (
+            <div className="mt-1 flex flex-wrap gap-2">
+              {onToggleShortlist && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant={shortlisted ? "secondary" : "default"}
+                  aria-pressed={shortlisted}
+                  title={shortlisted ? "Нажмите, чтобы убрать из шортлиста" : "Сохранить в шортлист"}
+                  onClick={() => onToggleShortlist(item.supplier.id)}
+                >
+                  {shortlisted ? <BookmarkCheckIcon data-icon="inline-start" /> : <PlusIcon data-icon="inline-start" />}
+                  {shortlisted ? "В шортлисте" : "В шортлист"}
+                </Button>
+              )}
+              {query && onDraftOpenChange && (
+                <Button type="button" size="sm" variant="outline" aria-expanded={draftOpen} onClick={() => onDraftOpenChange(!draftOpen)}>
+                  <MailPlusIcon data-icon="inline-start" />
+                  Черновик запроса
+                </Button>
+              )}
+            </div>
           )}
         </SheetHeader>
         {item && status === "ready" ? (
-          <SupplierDetail item={item} />
+          <>
+            {draftOpen && query && <DraftRequest key={item.supplier.id} supplier={item.supplier} query={query} />}
+            <SupplierDetail item={item} />
+          </>
         ) : (
           <div className="space-y-3 p-4 text-sm" role="status">
             {status === "loading" ? (

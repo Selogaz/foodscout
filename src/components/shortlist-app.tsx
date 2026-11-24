@@ -4,12 +4,14 @@ import { DownloadIcon, GlobeIcon, MailIcon, PhoneIcon, SearchIcon, Trash2Icon, T
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
+import { AdvisorPanel } from "@/components/advisor-panel";
 import { NoteEditor } from "@/components/shortlist-note";
 import { TagsEditor } from "@/components/shortlist-tags";
 import { SupplierDetailSheet } from "@/components/supplier-detail";
 import { scoreTone, telHref } from "@/components/supplier-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { MAX_ADVISE_SUPPLIERS } from "@/lib/advisor";
 import { csvFileName, downloadCsv, shortlistToCsv } from "@/lib/shortlistCsv";
 import { SHORTLIST_STATUSES, STATUS_LABELS, useHydrated, useShortlist, type ShortlistEntry, type ShortlistStatus } from "@/lib/shortlistStore";
 import { filterEntries, groupByStatus, NO_FILTER, orderForExport, type ShortlistFilter } from "@/lib/shortlistView";
@@ -125,6 +127,8 @@ export function ShortlistApp() {
   const { entries, persistent, store } = useShortlist();
   const [filter, setFilter] = useState<ShortlistFilter>(NO_FILTER);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [draftOpen, setDraftOpen] = useState(false);
+  const [queryLabel, setQueryLabel] = useState<string | null>(null);
 
   const visible = useMemo(() => filterEntries(entries, filter), [entries, filter]);
   const groups = useMemo(() => groupByStatus(visible), [visible]);
@@ -133,6 +137,18 @@ export function ShortlistApp() {
     entries.forEach((e) => (c[e.status] += 1));
     return c;
   }, [entries]);
+  // Совет строится под один запрос: в шортлисте могут быть поставщики из разных поисков.
+  const queryOptions = useMemo(() => {
+    const m = new Map<string, number>();
+    entries.forEach((e) => m.set(e.queryLabel, (m.get(e.queryLabel) ?? 0) + 1));
+    return [...m.entries()].sort((a, b) => b[1] - a[1]).map(([label, n]) => ({ label, n }));
+  }, [entries]);
+  const adviceLabel = queryLabel && queryOptions.some((o) => o.label === queryLabel) ? queryLabel : (queryOptions[0]?.label ?? null);
+  const adviceEntries = useMemo(
+    () => [...entries].filter((e) => e.status !== "rejected").sort((a, b) => b.item.score.total - a.item.score.total).slice(0, MAX_ADVISE_SUPPLIERS),
+    [entries],
+  );
+  const adviceQuery = entries.find((e) => e.queryLabel === adviceLabel)?.query ?? null;
   const openEntry = openId ? (entries.find((e) => e.id === openId) ?? null) : null;
 
   const remove = (id: string) => {
@@ -193,6 +209,40 @@ export function ShortlistApp() {
 
       {hydrated && entries.length > 0 && (
         <>
+          {adviceQuery && adviceEntries.length >= 2 && (
+            <div className="mt-6">
+              {queryOptions.length > 1 && (
+                <div className="mb-3 flex flex-col gap-1 text-sm">
+                  <label htmlFor="advice-query" className="font-medium">
+                    Подсказка для запроса
+                  </label>
+                  <select
+                    id="advice-query"
+                    value={adviceLabel ?? ""}
+                    onChange={(e) => setQueryLabel(e.target.value)}
+                    className="h-9 w-full rounded-lg border border-input bg-transparent px-2.5 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 sm:max-w-md md:text-sm dark:bg-input/30"
+                  >
+                    {queryOptions.map((o) => (
+                      <option key={o.label} value={o.label}>
+                        {o.label} ({o.n})
+                      </option>
+                    ))}
+                  </select>
+                  <p className="text-muted-foreground">В шортлисте поставщики из разных поисков: баллы пересчитываются под выбранный запрос.</p>
+                </div>
+              )}
+              <AdvisorPanel
+                suppliers={adviceEntries.map((e) => e.item.supplier)}
+                query={adviceQuery}
+                scopeLabel="из шортлиста (без отказов)"
+                onOpen={setOpenId}
+                onDraft={(id) => {
+                  setOpenId(id);
+                  setDraftOpen(true);
+                }}
+              />
+            </div>
+          )}
           <div className="mt-6 flex flex-col gap-3" role="search" aria-label="Фильтр шортлиста">
             <div className="relative max-w-md">
               <SearchIcon aria-hidden className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -269,7 +319,13 @@ export function ShortlistApp() {
         open={openId !== null && openEntry !== null}
         item={openEntry?.item ?? null}
         status={openEntry ? "ready" : "missing"}
-        onClose={() => setOpenId(null)}
+        onClose={() => {
+          setOpenId(null);
+          setDraftOpen(false);
+        }}
+        query={openEntry?.query ?? null}
+        draftOpen={draftOpen}
+        onDraftOpenChange={setDraftOpen}
         shortlisted={openEntry !== null}
         onToggleShortlist={(id) => {
           remove(id);
