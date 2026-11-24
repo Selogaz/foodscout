@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { DEMO_EXAMPLES } from "@/data/demo";
+import { buildQuery, EMPTY_FORM } from "@/lib/formState";
 import { SearchQuerySchema, type SearchQuery } from "@/domain";
 import type { ResultEvent, SearchEvent } from "@/lib/searchEvents";
 import { MockProvider } from "../llm/mock";
@@ -12,9 +14,16 @@ import { createApiState, executeSearch, type SearchContext } from "./search-serv
 
 const query: SearchQuery = SearchQuerySchema.parse({
   category: { kind: "free", text: "упаковка для кофе" },
-  product: "",
+  product: "крафт-пакеты с клапаном", // не совпадает с записанным примером: идёт в живой поиск
   location: { regionId: "moscow", cityId: "moscow" },
 });
+
+function chipQuery(id: string): SearchQuery {
+  const ex = DEMO_EXAMPLES.find((e) => e.id === id)!;
+  const r = buildQuery({ ...EMPTY_FORM, category: ex.category, product: ex.product, location: ex.location });
+  if (!r.ok) throw new Error("запрос чипа не собрался");
+  return r.query;
+}
 
 const baseConfig: ApiConfig = { ...readApiConfig({ DEMO_MODE: "auto" }), liveTimeoutMs: 5_000 };
 
@@ -129,6 +138,42 @@ describe("режимы и демо-фолбэк", () => {
     expect(llm.calls.length + search.calls.length).toBe(0);
   });
 
+  it("auto: точный чип-пример отдаётся из записи, живой пайплайн не трогается", async () => {
+    const { ctx, llm, search } = liveCtx();
+    const ev: SearchEvent[] = [];
+    await executeSearch(chipQuery("upakovka-kofe-moskva"), (e) => ev.push(e), ctx);
+    const r = last(ev) as ResultEvent;
+    expect(r).toMatchObject({ type: "result", demo: true, demoReason: "example", cached: false, demoInfo: { match: "exact" } });
+    expect(r.demoMessage).toMatch(/записанный пример/);
+    expect(r.results.length).toBeGreaterThan(0);
+    expect(llm.calls.length + search.calls.length).toBe(0);
+    expect(ctx.state.daily.used).toBe(0);
+  });
+
+  it("auto: собственный запрос идёт в живой поиск, а не в демо", async () => {
+    const { ctx, llm } = liveCtx();
+    const r = last(await run(ctx)) as ResultEvent;
+    expect(r).toMatchObject({ demo: false, cached: false });
+    expect(llm.calls.length).toBeGreaterThan(0);
+  });
+
+  it("off: чип-пример тоже идёт в живой поиск", async () => {
+    const { ctx, llm } = liveCtx({ config: { demoMode: "off" } });
+    const ev: SearchEvent[] = [];
+    await executeSearch(chipQuery("upakovka-kofe-moskva"), (e) => ev.push(e), ctx);
+    expect(last(ev)).toMatchObject({ type: "result", demo: false });
+    expect(llm.calls.length).toBeGreaterThan(0);
+  });
+
+  it("все чипы-примеры в auto отдаются как записанные", async () => {
+    const { ctx } = liveCtx({ llm: null, search: null });
+    for (const e of DEMO_EXAMPLES) {
+      const ev: SearchEvent[] = [];
+      await executeSearch(chipQuery(e.id), (x) => ev.push(x), ctx);
+      expect(last(ev), e.id).toMatchObject({ type: "result", demoReason: "example", demoInfo: { match: "exact", runId: e.id } });
+    }
+  });
+
   it("сбой пайплайна в auto → демо (failed); в off → error", async () => {
     const boom = new MockProvider(() => {
       throw new LlmError("нет доступа", "auth");
@@ -149,7 +194,7 @@ describe("режимы и демо-фолбэк", () => {
   it("суточный лимит живых поисков: сверх лимита — демо, кеш при этом работает", async () => {
     const { ctx, llm } = liveCtx({ config: { liveDailyLimit: 1 } });
     await run(ctx); // живой №1
-    const q2 = SearchQuerySchema.parse({ ...query, product: "пакеты" });
+    const q2 = SearchQuerySchema.parse({ ...query, product: "стаканчики" });
     const ev: SearchEvent[] = [];
     await executeSearch(q2, (e) => ev.push(e), ctx);
     expect(last(ev)).toMatchObject({ type: "result", demo: true, demoReason: "daily-limit" });

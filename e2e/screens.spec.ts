@@ -145,6 +145,9 @@ for (const vp of VIEWPORTS) {
       await page.goto("/?s=net-takogo&ct=мука&lt=Краснодар");
       await expect(page.getByText("Эту карточку сейчас нельзя открыть.")).toBeVisible();
       await inspect(page, "14-карточка-по-ссылке", vp, { fullPage: false });
+      await page.goto("/about");
+      await expect(page.getByRole("heading", { level: 1, name: "О сервисе" })).toBeVisible();
+      await inspect(page, "16-о-сервисе", vp);
       const missing = await page.goto("/net-takoy-stranicy");
       expect(missing?.status()).toBe(404);
       await inspect(page, "15-404", vp);

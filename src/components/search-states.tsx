@@ -6,11 +6,12 @@ const formatRecorded = (iso: string) => new Date(iso).toLocaleDateString("ru-RU"
 
 export function DemoBanner({ result }: { result: ResultEvent }) {
   const info = result.demoInfo;
+  const example = result.demoReason === "example";
   return (
     <div role="status" className="flex gap-3 rounded-xl border border-amber-500/40 bg-amber-50 p-4 text-sm text-amber-950 dark:bg-amber-950/40 dark:text-amber-100">
       <FlaskConicalIcon aria-hidden className="mt-0.5 size-5 shrink-0" />
       <div>
-        <p className="font-semibold">Демо-данные{info ? `, собраны ${formatRecorded(info.recordedAt)}` : ""}</p>
+        <p className="font-semibold">{example ? "Записанный пример" : "Демо-данные"}{info ? `, собраны ${formatRecorded(info.recordedAt)}` : ""}</p>
         <p className="mt-0.5">
           {result.demoMessage ?? "Это записанные данные, а не живой поиск."} Это реальные результаты поиска по настоящим сайтам поставщиков, записанные заранее; у каждого значения есть ссылка на источник.
         </p>

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { SearchQuerySchema } from "@/domain";
 import type { ErrorEvent, SearchEvent } from "@/lib/searchEvents";
+import { isRecordedExample } from "@/server/api/demo";
 import { createRuntimeContext } from "@/server/api/runtime";
 import { executeSearch } from "@/server/api/search-service";
 
@@ -32,18 +33,6 @@ export async function POST(req: Request) {
   const ctx = createRuntimeContext(req.signal);
   const config = ctx.config;
 
-  // В режиме «только демо» запрос ничего не стоит (ответ из записанных данных): лимит здесь только мешал бы
-  // проверяющему пройти по примерам подряд. Живой поиск за лимитом остаётся.
-  const limit = config.demoMode === "on" ? { ok: true as const } : ctx.state.limiter.take(clientIp(req));
-  if (!limit.ok) {
-    return jsonError(
-      429,
-      { type: "error", code: "rate_limited", message: `Слишком много запросов: не больше ${config.rateLimitMax} поисков в минуту. Повторите через ${limit.retryAfterS} с.` },
-      { retryAfterS: limit.retryAfterS },
-      { "Retry-After": String(limit.retryAfterS) },
-    );
-  }
-
   let body: unknown;
   try {
     body = await req.json();
@@ -58,6 +47,18 @@ export async function POST(req: Request) {
       400,
       { type: "error", code: "invalid_request", message: `Некорректный запрос: ${first.path} — ${first.message}${issues.length > 1 ? ` (и ещё ${issues.length - 1})` : ""}.` },
       { issues },
+    );
+  }
+
+  // Запрос из записанных данных (режим «только демо» или точный пример в auto) ничего не стоит: лимит здесь только
+  // мешал бы проверяющему пройти по примерам подряд. Живой поиск за лимитом остаётся.
+  const limit = config.demoMode === "on" || (config.demoMode === "auto" && isRecordedExample(parsed.data)) ? { ok: true as const } : ctx.state.limiter.take(clientIp(req));
+  if (!limit.ok) {
+    return jsonError(
+      429,
+      { type: "error", code: "rate_limited", message: `Слишком много запросов: не больше ${config.rateLimitMax} поисков в минуту. Повторите через ${limit.retryAfterS} с.` },
+      { retryAfterS: limit.retryAfterS },
+      { "Retry-After": String(limit.retryAfterS) },
     );
   }
 
