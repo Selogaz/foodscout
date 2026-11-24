@@ -117,3 +117,13 @@ export function anyNameInText(names: string[], text: string): boolean {
     return stems(n).every((s) => t.includes(s));
   });
 }
+
+/**
+ * Категория справочника подтверждена текстом сайта: основа хотя бы одного слова её названия
+ * (для верхнего уровня — и названий подкатегорий) встречается на страницах. Саму категорию
+ * цитатой не снабдить, поэтому проверка грубая: она отсекает категории, о которых на сайте нет ни слова.
+ */
+export function categoryInText(labels: string[], text: string): boolean {
+  const t = normText(text);
+  return labels.some((l) => stems(l).some((s) => t.includes(s)));
+}

@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   allCategoryIds,
+  CATEGORIES,
   CERTIFICATE_TYPES,
   type Certificate,
   type Confidence,
@@ -15,6 +16,7 @@ import type { LlmProvider } from "../llm/types";
 import { CATEGORY_LIST_TEXT } from "./catalog-text";
 import {
   anyNameInText,
+  categoryInText,
   containsText,
   findQuote,
   normText,
@@ -35,7 +37,14 @@ const quote = z.string().describe("Дословный фрагмент текс�
 const url = z.string().describe("URL страницы с этой цитатой");
 const TextFact = z.object({ value: z.string(), quote, url });
 const ListFact = z.object({ values: z.array(z.string()), quote, url });
-const CATEGORY_IDS = allCategoryIds() as [string, ...string[]];
+const CATEGORY_IDS = allCategoryIds();
+
+/** Названия, по которым ищем подтверждение категории: у верхнего уровня — и подкатегории (id уникальны во всём справочнике). */
+function categoryLabels(id: string): string[] {
+  const top = CATEGORIES.find((c) => c.id === id);
+  if (top) return [top.label, ...top.subcategories.map((s) => s.label)];
+  return CATEGORIES.flatMap((c) => c.subcategories).filter((s) => s.id === id).map((s) => s.label);
+}
 
 export const ExtractionSchema = z.object({
   isSupplier: z.boolean(),
@@ -64,7 +73,8 @@ export const ExtractionSchema = z.object({
   deliveryRegions: ListFact.nullable(),
   pickup: z.object({ value: z.boolean(), quote, url }).nullable(),
   workRegions: ListFact.nullable(),
-  categoryIds: z.array(z.enum(CATEGORY_IDS)),
+  // строки, а не enum: выдуманный id отбрасывается кодом, а не роняет разбор всего ответа
+  categoryIds: z.array(z.string()),
 });
 export type Extraction = z.infer<typeof ExtractionSchema>;
 
@@ -363,7 +373,17 @@ export function buildSupplier(
     }
   }
 
-  const categories = [...new Set(ex.categoryIds.filter((c) => CATEGORY_IDS.includes(c)))];
+  // Категории: только из справочника и только если о них есть слово на страницах сайта
+  const pagesText = pages.map((p) => `${p.title}\n${p.text}`).join("\n");
+  const categories: string[] = [];
+  for (const id of new Set(ex.categoryIds)) {
+    if (!CATEGORY_IDS.includes(id)) {
+      gr.drop("categories", id, "категории нет в справочнике");
+      continue;
+    }
+    if (categoryInText(categoryLabels(id), pagesText)) categories.push(id);
+    else gr.drop("categories", id, "на страницах нет подтверждения категории");
+  }
   const supplier: Supplier = {
     id: candidate.domain.replace(/[^a-z0-9а-я]+/gi, "-").toLowerCase(),
     name: clip(name, 120),
@@ -405,8 +425,13 @@ export async function extractSupplier(
   });
   const ex = r.data;
   if (!ex.isSupplier) {
-    return { status: "rejected", domain: candidate.domain, reason: ex.notSupplierReason?.trim() || "не похоже на сайт поставщика", dropped: [] };
+    return { status: "rejected", domain: candidate.domain, reason: clip(ex.notSupplierReason?.replace(/\s+/g, " ").trim() || "не похоже на сайт поставщика", 200), dropped: [] };
   }
   const { supplier, dropped } = buildSupplier(ex, { candidate, pages, nq, collectedAt: opts.collectedAt });
+  // Вердикт модели «это поставщик» сам ничем не подтверждён: нужен хоть один факт, найденный на странице
+  // (подтверждённое название или любое поле, кроме адреса сайта). Иначе страница могла просто заявить о себе.
+  if (supplier.name === candidate.domain && filledCount(supplier) <= 1) {
+    return { status: "rejected", domain: candidate.domain, reason: "на страницах нет подтверждённых данных о компании", dropped };
+  }
   return { status: "supplier", domain: candidate.domain, supplier, dropped };
 }
