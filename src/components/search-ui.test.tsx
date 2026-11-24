@@ -27,7 +27,7 @@ describe("карточка результата", () => {
 
   it("контакты кликабельны, есть балл, причины и источник", () => {
     const item = ranked.find((r) => r.supplier.id === fullSupplier.id)!;
-    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onShortlist={() => {}} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onToggleShortlist={() => {}} />);
     expect(screen.getByRole("link", { name: /\+7 495 000-00-01/ }).getAttribute("href")).toBe("tel:+74950000001");
     expect(screen.getByRole("link", { name: /sales@mukomol\.example\.ru/ }).getAttribute("href")).toBe("mailto:sales@mukomol.example.ru");
     expect(screen.getByRole("link", { name: /^mukomol\.example\.ru$/ }).getAttribute("target")).toBe("_blank");
@@ -41,16 +41,28 @@ describe("карточка результата", () => {
     const item = ranked[0];
     const cmp = vi.fn();
     const sl = vi.fn();
-    render(<SupplierCard item={item} selected={false} onToggleCompare={cmp} onOpen={() => {}} onShortlist={sl} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={cmp} onOpen={() => {}} onToggleShortlist={sl} />);
     fireEvent.click(screen.getByRole("checkbox", { name: "К сравнению" }));
     fireEvent.click(screen.getByRole("button", { name: /В шортлист/ }));
     expect(cmp).toHaveBeenCalledWith(item.supplier.id);
     expect(sl).toHaveBeenCalled();
   });
 
+  it("кнопка шортлиста — переключатель: подпись и aria-pressed зависят от состояния", () => {
+    const item = ranked[0];
+    const toggle = vi.fn();
+    const { rerender } = render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onToggleShortlist={toggle} />);
+    expect(screen.getByRole("button", { name: "В шортлист" }).getAttribute("aria-pressed")).toBe("false");
+    rerender(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} shortlisted onToggleShortlist={toggle} />);
+    const pressed = screen.getByRole("button", { name: "В шортлисте" });
+    expect(pressed.getAttribute("aria-pressed")).toBe("true");
+    fireEvent.click(pressed);
+    expect(toggle).toHaveBeenCalledWith(item.supplier.id);
+  });
+
   it("нет данных — так и написано, а не пусто", () => {
     const item = ranked.find((r) => r.supplier.id === minimalSupplier.id)!;
-    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onShortlist={() => {}} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onToggleShortlist={() => {}} />);
     expect(screen.getAllByText(/нет данных/i).length).toBeGreaterThan(0);
   });
 
