@@ -12,7 +12,10 @@ export function SiteShell({ children }: { children: ReactNode }) {
             FoodScout
           </Link>
           <span className="hidden flex-1 text-sm text-muted-foreground md:inline">Поиск поставщиков для food-сегмента</span>
-          <nav aria-label="Основная навигация">
+          <nav aria-label="Основная навигация" className="flex items-center gap-1">
+            <Link href="/about" className="inline-flex min-h-9 items-center rounded-lg px-2.5 text-sm font-medium hover:bg-muted">
+              О сервисе
+            </Link>
             <ShortlistLink />
           </nav>
         </div>

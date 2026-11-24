@@ -93,6 +93,9 @@ describe("состояния", () => {
     render(<DemoBanner result={{ ...nearest, demoInfo: { ...nearest.demoInfo!, match: "exact" } }} />);
     expect(screen.queryByTestId("demo-substitution")).toBeNull();
     cleanup();
+    render(<DemoBanner result={{ ...nearest, demoReason: "example", demoMessage: "Это записанный пример.", demoInfo: { ...nearest.demoInfo!, match: "exact" } }} />);
+    expect(screen.getByText(/Записанный пример, собраны 24 ноября 2026/)).toBeTruthy();
+    cleanup();
     render(<EmptyState onEdit={() => {}} />);
     expect(screen.getByText(/регион крупнее/)).toBeTruthy();
     cleanup();

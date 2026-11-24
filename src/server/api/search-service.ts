@@ -5,7 +5,7 @@ import { PipelineInputError, runSearch, type ProgressEvent } from "../pipeline";
 import { SearchError, type SearchProvider } from "../search";
 import { cacheKey, TtlLruCache } from "./cache";
 import type { ApiConfig } from "./config";
-import { pickDemoRun } from "./demo";
+import { isRecordedExample, pickDemoRun } from "./demo";
 import { DailyCounter, RateLimiter } from "./limits";
 
 export type CachedResult = Pick<ResultEvent, "query" | "results" | "warnings" | "stats">;
@@ -42,6 +42,7 @@ export type SearchContext = {
 
 const DEMO_MESSAGES: Record<DemoReason, string> = {
   "demo-mode": "Показаны демонстрационные данные: живой поиск на этом стенде отключён.",
+  example: "Это записанный пример: он показан сразу, без живого поиска. Чтобы запустить живой поиск, введите свой запрос.",
   "no-key": "Ключ поиска не настроен, поэтому показаны демонстрационные данные.",
   "daily-limit": "Суточный лимит живых поисков исчерпан, поэтому показаны демонстрационные данные.",
   failed: "Живой поиск не удался, поэтому показаны демонстрационные данные.",
@@ -63,7 +64,7 @@ function describeFailure(e: unknown): { code: ErrorEvent["code"]; message: strin
 }
 
 /**
- * Выполняет поиск и отдаёт события в emit. Порядок: режим on → демо; кеш; нет ключа / суточный лимит;
+ * Выполняет поиск и отдаёт события в emit. Порядок: режим on → демо; auto и точный пример → запись; кеш; нет ключа / суточный лимит;
  * живой пайплайн с таймаутом. Сбой живого поиска в режиме auto → демо с флагом, в off → событие error.
  * Исключений наружу не бросает: всё заканчивается событием result или error.
  */
@@ -94,6 +95,9 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
   };
 
   if (config.demoMode === "on") return sendDemo("demo-mode");
+  // auto: запрос, точно совпавший с записанным примером, отдаём из записи мгновенно и бесплатно;
+  // живой поиск — только для собственных запросов пользователя. В режиме off — всегда живой.
+  if (config.demoMode === "auto" && isRecordedExample(query)) return sendDemo("example");
 
   const key = cacheKey(query);
   const hit = state.cache.get(key);

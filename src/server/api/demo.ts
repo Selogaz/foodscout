@@ -70,6 +70,11 @@ export function matchDemoRun(q: SearchQuery, runs: readonly DemoRun[] = DEMO_RUN
   return { run: runs[0], match: "default" };
 }
 
+/** Запрос точно совпал с записанным прогоном (чип-пример): его можно отдать мгновенно, без живого поиска. */
+export function isRecordedExample(q: SearchQuery, runs: readonly DemoRun[] = DEMO_RUNS): boolean {
+  return matchDemoRun(q, runs).match === "exact";
+}
+
 /**
  * Демо-прогон для запроса: точное совпадение → ближайший по категории и региону → прогон по умолчанию.
  * Карточки — настоящие записанные данные; скоринг считается заново под фильтры пользователя

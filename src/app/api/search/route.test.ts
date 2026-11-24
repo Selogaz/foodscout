@@ -1,5 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { DEMO_EXAMPLES } from "@/data/demo";
 import { validQueryFixtures } from "@/domain/__fixtures__/queries";
+import { buildQuery, EMPTY_FORM } from "@/lib/formState";
 import { SearchClientError, streamSearch, NdjsonLineParser } from "@/lib/searchClient";
 import type { SearchEvent } from "@/lib/searchEvents";
 import { POST } from "./route";
@@ -61,6 +63,17 @@ describe("POST /api/search", () => {
     const res = await call(validQueryFixtures.catalogMoscow, "7.7.7.7");
     const last = (await res.text()).trim().split("\n").map((l) => JSON.parse(l) as SearchEvent).at(-1);
     expect(last).toMatchObject({ type: "result", demo: true, demoReason: "demo-mode", demoInfo: { match: "nearest" } });
+  });
+});
+
+describe("чип-пример в режиме auto", () => {
+  it("точный пример: из записи, без лимита частоты", async () => {
+    const ex = DEMO_EXAMPLES[0];
+    const r = buildQuery({ ...EMPTY_FORM, category: ex.category, product: ex.product, location: ex.location });
+    if (!r.ok) throw new Error("запрос не собрался");
+    for (let i = 0; i < 8; i++) expect((await call(r.query, "6.6.6.6")).status).toBe(200);
+    const last = (await (await call(r.query, "6.6.6.6")).text()).trim().split("\n").map((l) => JSON.parse(l) as SearchEvent).at(-1);
+    expect(last).toMatchObject({ type: "result", demo: true, demoReason: "example", demoInfo: { match: "exact" } });
   });
 });
 

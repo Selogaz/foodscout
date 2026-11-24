@@ -32,7 +32,7 @@ export type CandidateEvent = {
 export type WarningEvent = { type: "warning"; message: string };
 
 /** Почему вместо живого поиска показаны демо-данные. */
-export type DemoReason = "demo-mode" | "no-key" | "daily-limit" | "failed" | "timeout";
+export type DemoReason = "demo-mode" | "example" | "no-key" | "daily-limit" | "failed" | "timeout";
 
 /** Какой записанный прогон показан в демо и почему он выбран. */
 export type DemoInfo = {
