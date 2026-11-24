@@ -249,6 +249,7 @@ export function SearchApp() {
         </section>
       )}
 
+      {compare.length > 0 && !showCompare && state.status === "done" && <div aria-hidden className="h-16" />}
       {compare.length > 0 && !showCompare && state.status === "done" && (
         <div role="status" className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 p-3 backdrop-blur">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-1 text-sm">

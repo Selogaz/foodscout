@@ -37,7 +37,7 @@ describe("scoreSupplier", () => {
     const r = scoreSupplier(fullSupplier, moscowFlour);
     expect(r.total).toBeGreaterThanOrEqual(80);
     expect(r.total).toBeLessThanOrEqual(100);
-    expect(r.pros).toContain("Доставка в Москве указана на сайте");
+    expect(r.pros).toContain("Доставка в Москву указана на сайте");
     expect(r.pros.some((p) => p.includes("ГОСТ") && p.includes("ХАССП"))).toBe(true);
     // нарушений нет; в cons — только предупреждение о низкой уверенности одного поля
     expect(r.cons.filter((c) => !c.startsWith("Полей с низкой уверенностью"))).toEqual([]);
@@ -73,7 +73,7 @@ describe("scoreSupplier", () => {
 
   it("город не в зоне доставки: cons с перечнем регионов поставщика", () => {
     const r = scoreSupplier(fullSupplier, novosibirskFree);
-    expect(r.cons.some((c) => c.startsWith("Доставка в Новосибирске не указана (работает: Москва"))).toBe(true);
+    expect(r.cons.some((c) => c.startsWith("Доставка в Новосибирск не указана (работает: Москва"))).toBe(true);
   });
 
   it("монотонность: добавление нужного сертификата не снижает балл", () => {
@@ -193,15 +193,15 @@ describe("падежи в причинах скоринга", () => {
 
   it("место из справочника ставится в предложный падеж", () => {
     const moscow = scoreSupplier(fullSupplier, moscowFlour);
-    expect(moscow.pros).toContain("Доставка в Москве указана на сайте");
+    expect(moscow.pros).toContain("Доставка в Москву указана на сайте");
     const nsk = scoreSupplier(fullSupplier, novosibirskFree);
-    expect(nsk.cons.some((c) => c.startsWith("Доставка в Новосибирске не указана"))).toBe(true);
+    expect(nsk.cons.some((c) => c.startsWith("Доставка в Новосибирск не указана"))).toBe(true);
     const vlad = q({
       category: { kind: "free", text: "рыба" },
       location: { regionId: "primorsky-krai", cityId: "vladivostok" },
       needDelivery: true,
     });
-    expect(allNotes(scoreSupplier(fullSupplier, vlad)).join("\n")).toContain("Доставка во Владивостоке не указана");
+    expect(allNotes(scoreSupplier(fullSupplier, vlad)).join("\n")).toContain("Доставка во Владивосток не указана");
   });
 
   it("регион без города тоже склоняется", () => {
@@ -211,7 +211,7 @@ describe("падежи в причинах скоринга", () => {
       needDelivery: true,
     });
     const text = allNotes(scoreSupplier(fullSupplier, region)).join("\n");
-    expect(text).toContain("Доставка в Краснодарском крае не указана");
+    expect(text).toContain("Доставка в Краснодарский край не указана");
   });
 
   it("место вне справочника подставляется без склонения и без «в <именительный>»", () => {
@@ -221,15 +221,16 @@ describe("падежи в причинах скоринга", () => {
     expect(allNotes(miss).join("\n")).not.toMatch(/\bв\s+Тульская/);
   });
 
-  it("страж: нет шаблона «в <название в именительном падеже>» для мест справочника", () => {
+  it("страж: нет шаблона «в <название в именительном падеже>» (там, где винительный отличается от именительного)", () => {
     // несклоняемые названия (Сочи) совпадают в обоих падежах — в проверку не входят
-    const names = [...new Set(REGIONS.flatMap((r) => [r.name, ...r.cities.map((c) => c.name)]))].filter(
-      (n) => n !== "Сочи",
-    );
+    const accOf = (n: { name: string; accusative: string }) => n.accusative.replace(/^во?\s+/, "");
+    const names = [
+      ...new Set(REGIONS.flatMap((r) => [r, ...r.cities]).filter((n) => accOf(n) !== n.name).map((n) => n.name)),
+    ];
     const bad = new RegExp(`(?:^|[^а-яё])во?\\s+(?:${names.join("|")})(?![а-яё])`, "i");
     // контроль самого регэкспа
     expect(bad.test("Доставка в Москва указана")).toBe(true);
-    expect(bad.test("Доставка в Москве указана")).toBe(false);
+    expect(bad.test("Доставка в Москву указана")).toBe(false);
     const queries = [
       moscowFlour,
       krasnodarFrozen,

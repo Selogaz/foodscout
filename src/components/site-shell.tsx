@@ -8,7 +8,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
     <div className="flex min-h-screen flex-col">
       <header className="border-b">
         <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-3 px-4 py-3">
-          <Link href="/" className="text-xl font-semibold tracking-tight">
+          <Link href="/" className="inline-flex min-h-9 items-center text-xl font-semibold tracking-tight">
             FoodScout
           </Link>
           <span className="hidden flex-1 text-sm text-muted-foreground md:inline">Поиск поставщиков для food-сегмента</span>

@@ -24,6 +24,11 @@ export function NoteEditor({ id, label, value, onSave }: { id: string; label: st
 
   // Не потерять набранное при уходе со страницы / удалении карточки из списка.
   useEffect(() => flush, [flush]);
+  // То же при перезагрузке или закрытии вкладки: размонтирования React при этом не будет.
+  useEffect(() => {
+    window.addEventListener("pagehide", flush);
+    return () => window.removeEventListener("pagehide", flush);
+  }, [flush]);
 
   const change = (v: string) => {
     setDraft(v);

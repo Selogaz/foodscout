@@ -58,7 +58,7 @@ export type SupplierFacts = {
   score: number;
   /** Только поля с значением И источником: «нет данных» в факты не попадает. */
   fields: Partial<Record<FieldKey, { text: string; confidence: Confidence | null }>>;
-  region: { state: RegionState; place: string; note: string | null };
+  region: { state: RegionState; place: string; note: string | null; /** Регион подтверждён только адресом поставщика, а не доставкой или заявленным регионом работы. */ addressOnly?: boolean };
   /** Ключи того, что стоит уточнить (по отсутствующим данным). */
   ask: AskKey[];
   pros: string[];
@@ -77,10 +77,12 @@ function regionLabel(entry: string): string {
 }
 
 /** Название места запроса: город или регион. */
-export function queryPlace(q: SearchQuery): { name: string; locative: string } {
+export function queryPlace(q: SearchQuery): { name: string; locative: string; to: string } {
   const city = q.location.cityId ? findCity(q.location.cityId)?.city : undefined;
   const known = city ?? findRegion(q.location.regionId);
-  return known ? { name: known.name, locative: known.locative } : { name: q.location.regionId, locative: `(${q.location.regionId})` };
+  return known
+    ? { name: known.name, locative: known.locative, to: known.accusative }
+    : { name: q.location.regionId, locative: `(${q.location.regionId})`, to: `(${q.location.regionId})` };
 }
 
 function regionOf(item: RankedSupplier, q: SearchQuery): SupplierFacts["region"] {
@@ -89,7 +91,13 @@ function regionOf(item: RankedSupplier, q: SearchQuery): SupplierFacts["region"]
   const known = item.score.cons.find((c) => /не указана \(работает:/.test(c));
   const russiaWide = item.score.pros.find((p) => /доставка по России/i.test(p));
   const s = crit?.score ?? 0;
-  if (s >= 0.6) return { state: "ok", place: place.name, note: null };
+  if (s >= 0.6) {
+    const pros = item.score.pros;
+    const addressOnly = pros.some((p) => /^Адрес поставщика/.test(p)) && !pros.some((p) => /^Доставка .* указана|^Работает в регионе/.test(p));
+    return addressOnly
+      ? { state: "ok", place: place.name, note: `Подтверждён только адрес поставщика: доставку ${place.to} уточните`, addressOnly: true }
+      : { state: "ok", place: place.name, note: null };
+  }
   if (s > 0) {
     return { state: "unclear", place: place.name, note: russiaWide ?? `Работа с ${place.name} подтверждена слабо: проверьте при контакте` };
   }
@@ -259,6 +267,7 @@ export function factsForPrompt(facts: SupplierFacts[], query: SearchQuery): stri
       score: f.score,
       regionStatus: f.region.state,
       regionNote: f.region.note,
+      regionConfirmedOnlyByAddress: f.region.addressOnly === true,
       fields: Object.fromEntries(Object.entries(f.fields).map(([k, v]) => [k, v.text])),
       missingKeys: f.ask,
       pros: f.pros,
@@ -275,6 +284,7 @@ export const ADVISE_SYSTEM = `Ты помощник закупщика. Тебе
 - Верни ВСЕХ поставщиков в порядке контакта, поле id копируй дословно.
 - Для каждого: 1–2 коротких «почему» (одно предложение, по-русски). В fields укажи ключи полей из его объекта fields, на которые опирается предложение (допустимы только ключи, которые там есть; score — это итоговый балл).
 - Если regionStatus не «ok» — честно скажи об этом хотя бы в одном «почему» и учти при порядке: поставщик, не подтвердивший работу с местом доставки, не может быть выше подтвердившего при близком балле.
+- Если regionConfirmedOnlyByAddress = true — не пиши «регион подтверждён»: пиши «адрес в <городе>» и что доставку нужно уточнить.
 - ask — ключи из missingKeys этого поставщика, что уточнить при звонке (не более 4).
 - Не используй числа, которых нет в данных.`;
 
@@ -319,7 +329,12 @@ export function fallbackReasons(f: SupplierFacts, query: SearchQuery): Reason[] 
   const regionRefs = srcFields("deliveryRegions", "workRegions", "address", "deliveryTerms");
   if (f.region.state === "ok") {
     const phrase = f.pros.find((p) => /Доставка|Работает в регионе|Адрес поставщика/.test(p));
-    push({ text: phrase ? `${phrase}.` : `Работа ${place.locative} подтверждена по карточке.`, fields: regionRefs.length ? regionRefs : ["score"] });
+    const text = f.region.addressOnly
+      ? `Адрес поставщика ${place.locative}, доставку ${place.to} в карточке не подтверждено: уточните.`
+      : phrase
+        ? `${phrase}.`
+        : `Работа ${place.locative} подтверждена по карточке.`;
+    push({ text, fields: regionRefs.length ? regionRefs : ["score"] });
   } else if (f.region.state === "mismatch" || f.region.state === "unclear") {
     push({ text: `${f.region.note}.`, fields: regionRefs.length ? regionRefs : ["score"] });
   } else {
@@ -359,12 +374,16 @@ const byScore = (a: SupplierFacts, b: SupplierFacts) => b.score - a.score || a.r
 export function regionWarning(facts: SupplierFacts[], query: SearchQuery): string | null {
   const place = queryPlace(query);
   const ok = facts.filter((f) => f.region.state === "ok").length;
-  if (ok === facts.length) return null;
+  const addr = facts.filter((f) => f.region.state === "ok" && f.region.addressOnly).length;
+  if (ok === facts.length && addr === 0) return null;
   const n = facts.length;
+  if (ok === n) {
+    return `Работа ${place.locative} подтверждена у всех ${n}, но у ${addr} из них — только адресом поставщика: доставку уточните при первом контакте.`;
+  }
   if (ok === 0) {
     return `Ни один из ${n} поставщиков не подтвердил работу ${place.locative} (регион выдачи не совпал или данных нет). Рекомендация — порядок первых вопросов, а не гарантия поставки: сначала уточните доставку.`;
   }
-  return `Только ${ok} из ${n} поставщиков подтвердили работу ${place.locative}. У остальных регион не подтверждён — это отмечено у каждого, уточните доставку при первом контакте.`;
+  return `Только ${ok} из ${n} поставщиков подтвердили работу ${place.locative}${addr > 0 ? ` (у ${addr} из них — только адрес)` : ""}. У остальных регион не подтверждён — это отмечено у каждого, уточните доставку при первом контакте.`;
 }
 
 /** Рекомендация без LLM: порядок по баллу, причины — шаблоны по полям карточки. */

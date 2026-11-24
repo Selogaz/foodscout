@@ -20,7 +20,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       className={`${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}
-        <Toaster position="top-center" />
+        <Toaster position="bottom-center" duration={3000} offset={{ bottom: 88 }} mobileOffset={{ bottom: 88 }} />
       </body>
     </html>
   );
