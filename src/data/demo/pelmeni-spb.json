@@ -1,0 +1,532 @@
+{
+ "id": "pelmeni-spb",
+ "label": "Пельмени — Санкт-Петербург",
+ "recordedAt": "2026-11-24T07:22:35.708Z",
+ "query": {
+  "category": {
+   "kind": "catalog",
+   "categoryId": "finished-food",
+   "subcategoryId": "semi-finished"
+  },
+  "product": "пельмени",
+  "location": {
+   "regionId": "saint-petersburg",
+   "cityId": "saint-petersburg"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "finished-food",
+  "semi-finished"
+ ],
+ "placeLabel": "Санкт-Петербург",
+ "suppliers": [
+  {
+   "id": "frozengood-ru",
+   "name": "Фрозенгуд (FrozenGood)",
+   "website": {
+    "value": "https://frozengood.ru/",
+    "sourceUrl": "https://frozengood.ru/contacts",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производитель замороженных полуфабрикатов ручной лепки: пельмени, хинкали, манты, вареники, чебуреки, равиоли.",
+    "sourceUrl": "https://frozengood.ru/optom",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen",
+    "semi-finished",
+    "frozen-dough"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 950 026-18-81",
+      "sourceUrl": "https://frozengood.ru/contacts",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "frozengood_pelmeni"
+      },
+      "sourceUrl": "https://frozengood.ru/contacts",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Санкт-Петербург, ул. Фарфоровская 3к1",
+     "sourceUrl": "https://frozengood.ru/contacts",
+     "confidence": "medium"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 6,
+     "unit": "кг",
+     "rawText": "Минимальная партия — 6 кг одного вида продукции"
+    },
+    "sourceUrl": "https://frozengood.ru/optom",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 1700,
+     "max": 1700,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Пельмени «Па» с бараниной, 1кг. 1700р"
+    },
+    "sourceUrl": "https://frozengood.ru/optom",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "eaeu-declaration",
+      "title": null,
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://frozengood.ru/contacts",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "saint-petersburg"
+     ],
+     "sourceUrl": "https://frozengood.ru/contacts",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Экспресс-доставка за 60 мин",
+     "sourceUrl": "https://frozengood.ru/contacts",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://frozengood.ru/contacts",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "saint-petersburg",
+     "leningrad-oblast"
+    ],
+    "sourceUrl": "https://frozengood.ru/optom",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://frozengood.ru/contacts",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:53.037Z"
+    },
+    {
+     "url": "https://frozengood.ru/optom",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:53.037Z"
+    },
+    {
+     "url": "https://frozengood.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:53.037Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:53.037Z"
+  },
+  {
+   "id": "myasko-spb-ru",
+   "name": "МясКо",
+   "website": {
+    "value": "https://myasko.spb.ru/",
+    "sourceUrl": "https://myasko.spb.ru/all/frozen",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания производит и продаёт замороженную продукцию собственного производства — домашние пельмени, вареники, манты, хинкали и фрикадельки.",
+    "sourceUrl": "https://myasko.spb.ru/all/frozen",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen",
+    "semi-finished",
+    "frozen-meat-fish"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 911 937-70-56",
+      "sourceUrl": "https://myasko.spb.ru/all/frozen",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [],
+    "address": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "saint-petersburg",
+      "leningrad-oblast"
+     ],
+     "sourceUrl": "https://myasko.spb.ru/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка по Санкт-Петербургу и Ленинградской области 4 раза в неделю, со среды по субботу",
+     "sourceUrl": "https://myasko.spb.ru/",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "saint-petersburg",
+     "leningrad-oblast"
+    ],
+    "sourceUrl": "https://myasko.spb.ru/all/frozen",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://myasko.spb.ru/all/frozen",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:56.350Z"
+    },
+    {
+     "url": "https://myasko.spb.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:56.350Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:56.350Z"
+  },
+  {
+   "id": "borimark-ru",
+   "name": "Усадьба \"БориМаркъ\"",
+   "website": {
+    "value": "http://borimark.ru/",
+    "sourceUrl": "http://borimark.ru/contacts",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производит натуральные полуфабрикаты оптом: пельмени, котлеты, купаты и другие блюда по традиционным рецептам.",
+    "sourceUrl": "http://borimark.ru/spb",
+    "confidence": "medium"
+   },
+   "categories": [
+    "semi-finished",
+    "frozen"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 911 606 60 66",
+      "sourceUrl": "http://borimark.ru/contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 931 85 12345",
+      "sourceUrl": "http://borimark.ru/contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7993-441-64-10",
+      "sourceUrl": "http://borimark.ru/spb",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [],
+    "address": {
+     "value": "Великий Новгород, д.Лешино, д.2в (база Бовис)",
+     "sourceUrl": "http://borimark.ru/spb",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 5,
+     "unit": "кг",
+     "rawText": "Пельмени любого наименования в коробках от 5 кг для реализации \"на развес\""
+    },
+    "sourceUrl": "http://borimark.ru/spb",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Великий Новгород",
+      "Новгородская область",
+      "saint-petersburg",
+      "leningrad-oblast",
+      "Тверская область",
+      "Псков"
+     ],
+     "sourceUrl": "http://borimark.ru/clients",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка на ваш склад или в торговую точку, доступен самовывоз с нашего склада",
+     "sourceUrl": "http://borimark.ru/clients",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "http://borimark.ru/clients",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "saint-petersburg"
+    ],
+    "sourceUrl": "http://borimark.ru/spb",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "http://borimark.ru/contacts",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:06.416Z"
+    },
+    {
+     "url": "http://borimark.ru/spb",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:06.416Z"
+    },
+    {
+     "url": "http://borimark.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:06.416Z"
+    },
+    {
+     "url": "http://borimark.ru/clients",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:06.416Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:22:06.416Z"
+  },
+  {
+   "id": "ekorfish-com",
+   "name": "ПТК Экор",
+   "website": {
+    "value": "https://ekorfish.com/",
+    "sourceUrl": "https://ekorfish.com/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "semi-finished",
+    "frozen"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 505-01-82",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (495) 637-82-28",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (812) 509-52-67",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (861) 212-10-73",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@ekorfish.ru",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "ekor_bot"
+      },
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "max",
+       "handle": "id7722379983_bot"
+      },
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Санкт-Петербург, проспект Непокорённых, 63К42",
+     "sourceUrl": "https://ekorfish.com/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 5000,
+     "unit": "руб",
+     "rawText": "Бесплатная доставка в столовые и маркеты по Москве и Санкт-Петербургу при заказе от 5 000 руб в ассортименте."
+    },
+    "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 268.85,
+     "max": 268.85,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "от 3 000 ₽ 268,85 ₽/кг 268,85 ₽"
+    },
+    "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "tu",
+      "title": "ТУ 1/7,5кг",
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow",
+      "saint-petersburg"
+     ],
+     "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Бесплатная доставка при заказе от 5 000 руб в ассортименте",
+     "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "moscow",
+     "saint-petersburg",
+     "krasnodar"
+    ],
+    "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://ekorfish.com/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:07.696Z"
+    },
+    {
+     "url": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:07.696Z"
+    },
+    {
+     "url": "https://ekorfish.com/delivery/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:07.696Z"
+    },
+    {
+     "url": "https://ekorfish.com/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:07.696Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:22:07.696Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 50163,
+  "candidates": 6,
+  "suppliers": 4,
+  "costRub": 21.670899999999996
+ },
+ "sanitized": {
+  "excluded": [
+   {
+    "domain": "spb.gostpp.ru",
+    "reason": "ИП: в названии фамилия физического лица; склад в Тульской области, к запросу по Петербургу не относится"
+   }
+  ],
+  "removed": [
+   "frozengood-ru: личная почта сотрудника",
+   "borimark-ru: личная почта сотрудника",
+   "borimark-ru: мессенджер на номер, которого нет среди телефонов компании",
+   "borimark-ru: мессенджер на номер, которого нет среди телефонов компании"
+  ]
+ }
+}

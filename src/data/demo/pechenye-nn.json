@@ -1,0 +1,402 @@
+{
+ "id": "pechenye-nn",
+ "label": "Печенье — Нижний Новгород",
+ "recordedAt": "2026-11-24T07:23:20.381Z",
+ "query": {
+  "category": {
+   "kind": "catalog",
+   "categoryId": "finished-food",
+   "subcategoryId": "confectionery"
+  },
+  "product": "печенье",
+  "location": {
+   "regionId": "nizhny-novgorod-oblast",
+   "cityId": "nizhny-novgorod"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "finished-food",
+  "confectionery"
+ ],
+ "placeLabel": "Нижний Новгород",
+ "suppliers": [
+  {
+   "id": "nizhniy-novgorod-sladrus-ru",
+   "name": "Sladrus",
+   "website": {
+    "value": "https://nizhniy-novgorod.sladrus.ru/",
+    "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "confectionery",
+    "finished-food"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 550-26-12",
+      "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "zakaz@sladrus.ru",
+      "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [],
+    "address": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 10000,
+     "unit": "₽",
+     "rawText": "Минимальная сумма заказа 10000 ₽."
+    },
+    "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 585,
+     "max": 585,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "585 руб. Печенье \"Тыквенное с клюквой\" 1кг"
+    },
+    "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/category/pechene-optom/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow",
+      "Россия"
+     ],
+     "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/dostavka-i-oplata/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка в Нижнем Новгороде осуществляется через транспортные компании: Деловые линии и ПЭК.",
+     "sourceUrl": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://nizhniy-novgorod.sladrus.ru/kontakty/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:46.591Z"
+    },
+    {
+     "url": "https://nizhniy-novgorod.sladrus.ru/category/pechene-optom/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:46.591Z"
+    },
+    {
+     "url": "https://nizhniy-novgorod.sladrus.ru/dostavka-i-oplata/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:46.591Z"
+    },
+    {
+     "url": "https://nizhniy-novgorod.sladrus.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:46.591Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:22:46.591Z"
+  },
+  {
+   "id": "nn-e-sweets-ru",
+   "name": "ООО \"ЕвроБренд\"",
+   "website": {
+    "value": "https://nn.e-sweets.ru/",
+    "sourceUrl": "https://nn.e-sweets.ru/contact/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Оптовый поставщик сладостей и напитков из США и Европы, включая печенье.",
+    "sourceUrl": "https://nn.e-sweets.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "confectionery"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+79022733770",
+      "sourceUrl": "https://nn.e-sweets.ru/contact/",
+      "confidence": "high"
+     },
+     {
+      "value": "+79022661383",
+      "sourceUrl": "https://nn.e-sweets.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "zakaz@e-sweets.ru",
+      "sourceUrl": "https://nn.e-sweets.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "EvroBrendSweets"
+      },
+      "sourceUrl": "https://nn.e-sweets.ru/contact/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+79022661383"
+      },
+      "sourceUrl": "https://nn.e-sweets.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Нижний Новгород, Московское ш., 52",
+     "sourceUrl": "https://nn.e-sweets.ru/contact/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://nn.e-sweets.ru/contact/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:47.475Z"
+    },
+    {
+     "url": "https://nn.e-sweets.ru/category/pechene/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:47.475Z"
+    },
+    {
+     "url": "https://nn.e-sweets.ru/deliver-n-pay/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:47.475Z"
+    },
+    {
+     "url": "https://nn.e-sweets.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:22:47.475Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:22:47.475Z"
+  },
+  {
+   "id": "nn-stavkond-ru",
+   "name": "Кондитерская Компания «Ставконд»",
+   "website": {
+    "value": "https://nn.stavkond.ru/",
+    "sourceUrl": "https://nn.stavkond.ru/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Кондитерская компания, продающая кондитерские изделия, включая печенье, оптом и в розницу.",
+    "sourceUrl": "https://nn.stavkond.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "confectionery",
+    "bakery"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 800 234 2297",
+      "sourceUrl": "https://nn.stavkond.ru/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (8652) 580-530",
+      "sourceUrl": "https://nn.stavkond.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (8652) 580-757",
+      "sourceUrl": "https://nn.stavkond.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "stavkondshop@yandex.ru",
+      "sourceUrl": "https://nn.stavkond.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "StavkondBot"
+      },
+      "sourceUrl": "https://nn.stavkond.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Ставрополь, просп. Октябрьской Революции, 13",
+     "sourceUrl": "https://nn.stavkond.ru/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://nn.stavkond.ru/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "через ТК по всей России",
+     "sourceUrl": "https://nn.stavkond.ru/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://nn.stavkond.ru/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:02.350Z"
+    },
+    {
+     "url": "https://nn.stavkond.ru/catalog/pechene/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:02.350Z"
+    },
+    {
+     "url": "https://nn.stavkond.ru/help/payment/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:02.350Z"
+    },
+    {
+     "url": "https://nn.stavkond.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:02.350Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:23:02.350Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 41342,
+  "candidates": 6,
+  "suppliers": 3,
+  "costRub": 28.510099999999998
+ },
+ "sanitized": {
+  "excluded": [
+   {
+    "domain": "alenka.ru",
+    "reason": "розничный интернет-магазин конфет и шоколада (в разметке — AlenkaRetail), не оптовый поставщик печенья"
+   }
+  ],
+  "removed": [
+   "nizhniy-novgorod-sladrus-ru: мессенджер на номер, которого нет среди телефонов компании",
+   "nizhniy-novgorod-sladrus-ru: адрес с квартирой (возможно, жильё физлица)"
+  ]
+ }
+}
