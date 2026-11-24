@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { SearchApp } from "@/components/search-app";
 
 export default function Home() {
   return (
@@ -22,17 +21,7 @@ export default function Home() {
           источники.
         </p>
 
-        <form
-          aria-label="Поиск поставщиков"
-          className="mt-8 flex flex-col gap-3 sm:flex-row"
-        >
-          <Input disabled placeholder="Категория, например: мука пшеничная" />
-          <Input disabled placeholder="Город или регион" />
-          <Button type="button" disabled>
-            Найти
-          </Button>
-        </form>
-        <p className="mt-3 text-sm text-muted-foreground">Форма поиска появится в следующих версиях.</p>
+        <SearchApp />
       </main>
 
       <footer className="border-t">
