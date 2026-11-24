@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { rankSuppliers, SearchQuerySchema, type SearchQuery, type Supplier } from "@/domain";
 import { supplierFixtures, fullSupplier, minimalSupplier } from "@/domain/__fixtures__/suppliers";
-import { AdviceLlmSchema, buildFacts, factsForPrompt, fallbackAdvice, fallbackReasons, regionWarning, mergeLlmAdvice, reasonIsValid, type AdviceLlm } from "@/lib/advisor";
+import { AdviseInputSchema, DraftInputSchema, AdviceLlmSchema, buildFacts, factsForPrompt, fallbackAdvice, fallbackReasons, regionWarning, mergeLlmAdvice, reasonIsValid, type AdviceLlm } from "@/lib/advisor";
 import { createApiState, readApiConfig, type ApiConfig } from "../api";
 import { MockProvider } from "../llm/mock";
 import { runAdvise, runDraft, type AssistContext } from "./index";
@@ -224,5 +224,35 @@ describe("черновик запроса КП", () => {
     const d = await runDraft({ query, supplier: fullSupplier }, ctx(llm, cfg({ demoMode: "on" })));
     expect(llm.calls).toHaveLength(0);
     expect(d.fallbackReason).toBe("demo-mode");
+  });
+});
+
+describe("границы входа помощника", () => {
+  it("проверяет строки и контакты в обеих схемах", () => {
+    for (const supplier of [
+      { ...fullSupplier, name: "я".repeat(301) },
+      { ...fullSupplier, contacts: { ...fullSupplier.contacts, phones: Array(6).fill(fullSupplier.contacts.phones[0]) } },
+    ]) {
+      expect(AdviseInputSchema.safeParse({ query, suppliers: [supplier] }).success).toBe(false);
+      expect(DraftInputSchema.safeParse({ query, supplier }).success).toBe(false);
+    }
+    expect(cfg().assistDailyLlmLimit).toBe(50);
+  });
+
+  it("ограничивает факты и использует шаблон при переполнении общего промпта", async () => {
+    const text = "я".repeat(300);
+    const cards = Array.from({ length: 8 }, (_, i) => ({
+      ...fullSupplier, id: String(i), name: text,
+      contacts: { ...fullSupplier.contacts, address: { ...fullSupplier.contacts.address, value: text } },
+      minOrder: { ...fullSupplier.minOrder, value: { ...fullSupplier.minOrder.value!, rawText: text } },
+      priceHint: { ...fullSupplier.priceHint, value: { ...fullSupplier.priceHint.value!, rawText: text } },
+      description: { ...fullSupplier.description, value: text },
+    }));
+    const [ranked] = rankSuppliers(cards, query);
+    const facts = buildFacts({ ...ranked, supplier: { ...ranked.supplier, name: text + text } }, query);
+    expect(facts.name).toHaveLength(300);
+    const llm = new MockProvider(() => ({}));
+    expect((await runAdvise({ suppliers: cards, query }, ctx(llm))).fallbackReason).toBe("limit");
+    expect(llm.calls).toHaveLength(0);
   });
 });

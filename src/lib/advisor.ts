@@ -124,17 +124,20 @@ export function buildFacts(item: RankedSupplier, query: SearchQuery): SupplierFa
   if (has(s.priceHint)) fields.priceHint = { text: s.priceHint.value.rawText, confidence: s.priceHint.confidence };
   if (has(s.certificates)) {
     fields.certificates = {
-      text: join(s.certificates.value.map((c) => CERTIFICATE_LABELS[c.type] + (c.title ? ` (${c.title})` : ""))),
+      text: join(s.certificates.value.slice(0, 5).map((c) => CERTIFICATE_LABELS[c.type] + (c.title ? ` (${c.title})` : ""))),
       confidence: s.certificates.confidence,
     };
   }
   if (has(s.delivery.terms)) fields.deliveryTerms = { text: clip(s.delivery.terms.value, 200), confidence: s.delivery.terms.confidence };
-  if (has(s.delivery.regions)) fields.deliveryRegions = { text: s.delivery.regions.value.map(regionLabel).join(", "), confidence: s.delivery.regions.confidence };
+  if (has(s.delivery.regions)) fields.deliveryRegions = { text: s.delivery.regions.value.slice(0, 5).map(regionLabel).join(", "), confidence: s.delivery.regions.confidence };
   if (has(s.delivery.pickup)) fields.pickup = { text: s.delivery.pickup.value ? "есть" : "нет", confidence: s.delivery.pickup.confidence };
-  if (has(s.workRegions)) fields.workRegions = { text: s.workRegions.value.map(regionLabel).join(", "), confidence: s.workRegions.confidence };
+  if (has(s.workRegions)) fields.workRegions = { text: s.workRegions.value.slice(0, 5).map(regionLabel).join(", "), confidence: s.workRegions.confidence };
   fields.score = { text: `${score.total} из 100`, confidence: null };
 
   const region = regionOf(item, query);
+  for (const field of Object.values(fields)) field.text = clip(field.text, 300);
+  if (region.note) region.note = clip(region.note, 300);
+  region.place = clip(region.place, 300);
   const ask: AskKey[] = [];
   if (region.state !== "ok") ask.push("region");
   if (!fields.minOrder || (has(s.minOrder) && s.minOrder.value.quantity === null)) ask.push("minOrder");
@@ -145,16 +148,16 @@ export function buildFacts(item: RankedSupplier, query: SearchQuery): SupplierFa
   if (!fields.address) ask.push("address");
 
   return {
-    id: s.id,
-    name: s.name,
+    id: clip(s.id, 300),
+    name: clip(s.name, 300),
     rank: item.rank,
     score: score.total,
     fields,
     region,
     ask,
-    pros: score.pros,
-    cons: score.cons,
-    missing: score.missing,
+    pros: score.pros.slice(0, 5).map((line) => clip(line, 300)),
+    cons: score.cons.slice(0, 5).map((line) => clip(line, 300)),
+    missing: score.missing.slice(0, 5).map((line) => clip(line, 300)),
   };
 }
 
@@ -229,15 +232,33 @@ export type Advice = {
   fallbackReason: "demo-mode" | "no-key" | "limit" | "failed" | null;
 };
 
+// В демо встречаются карточки с 20 регионами и 6 категориями. Сохраняем их для
+// скоринга, а для текста модели buildFacts выбирает только первые пять значений.
+function boundedInput(value: unknown, ctx: z.RefinementCtx, path: (string | number)[] = []) {
+  if (typeof value === "string" && value.length > 300) {
+    ctx.addIssue({ code: "custom", path, message: "Допускается до 300 символов" });
+  } else if (Array.isArray(value)) {
+    const key = path.join(".");
+    const max = ["delivery.regions.value", "workRegions.value", "categories"].includes(key) ? 64
+      : key === "needCertificates" ? 8 : key === "sources" ? 16 : 5;
+    if (value.length > max) ctx.addIssue({ code: "custom", path, message: `Допускается до ${max} элементов` });
+    else value.forEach((v, i) => boundedInput(v, ctx, [...path, i]));
+  } else if (value && typeof value === "object") {
+    for (const [k, v] of Object.entries(value)) boundedInput(v, ctx, [...path, k]);
+  }
+}
+const assistSupplier = SupplierSchema.superRefine(boundedInput);
+const assistQuery = SearchQuerySchema.superRefine(boundedInput);
+
 export const AdviseInputSchema = z.strictObject({
-  query: SearchQuerySchema,
-  suppliers: z.array(SupplierSchema).min(1).max(MAX_ADVISE_SUPPLIERS),
+  query: assistQuery,
+  suppliers: z.array(assistSupplier).min(1).max(MAX_ADVISE_SUPPLIERS),
 });
 export type AdviseInput = { query: SearchQuery; suppliers: Supplier[] };
 
 export const DraftInputSchema = z.strictObject({
-  query: SearchQuerySchema,
-  supplier: SupplierSchema,
+  query: assistQuery,
+  supplier: assistSupplier,
   /** Нужный объём: вводит пользователь, не выдумывается. */
   volume: z.string().trim().max(200).default(""),
   /** Город/адрес доставки; пусто — место из запроса. */

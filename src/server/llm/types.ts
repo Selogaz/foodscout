@@ -16,6 +16,7 @@ export type StructuredRequest<T> = LlmMessageRequest & {
   schema: z.ZodType<T>;
   /** Короткое латинское имя схемы (передаётся модели и используется моками). */
   schemaName: string;
+  maxAttempts?: 1 | 2;
 };
 
 export type StructuredResult<T> = { data: T; usage: LlmUsage; attempts: number };

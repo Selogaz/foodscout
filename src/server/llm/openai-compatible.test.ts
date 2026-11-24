@@ -56,6 +56,14 @@ describe("OpenAiCompatibleProvider", () => {
     expect(msgs.at(-1)?.content).toMatch(/не прошёл проверку схемы/);
   });
 
+  it("одна разрешённая попытка не расходует бюджет на повтор", async () => {
+    const api = fakeApi(["не JSON"]);
+    await expect(provider(api.fetchImpl).extractStructured({
+      system: "s", user: "u", schema: Schema, schemaName: "t", maxAttempts: 1,
+    })).rejects.toMatchObject({ kind: "bad-response" });
+    expect(api.calls).toHaveLength(1);
+  });
+
   it("два невалидных ответа → LlmError bad-response с учётом токенов", async () => {
     const api = fakeApi(["не json", "опять не json"]);
     const err = await provider(api.fetchImpl)

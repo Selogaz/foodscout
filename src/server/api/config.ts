@@ -44,7 +44,7 @@ export function readApiConfig(env: Env = process.env): ApiConfig {
     cacheTtlMs: int(env.SEARCH_CACHE_TTL_MIN, 360, 1) * 60_000,
     cacheMaxEntries: 50,
     assistRateLimitMax: int(env.ASSIST_RATE_LIMIT_PER_MINUTE, 15, 1),
-    assistDailyLlmLimit: int(env.ASSIST_DAILY_LLM_LIMIT, 300),
+    assistDailyLlmLimit: int(env.ASSIST_DAILY_LLM_LIMIT, 50),
     assistTimeoutMs: int(env.ASSIST_TIMEOUT_S, 25, 3) * 1000,
   };
 }

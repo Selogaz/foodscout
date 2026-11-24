@@ -25,7 +25,7 @@ export function sourcedField<T>(
   return z
     .strictObject({
       value: valueSchema.nullable() as z.ZodType<T | null>,
-      sourceUrl: z.url().nullable(),
+      sourceUrl: z.url({ protocol: /^https?$/ }).nullable(),
       confidence: ConfidenceSchema.nullable(),
       note: z.string().min(1).optional(),
     })

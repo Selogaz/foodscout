@@ -78,7 +78,8 @@ export async function normalizeQuery(
     });
     answer = r.data;
   } catch (e) {
-    notes.push(`Уточнение запроса моделью не удалось (${(e as Error).message.slice(0, 120)}), ищем по исходным словам`);
+    console.error("Не удалось уточнить запрос", e);
+    notes.push("Уточнение запроса моделью не удалось, ищем по исходным словам");
   }
 
   if (!location && locationText && answer?.regionId) {

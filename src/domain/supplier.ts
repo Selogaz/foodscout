@@ -34,14 +34,14 @@ export const PriceHintSchema = z
 export const CertificateSchema = z.strictObject({
   type: CertificateTypeSchema,
   title: text.nullable(),
-  documentUrl: z.url().nullable(),
+  documentUrl: z.url({ protocol: /^https?$/ }).nullable(),
 });
 
 export const SourceTypeSchema = z.enum([
   "official-site", "catalog", "search-result", "marketplace", "registry", "other",
 ]);
 export const SourceSchema = z.strictObject({
-  url: z.url(),
+  url: z.url({ protocol: /^https?$/ }),
   type: SourceTypeSchema,
   collectedAt: isoDate,
 });
@@ -80,7 +80,7 @@ export const SupplierSchema = z
   .strictObject({
     id: text,
     name: text,
-    website: sourcedField(z.url()),
+    website: sourcedField(z.url({ protocol: /^https?$/ })),
     description: sourcedField(text),
     categories: z.array(text).min(1),
     contacts: SupplierContactsSchema,

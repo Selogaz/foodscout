@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { SupplierSchema } from "@/domain";
 import { MockProvider } from "../llm/mock";
 import { LlmError } from "../llm/types";
@@ -174,4 +174,27 @@ describe("runSearch на моках", () => {
     expect(r.normalized.notes.join(" ")).toMatch(/не удалось/);
     expect(r.suppliers.length).toBeGreaterThan(0);
   });
+});
+
+it("подробности ошибок провайдеров остаются в серверном журнале", async () => {
+  const diagnostic = "provider diagnostic fixture";
+  const log = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    let searches = 0;
+    const providers = deps({
+      search: new MockSearchProvider(() => {
+        if (searches++ === 0) throw new Error(diagnostic);
+        return SEARCH_HITS;
+      }),
+      llm: new MockProvider(() => { throw new LlmError(diagnostic, "network"); }),
+    });
+    const events: ProgressEvent[] = [];
+    const run = await runSearch(INPUT, (e) => events.push(e), providers);
+    expect(run.warnings.length).toBeGreaterThan(0);
+    expect(run.outcomes.some((o) => o.status === "failed")).toBe(true);
+    expect(JSON.stringify([events, run])).not.toContain(diagnostic);
+    expect(log).toHaveBeenCalled();
+  } finally {
+    log.mockRestore();
+  }
 });

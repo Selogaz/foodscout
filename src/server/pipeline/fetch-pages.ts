@@ -1,3 +1,4 @@
+import { fetchPublicPage } from "./public-fetch";
 import { clipText, decodeBody, type PageLink, parseHtml } from "./html";
 import type { Candidate, FetchedPage, PipelineLimits } from "./types";
 
@@ -11,7 +12,7 @@ export class FetchError extends Error {
   }
 }
 
-type FetchOpts = { fetchImpl: typeof fetch; timeoutMs: number; maxBytes: number; signal?: AbortSignal };
+type FetchOpts = { fetchImpl?: typeof fetch; timeoutMs: number; maxBytes: number; signal?: AbortSignal };
 
 function withTimeout(ms: number, outer?: AbortSignal): AbortSignal {
   const t = AbortSignal.timeout(ms);
@@ -93,12 +94,15 @@ export function isAllowedByRobots(rules: RobotsRules, pathWithQuery: string): bo
 
 async function loadRobots(origin: string, o: FetchOpts): Promise<RobotsRules> {
   try {
-    const res = await o.fetchImpl(`${origin}/robots.txt`, {
+    const { response: res } = await fetchPublicPage(`${origin}/robots.txt`, {
       headers: { "User-Agent": USER_AGENT },
       signal: withTimeout(Math.min(4000, o.timeoutMs), o.signal),
-      redirect: "follow",
-    });
-    if (!res.ok) return { allow: [], disallow: [] };
+      redirect: "manual",
+    }, o.fetchImpl);
+    if (!res.ok) {
+      await res.body?.cancel();
+      return { allow: [], disallow: [] };
+    }
     const txt = new TextDecoder().decode(await readLimited(res, 200_000));
     return parseRobots(txt);
   } catch {
@@ -116,18 +120,24 @@ type RawPage = { url: string; title: string; text: string; links: PageLink[] };
 async function fetchHtml(url: string, o: FetchOpts): Promise<RawPage> {
   let res: Response;
   try {
-    res = await o.fetchImpl(url, {
+    ({ response: res, url } = await fetchPublicPage(url, {
       headers: { "User-Agent": USER_AGENT, Accept: "text/html,application/xhtml+xml", "Accept-Language": "ru-RU,ru;q=0.9" },
       signal: withTimeout(o.timeoutMs, o.signal),
-      redirect: "follow",
-    });
+      redirect: "manual",
+    }, o.fetchImpl));
   } catch (e) {
     const name = (e as Error)?.name;
     throw new FetchError(name === "TimeoutError" || name === "AbortError" ? `таймаут ${o.timeoutMs} мс: ${url}` : `сеть: ${(e as Error).message}`);
   }
-  if (!res.ok) throw new FetchError(`HTTP ${res.status}: ${url}`);
+  if (!res.ok) {
+    await res.body?.cancel();
+    throw new FetchError(`HTTP ${res.status}: ${url}`);
+  }
   const type = res.headers.get("content-type");
-  if (type && !/html|xml|text\/plain/i.test(type)) throw new FetchError(`не HTML (${type}): ${url}`);
+  if (type && !/html|xml|text\/plain/i.test(type)) {
+    await res.body?.cancel();
+    throw new FetchError(`не HTML (${type}): ${url}`);
+  }
   const bytes = await readLimited(res, o.maxBytes);
   const parsed = parseHtml(decodeBody(bytes, type), res.url || url);
   const extra: string[] = [];
@@ -157,7 +167,7 @@ export function pickSubpages(links: PageLink[], origin: string, already: Set<str
   for (const { kind, re } of PAGE_PATTERNS) {
     if (picked.length >= max) break;
     const link = links.find((l) => {
-      if (!l.href.startsWith(origin)) return false;
+      if (!URL.canParse(l.href) || new URL(l.href).origin !== origin) return false;
       if (already.has(l.href) || picked.some((p) => p.url === l.href)) return false;
       if (/\.(pdf|jpe?g|png|docx?|xlsx?|zip)(\?|$)/i.test(l.href)) return false;
       let path = new URL(l.href).pathname;
@@ -186,7 +196,7 @@ export async function fetchPages(
   deps: { fetchImpl?: typeof fetch; signal?: AbortSignal } = {},
 ): Promise<{ pages: FetchedPage[]; errors: string[] }> {
   const o: FetchOpts = {
-    fetchImpl: deps.fetchImpl ?? fetch,
+    fetchImpl: deps.fetchImpl,
     timeoutMs: limits.pageTimeoutMs,
     maxBytes: limits.maxPageBytes,
     signal: deps.signal,

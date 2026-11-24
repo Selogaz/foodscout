@@ -3,7 +3,7 @@ import { LlmError } from "../llm/types";
 import { findCandidates } from "./candidates";
 import { dedupeSuppliers, validateSuppliers } from "./dedupe";
 import { extractSupplier, filledCount } from "./extract";
-import { fetchPages } from "./fetch-pages";
+import { fetchPages, FetchError } from "./fetch-pages";
 import { MeteredLlm } from "./metered-llm";
 import { normalizeQuery } from "./normalize";
 import {
@@ -64,7 +64,8 @@ export async function runSearch(
   emit({ type: "stage", stage: "search", message: `Ищем поставщиков: ${nq.searchPhrases.length} запроса в Яндексе` });
   const found = await findCandidates(nq, deps.search, { limit: limits.maxCandidates, signal: opts.signal });
   for (const err of found.errors) {
-    warnings.push(`Поиск по фразе не удался: ${err}`);
+    console.error("Ошибка поискового провайдера", err);
+    warnings.push("Поиск по одной из фраз не удался");
     emit({ type: "warning", message: `Поиск по одной из фраз не удался` });
   }
   emit({
@@ -93,7 +94,8 @@ export async function runSearch(
       return outcome;
     } catch (e) {
       if (isFatal(e)) fatal = e;
-      const error = signal.aborted && !opts.signal?.aborted ? `не уложился в ${limits.candidateTimeoutMs / 1000} с` : (e as Error).message;
+      console.error("Ошибка обработки кандидата", c.domain, e);
+      const error = signal.aborted && !opts.signal?.aborted ? `не уложился в ${limits.candidateTimeoutMs / 1000} с` : e instanceof LlmError ? "Модель временно недоступна" : e instanceof FetchError ? "Сайт не ответил или истёк таймаут" : "Не удалось обработать карточку";
       emit({ type: "candidate-failed", domain: c.domain, error });
       return { status: "failed", domain: c.domain, error };
     }
@@ -106,7 +108,10 @@ export async function runSearch(
 
   emit({ type: "stage", stage: "validate", message: "Проверяем карточки" });
   const { valid, invalid } = validateSuppliers(unique);
-  for (const x of invalid) warnings.push(`Карточка ${x.id} не прошла проверку: ${x.issues}`);
+  for (const x of invalid) {
+    console.error("Ошибка проверки карточки", x);
+    warnings.push("Карточка поставщика не прошла проверку");
+  }
 
   const llmCost = llmCostRub(llm.model, llm.usage);
   const durationMs = Date.now() - started;

@@ -186,6 +186,7 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
   } catch (e) {
     if (ctx.signal?.aborted) return emit({ type: "error", code: "aborted", message: "Поиск отменён" });
     if (e instanceof PipelineInputError) return emit({ type: "error", code: "invalid_request", message: e.message });
+    console.error("Ошибка живого поиска", e);
     const failure = timeoutSignal.aborted && !(e instanceof LiveTimeout) ? describeFailure(new LiveTimeout()) : describeFailure(e);
     fallback(failure.code === "timeout" ? "timeout" : "failed", failure);
   } finally {

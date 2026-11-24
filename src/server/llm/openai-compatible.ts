@@ -157,7 +157,7 @@ export class OpenAiCompatibleProvider implements LlmProvider {
     ];
     let usage: LlmUsage = { inputTokens: 0, outputTokens: 0 };
     let lastError = "";
-    for (let attempt = 1; attempt <= 2; attempt++) {
+    for (let attempt = 1; attempt <= (req.maxAttempts ?? 2); attempt++) {
       const r = await this.chat(messages, req, responseFormat);
       usage = sumUsage(usage, r.usage);
       const text = extractJsonText(r.content);
@@ -180,6 +180,6 @@ export class OpenAiCompatibleProvider implements LlmProvider {
         { role: "user", content: `JSON не прошёл проверку схемы: ${lastError}. Исправь и верни только JSON-объект.` },
       );
     }
-    throw new LlmError(`Модель не вернула валидный JSON после ретрая: ${lastError}`, "bad-response", undefined, usage);
+    throw new LlmError(`Модель не вернула валидный JSON: ${lastError}`, "bad-response", undefined, usage);
   }
 }

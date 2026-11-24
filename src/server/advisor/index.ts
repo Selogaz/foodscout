@@ -34,10 +34,10 @@ export type AssistContext = {
 type Gate = { llm: LlmProvider } | { llm: null; reason: NonNullable<Advice["fallbackReason"]> };
 
 /** Решает, можно ли звать модель: DEMO_MODE=on и отсутствие ключа дают детерминированный ответ без вызова. */
-function gate(ctx: AssistContext): Gate {
+function gate(ctx: AssistContext, promptChars: number): Gate {
   if (ctx.config.demoMode === "on") return { llm: null, reason: "demo-mode" };
   if (!ctx.llm) return { llm: null, reason: "no-key" };
-  if (!ctx.state.assistDaily.tryTake()) return { llm: null, reason: "limit" };
+  if (promptChars > 16_000 || !ctx.state.assistDaily.tryTake()) return { llm: null, reason: "limit" };
   return { llm: ctx.llm };
 }
 
@@ -60,13 +60,15 @@ export async function runAdvise(input: AdviseInput, ctx: AssistContext): Promise
   const seen = new Set<string>();
   const unique = input.suppliers.filter((s) => !seen.has(s.id) && seen.add(s.id));
   const facts = rankSuppliers(unique, input.query).map((r) => buildFacts(r, input.query));
-  const g = gate(ctx);
+  const user = adviseUserPrompt(facts, input.query);
+  const g = gate(ctx, ADVISE_SYSTEM.length + user.length);
   if (!g.llm) return fallbackAdvice(facts, input.query, g.reason);
   try {
     const { data } = await withTimeout(ctx, (signal) =>
       g.llm.extractStructured({
         system: ADVISE_SYSTEM,
-        user: adviseUserPrompt(facts, input.query),
+        user,
+        maxAttempts: 1,
         schema: AdviceLlmSchema,
         schemaName: "advise_contact_order",
         temperature: 0.2,
@@ -75,7 +77,8 @@ export async function runAdvise(input: AdviseInput, ctx: AssistContext): Promise
       }),
     );
     return mergeLlmAdvice(data, facts, input.query);
-  } catch {
+  } catch (e) {
+    console.error("Не удалось построить рекомендацию", e);
     return fallbackAdvice(facts, input.query, "failed");
   }
 }
@@ -90,13 +93,15 @@ export async function runDraft(raw: DraftInput, ctx: AssistContext): Promise<Dra
     const email = firstEmail(input.supplier);
     return { subject, body, email, mailto: email ? mailtoHref(email, subject, body) : null, source, fallbackReason };
   };
-  const g = gate(ctx);
+  const user = draftUserPrompt(facts, input.query);
+  const g = gate(ctx, DRAFT_SYSTEM.length + user.length);
   if (!g.llm) return finish(fallbackIntro(facts, input.query), "fallback", g.reason);
   try {
     const { data } = await withTimeout(ctx, (signal) =>
       g.llm.extractStructured({
         system: DRAFT_SYSTEM,
-        user: draftUserPrompt(facts, input.query),
+        user,
+        maxAttempts: 1,
         schema: DraftLlmSchema,
         schemaName: "draft_request_intro",
         temperature: 0.4,
@@ -106,7 +111,8 @@ export async function runDraft(raw: DraftInput, ctx: AssistContext): Promise<Dra
     );
     if (!introIsValid(data.intro, facts)) return finish(fallbackIntro(facts, input.query), "fallback", "failed");
     return finish(data.intro, "llm", null);
-  } catch {
+  } catch (e) {
+    console.error("Не удалось построить черновик", e);
     return finish(fallbackIntro(facts, input.query), "fallback", "failed");
   }
 }
