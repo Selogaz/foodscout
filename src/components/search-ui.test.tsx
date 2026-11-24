@@ -3,6 +3,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { rankSuppliers, type SearchQuery } from "@/domain";
 import { fullSupplier, minimalSupplier } from "@/domain/__fixtures__/suppliers";
 import { Combobox } from "./combobox";
+import { CompareTable } from "./compare-table";
+import { SupplierDetail, SupplierDetailSheet } from "./supplier-detail";
 import { DemoBanner, EmptyState, ErrorState } from "./search-states";
 import { scoreTone, SupplierCard, telHref } from "./supplier-card";
 import { IDLE, reduceEvent, type SearchState } from "./use-supplier-search";
@@ -25,7 +27,7 @@ describe("карточка результата", () => {
 
   it("контакты кликабельны, есть балл, причины и источник", () => {
     const item = ranked.find((r) => r.supplier.id === fullSupplier.id)!;
-    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onShortlist={() => {}} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onShortlist={() => {}} />);
     expect(screen.getByRole("link", { name: /\+7 495 000-00-01/ }).getAttribute("href")).toBe("tel:+74950000001");
     expect(screen.getByRole("link", { name: /sales@mukomol\.example\.ru/ }).getAttribute("href")).toBe("mailto:sales@mukomol.example.ru");
     expect(screen.getByRole("link", { name: /^mukomol\.example\.ru$/ }).getAttribute("target")).toBe("_blank");
@@ -39,7 +41,7 @@ describe("карточка результата", () => {
     const item = ranked[0];
     const cmp = vi.fn();
     const sl = vi.fn();
-    render(<SupplierCard item={item} selected={false} onToggleCompare={cmp} onShortlist={sl} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={cmp} onOpen={() => {}} onShortlist={sl} />);
     fireEvent.click(screen.getByRole("checkbox", { name: "К сравнению" }));
     fireEvent.click(screen.getByRole("button", { name: /В шортлист/ }));
     expect(cmp).toHaveBeenCalledWith(item.supplier.id);
@@ -48,7 +50,7 @@ describe("карточка результата", () => {
 
   it("нет данных — так и написано, а не пусто", () => {
     const item = ranked.find((r) => r.supplier.id === minimalSupplier.id)!;
-    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onShortlist={() => {}} />);
+    render(<SupplierCard item={item} selected={false} onToggleCompare={() => {}} onOpen={() => {}} onShortlist={() => {}} />);
     expect(screen.getAllByText(/нет данных/i).length).toBeGreaterThan(0);
   });
 
@@ -106,5 +108,38 @@ describe("комбобокс", () => {
     expect(onChange).toHaveBeenCalledWith("Казань");
     fireEvent.change(input, { target: { value: "своё" } });
     expect(onChange).toHaveBeenLastCalledWith("своё");
+  });
+});
+
+describe("детальная карточка и сравнение", () => {
+  const q: SearchQuery = query;
+  const ranked = rankSuppliers([fullSupplier, minimalSupplier], q);
+
+  it("пустые поля — «нет данных», заполненные — со ссылкой на источник и уверенностью", () => {
+    const item = ranked.find((r) => r.supplier.id === minimalSupplier.id)!;
+    render(<SupplierDetail item={item} />);
+    expect(screen.getAllByText("нет данных").length).toBeGreaterThan(5);
+    expect(screen.getByRole("heading", { name: "Почему такой балл" })).toBeTruthy();
+  });
+
+  it("источник поля — ссылка на его URL", () => {
+    const item = ranked.find((r) => r.supplier.id === fullSupplier.id)!;
+    render(<SupplierDetail item={item} />);
+    const link = screen.getByRole("link", { name: /Источник \(«минимальный заказ»\)/ });
+    expect(link.getAttribute("href")).toBe(fullSupplier.minOrder.sourceUrl);
+    expect(screen.getAllByText("высокая").length).toBeGreaterThan(0);
+  });
+
+  it("таблица сравнения подсвечивает лучшее и показывает пропуски", () => {
+    render(<CompareTable items={ranked} onOpen={() => {}} onRemove={() => {}} />);
+    expect(screen.getAllByText("лучшее").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("нет данных").length).toBeGreaterThan(3);
+    expect(screen.getByRole("button", { name: /Убрать из сравнения: Тест Мукомол/ })).toBeTruthy();
+  });
+
+  it("без результатов карточка объясняет, а не падает", () => {
+    render(<SupplierDetailSheet open item={null} status="missing" onClose={() => {}} onRestore={() => {}} />);
+    expect(screen.getByText(/нельзя открыть/)).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Повторить поиск из ссылки" })).toBeTruthy();
   });
 });
