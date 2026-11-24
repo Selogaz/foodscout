@@ -239,6 +239,22 @@ describe("границы входа помощника", () => {
     expect(cfg().assistDailyLlmLimit).toBe(50);
   });
 
+  it("длинные URL (до 2048 символов) проходят, прочие строки остаются в пределах 300", () => {
+    const longUrl = (n: number) => `https://example.com/catalog?${"x".repeat(n - "https://example.com/catalog?".length)}`;
+    const url = longUrl(2048);
+    expect(url).toHaveLength(2048);
+    const withUrls = {
+      ...fullSupplier,
+      website: { ...fullSupplier.website, value: url, sourceUrl: url },
+      sources: [...fullSupplier.sources, { ...fullSupplier.sources[0], url }],
+    };
+    expect(AdviseInputSchema.safeParse({ query, suppliers: [withUrls] }).success).toBe(true);
+    expect(DraftInputSchema.safeParse({ query, supplier: withUrls }).success).toBe(true);
+    const tooLong = longUrl(2049);
+    const bad = { ...withUrls, website: { ...withUrls.website, value: tooLong, sourceUrl: tooLong } };
+    expect(AdviseInputSchema.safeParse({ query, suppliers: [bad] }).success).toBe(false);
+  });
+
   it("ограничивает факты и использует шаблон при переполнении общего промпта", async () => {
     const text = "я".repeat(300);
     const cards = Array.from({ length: 8 }, (_, i) => ({

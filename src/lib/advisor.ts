@@ -231,9 +231,13 @@ export type Advice = {
 
 // В демо встречаются карточки с 20 регионами и 6 категориями. Сохраняем их для
 // скоринга, а для текста модели buildFacts выбирает только первые пять значений.
+// Длинные URL с query-параметрами не должны давать ложный отказ: ссылкам разрешено до 2048 символов.
+const URL_KEYS = new Set(["sourceUrl", "url", "documentUrl"]);
+const isUrlPath = (path: (string | number)[]) => URL_KEYS.has(String(path.at(-1))) || path.join(".") === "website.value";
 function boundedInput(value: unknown, ctx: z.RefinementCtx, path: (string | number)[] = []) {
-  if (typeof value === "string" && value.length > 300) {
-    ctx.addIssue({ code: "custom", path, message: "Допускается до 300 символов" });
+  const maxChars = isUrlPath(path) ? 2048 : 300;
+  if (typeof value === "string" && value.length > maxChars) {
+    ctx.addIssue({ code: "custom", path, message: `Допускается до ${maxChars} символов` });
   } else if (Array.isArray(value)) {
     const key = path.join(".");
     const max = ["delivery.regions.value", "workRegions.value", "categories"].includes(key) ? 64
