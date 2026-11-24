@@ -26,8 +26,11 @@ describe("yandexLrForLocation", () => {
   it("город приоритетнее региона", () => {
     expect(yandexLrForLocation({ regionId: "novosibirsk-oblast", cityId: "novosibirsk" })).toBe(65);
   });
-  it("регион без подтверждённого кода и без города даёт null", () => {
-    expect(yandexLrForLocation({ regionId: "tatarstan", cityId: null })).toBeNull();
+  it("регион без города берёт код региона из справочника Яндекса", () => {
+    expect(yandexLrForLocation({ regionId: "tatarstan", cityId: null })).toBe(11119);
+  });
+  it("неизвестный регион даёт null", () => {
+    expect(yandexLrForLocation({ regionId: "mars", cityId: null })).toBeNull();
   });
   it("регион с кодом", () => {
     expect(yandexLrForLocation({ regionId: "moscow-oblast", cityId: null })).toBe(1);
