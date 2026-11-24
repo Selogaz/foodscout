@@ -79,11 +79,12 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
       demo: true,
       demoReason: reason,
       demoMessage: DEMO_MESSAGES[reason],
+      demoInfo: demo.info,
       cached: false,
-      query,
+      query: demo.query,
       results: demo.results,
       warnings: demo.warnings,
-      stats: { durationMs: Date.now() - started, candidates: demo.results.length, suppliers: demo.results.length, costRub: 0 },
+      stats: { durationMs: Date.now() - started, candidates: demo.stats.candidates, suppliers: demo.results.length, costRub: 0 },
     });
   };
   /** В режиме auto — демо, в off — честная ошибка. */

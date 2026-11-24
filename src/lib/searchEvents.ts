@@ -34,6 +34,19 @@ export type WarningEvent = { type: "warning"; message: string };
 /** Почему вместо живого поиска показаны демо-данные. */
 export type DemoReason = "demo-mode" | "no-key" | "daily-limit" | "failed" | "timeout";
 
+/** Какой записанный прогон показан в демо и почему он выбран. */
+export type DemoInfo = {
+  runId: string;
+  /** Дата записи прогона (ISO). */
+  recordedAt: string;
+  /** exact — запрос совпал; nearest — ближайший по категории/региону; default — ничего похожего, прогон по умолчанию. */
+  match: "exact" | "nearest" | "default";
+  /** Запрос, по которому записан показанный прогон. */
+  shownLabel: string;
+  /** Запрос, который ввёл пользователь. */
+  requestedLabel: string;
+};
+
 export type ResultEvent = {
   type: "result";
   /** true — показаны записанные/демо-данные, а не живой поиск. */
@@ -41,6 +54,8 @@ export type ResultEvent = {
   demoReason?: DemoReason;
   /** Человекочитаемое пояснение для демо-режима. */
   demoMessage?: string;
+  /** Для demo: какой записанный прогон показан и когда он собран. */
+  demoInfo?: DemoInfo;
   /** true — ответ взят из кеша (повтор того же запроса). */
   cached: boolean;
   query: SearchQuery;

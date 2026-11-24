@@ -2,15 +2,25 @@ import { CircleAlertIcon, ClockIcon, FlaskConicalIcon, SearchXIcon } from "lucid
 import { Button } from "@/components/ui/button";
 import type { ErrorCode, ResultEvent } from "@/lib/searchEvents";
 
+const formatRecorded = (iso: string) => new Date(iso).toLocaleDateString("ru-RU", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" });
+
 export function DemoBanner({ result }: { result: ResultEvent }) {
+  const info = result.demoInfo;
   return (
     <div role="status" className="flex gap-3 rounded-xl border border-amber-500/40 bg-amber-50 p-4 text-sm text-amber-950 dark:bg-amber-950/40 dark:text-amber-100">
       <FlaskConicalIcon aria-hidden className="mt-0.5 size-5 shrink-0" />
       <div>
-        <p className="font-semibold">Показаны демо-данные</p>
+        <p className="font-semibold">Демо-данные{info ? `, собраны ${formatRecorded(info.recordedAt)}` : ""}</p>
         <p className="mt-0.5">
-          {result.demoMessage ?? "Это записанные данные, а не живой поиск."} Компании в демо вымышленные, сайты — заглушки.
+          {result.demoMessage ?? "Это записанные данные, а не живой поиск."} Это реальные результаты поиска по настоящим сайтам поставщиков, записанные заранее; у каждого значения есть ссылка на источник.
         </p>
+        {info && info.match !== "exact" && (
+          <p className="mt-1.5 font-medium" data-testid="demo-substitution">
+            {info.match === "nearest"
+              ? `Точного демо-запроса «${info.requestedLabel}» нет — показан ближайший по категории и региону: «${info.shownLabel}».`
+              : `Похожего демо-запроса на «${info.requestedLabel}» нет — показан запрос по умолчанию: «${info.shownLabel}».`}
+          </p>
+        )}
       </div>
     </div>
   );

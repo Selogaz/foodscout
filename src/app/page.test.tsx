@@ -12,7 +12,7 @@ describe("главная страница", () => {
     expect(screen.getByRole("combobox", { name: /Категория/ })).toBeTruthy();
     expect(screen.getByRole("combobox", { name: /Город или регион/ })).toBeTruthy();
     expect(screen.getByRole("button", { name: "Найти поставщиков" })).toBeTruthy();
-    expect(screen.getByRole("button", { name: "Мука пшеничная — Москва" })).toBeTruthy();
+    expect(screen.getByRole("button", { name: "Мука пшеничная — Краснодар" })).toBeTruthy();
     expect(screen.getByRole("contentinfo")).toBeTruthy();
     expect(screen.getByText("FoodScout")).toBeTruthy();
     expect(screen.getByRole("link", { name: "Шортлист" }).getAttribute("href")).toBe("/shortlist");

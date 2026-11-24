@@ -1,0 +1,591 @@
+{
+ "id": "yagody-zamorozka-novosibirsk",
+ "label": "Замороженные ягоды — Новосибирск",
+ "recordedAt": "2026-11-24T06:34:12.000Z",
+ "query": {
+  "category": {
+   "kind": "free",
+   "text": "замороженные ягоды оптом"
+  },
+  "product": "",
+  "location": {
+   "regionId": "novosibirsk-oblast",
+   "cityId": "novosibirsk"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "frozen",
+  "frozen-veg"
+ ],
+ "placeLabel": "Новосибирск",
+ "suppliers": [
+  {
+   "id": "zamorozka54-ru",
+   "name": "Арт-Плюс",
+   "website": {
+    "value": "https://zamorozka54.ru/",
+    "sourceUrl": "https://zamorozka54.ru/kontakty",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания реализует замороженные продукты оптом и в розницу, включая замороженные ягоды.",
+    "sourceUrl": "https://zamorozka54.ru/optovikam",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen-veg",
+    "fruit-veg"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7-913-917-03-36",
+      "sourceUrl": "https://zamorozka54.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "(383) 3-10-91-82",
+      "sourceUrl": "https://zamorozka54.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "209-20-83",
+      "sourceUrl": "https://zamorozka54.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "operator.art-plus@mail.ru",
+      "sourceUrl": "https://zamorozka54.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "art-plus.nsk@mail.ru",
+      "sourceUrl": "https://zamorozka54.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [],
+    "address": {
+     "value": "630520, Новосибирский район, пос. Красный Восток, ул. Советская, д. 76/2, 3 этаж",
+     "sourceUrl": "https://zamorozka54.ru/kontakty",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 550,
+     "max": 550,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Замороженный крыжовник 0 руб 550 руб 1 кг"
+    },
+    "sourceUrl": "https://zamorozka54.ru/catalog/yagody",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "gost",
+      "title": null,
+      "documentUrl": null
+     },
+     {
+      "type": "tu",
+      "title": null,
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://zamorozka54.ru/optovikam",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "novosibirsk"
+     ],
+     "sourceUrl": "https://zamorozka54.ru/optovikam",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка продукции по Новосибирску до Заказчика – бесплатно",
+     "sourceUrl": "https://zamorozka54.ru/optovikam",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "novosibirsk",
+     "novosibirsk-oblast",
+     "altai-krai",
+     "Кемерово",
+     "Томская область",
+     "Абакан",
+     "krasnoyarsk",
+     "irkutsk",
+     "omsk"
+    ],
+    "sourceUrl": "https://zamorozka54.ru/optovikam",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://zamorozka54.ru/kontakty",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:36.898Z"
+    },
+    {
+     "url": "https://zamorozka54.ru/catalog/yagody",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:36.898Z"
+    },
+    {
+     "url": "https://zamorozka54.ru/optovikam",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:36.898Z"
+    },
+    {
+     "url": "https://zamorozka54.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:36.898Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:36.898Z"
+  },
+  {
+   "id": "moroznsk-ru",
+   "name": "Moroz NSK",
+   "website": {
+    "value": "https://moroznsk.ru/",
+    "sourceUrl": "https://moroznsk.ru/contact/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания продаёт замороженные овощи, фрукты, ягоды, грибы и морепродукты с доставкой по Новосибирску.",
+    "sourceUrl": "https://moroznsk.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen-veg",
+    "fruit-veg"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 923 237 59 12",
+      "sourceUrl": "https://moroznsk.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@moroznsk.ru",
+      "sourceUrl": "https://moroznsk.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+79232375912"
+      },
+      "sourceUrl": "https://moroznsk.ru/contact/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Новосибирск",
+     "sourceUrl": "https://moroznsk.ru/contact/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 330,
+     "max": 350,
+     "currency": "RUB",
+     "unit": null,
+     "rawText": "Брусника замороженная 350 р уб. 330 р уб."
+    },
+    "sourceUrl": "https://moroznsk.ru/product-category/zamorozhennye-yagody/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "novosibirsk"
+     ],
+     "sourceUrl": "https://moroznsk.ru/dostavka/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка осуществляется по Новосибирску",
+     "sourceUrl": "https://moroznsk.ru/dostavka/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://moroznsk.ru/contact/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:40.446Z"
+    },
+    {
+     "url": "https://moroznsk.ru/product-category/zamorozhennye-yagody/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:40.446Z"
+    },
+    {
+     "url": "https://moroznsk.ru/dostavka/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:40.446Z"
+    },
+    {
+     "url": "https://moroznsk.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:40.446Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:40.446Z"
+  },
+  {
+   "id": "nsk-grossfood-ru",
+   "name": "Гросс Фуд",
+   "website": {
+    "value": "https://nsk.grossfood.ru/",
+    "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Поставщик продуктов питания оптом, в том числе замороженных фруктов и ягод.",
+    "sourceUrl": "https://nsk.grossfood.ru/catalog/rastitelnye-produkty/frukty-i-yagody/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen-veg",
+    "fruit-veg"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (925) 084-52-05",
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (495) 792-80-08",
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (912) 642-22-05",
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (913) 195-86-88",
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@grossfood.ru",
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "Gross_Food_manager"
+      },
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "gross_food"
+      },
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "max",
+       "handle": "id7724400648_biz"
+      },
+      "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 300,
+     "unit": "кг",
+     "rawText": "Если вас интересуют объемы от 300 кг , то можем рассмотреть привоз позиции под заказ."
+    },
+    "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставляем по всей России",
+     "sourceUrl": "https://nsk.grossfood.ru/contacts/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://nsk.grossfood.ru/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:50.445Z"
+    },
+    {
+     "url": "https://nsk.grossfood.ru/catalog/rastitelnye-produkty/frukty-i-yagody/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:50.445Z"
+    },
+    {
+     "url": "https://nsk.grossfood.ru/about/oplata/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:50.445Z"
+    },
+    {
+     "url": "https://nsk.grossfood.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:50.445Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:50.445Z"
+  },
+  {
+   "id": "sibdar-net",
+   "name": "ООО \"Дары Сибири\"",
+   "website": {
+    "value": "https://www.sibdar.net/",
+    "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания продаёт оптом и в розницу грибы, ягоды, орехи, травы и мёд, в том числе замороженные ягоды и овощи.",
+    "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "frozen-veg",
+    "fruit-veg"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (913) 453-53-90",
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (913) 781-80-90",
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (923) 132-06-90",
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     },
+     {
+      "value": "7-913-716-08-40",
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "sibdar_2015@mail.ru",
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "dikiy_sbor"
+      },
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "max",
+       "handle": "f9LHodD0cOJOWXe0t2OEK0yDYtwt9s4S-ZGGvflErN9eu3QjvXygfHTVWww"
+      },
+      "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Новосибирск, Королева 40 корпус 45",
+     "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 1500,
+     "unit": "рублей",
+     "rawText": "Отгружаем при заказе от 1500 рублей."
+    },
+    "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 510,
+     "max": 510,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Клюква 1кг Доставка ягоды только для жителей Новосибирска. Цена розничная 510 руб."
+    },
+    "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "novosibirsk",
+      "Россия"
+     ],
+     "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Бесплатная доставка по Новосибирску от 1 500 р., отправка по России транспортными компаниями",
+     "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://www.sibdar.net/catalog/yagody/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:56.056Z"
+    },
+    {
+     "url": "https://www.sibdar.net/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:56.056Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:56.056Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 37166,
+  "candidates": 6,
+  "suppliers": 4,
+  "costRub": 23.8894
+ },
+ "sanitized": {
+  "excluded": [
+   {
+    "domain": "yagodadagriby.ru",
+    "reason": "розничный магазин грибов и ягод (цена за штуку, МОЗ — 1 шт), не поставщик"
+   },
+   {
+    "domain": "siberianland.ru",
+    "reason": "розничный интернет-магазин (фасовка 500 г, минимальный заказ 1500 ₽)"
+   }
+  ],
+  "removed": [
+   "nsk-grossfood-ru: личная почта сотрудника"
+  ]
+ }
+}

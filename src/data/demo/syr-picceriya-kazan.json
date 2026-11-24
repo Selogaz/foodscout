@@ -1,0 +1,817 @@
+{
+ "id": "syr-picceriya-kazan",
+ "label": "Сыр для пиццерии — Казань",
+ "recordedAt": "2026-11-24T06:34:12.000Z",
+ "query": {
+  "category": {
+   "kind": "free",
+   "text": "сыр для пиццерии"
+  },
+  "product": "",
+  "location": {
+   "regionId": "tatarstan",
+   "cityId": "kazan"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "ingredients",
+  "dairy"
+ ],
+ "placeLabel": "Казань",
+ "suppliers": [
+  {
+   "id": "marr-ru",
+   "name": "МАРР РУССИЯ",
+   "website": {
+    "value": "https://marr.ru/",
+    "sourceUrl": "https://marr.ru/contacts",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Поставщик продуктов питания оптом для ресторанов, кафе и баров, включая сыры для пиццы.",
+    "sourceUrl": "https://marr.ru/catalog/assortiment-dlya-pitstsy/syry-dlya-pitstsy",
+    "confidence": "medium"
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (495) 663-83-21",
+      "sourceUrl": "https://marr.ru/contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (495) 785-39-44",
+      "sourceUrl": "https://marr.ru/contacts",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@marr.ru",
+      "sourceUrl": "https://marr.ru/contacts",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "max",
+       "handle": "id7729409940_biz"
+      },
+      "sourceUrl": "https://marr.ru/contacts",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "143006, Московская обл, г. Одинцово, ул. Восточная, д. 5",
+     "sourceUrl": "https://marr.ru/contacts",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://marr.ru/contacts",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:21.740Z"
+    },
+    {
+     "url": "https://marr.ru/catalog/assortiment-dlya-pitstsy/syry-dlya-pitstsy",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:21.740Z"
+    },
+    {
+     "url": "https://marr.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:21.740Z"
+    },
+    {
+     "url": "https://marr.ru/about",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:21.740Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:21.740Z"
+  },
+  {
+   "id": "gurman-llc-ru",
+   "name": "Торговый Дом \"Гурман\"",
+   "website": {
+    "value": "https://gurman-llc.ru/",
+    "sourceUrl": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Торговый дом «Гурман» поставляет продукты для HoReCa, в том числе сыр Моцарелла для пиццерий, ресторанов, кафе и баров.",
+    "sourceUrl": "https://gurman-llc.ru/catalog/syry/filter/cheese_type-is-mocarella/apply/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (495) 133-00-60",
+      "sourceUrl": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (495) 640-24-94",
+      "sourceUrl": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "office@gurman-llc.ru",
+      "sourceUrl": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [],
+    "address": {
+     "value": "117342, г.Москва,ул.Бутлерова, д. 17Б, этаж 2,пом. XI, ком.60е,оф.21",
+     "sourceUrl": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 340,
+     "max": 340,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Моцарелла для пиццы \"Extra Topping\" Цена 340 ₽/кг"
+    },
+    "sourceUrl": "https://gurman-llc.ru/catalog/syry/filter/cheese_type-is-mocarella/apply/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow"
+     ],
+     "sourceUrl": "https://gurman-llc.ru/payment/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка на следующий рабочий день",
+     "sourceUrl": "https://gurman-llc.ru/payment/",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://gurman-llc.ru/payment/",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "Россия"
+    ],
+    "sourceUrl": "https://gurman-llc.ru/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://gurman-llc.ru/o_kompanii/rekvizity/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:14.772Z"
+    },
+    {
+     "url": "https://gurman-llc.ru/catalog/syry/filter/cheese_type-is-mocarella/apply/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:14.772Z"
+    },
+    {
+     "url": "https://gurman-llc.ru/payment/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:14.772Z"
+    },
+    {
+     "url": "https://gurman-llc.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:14.772Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:14.772Z"
+  },
+  {
+   "id": "farfatorre-ru",
+   "name": "ООО \"Инлут\"",
+   "website": {
+    "value": "https://farfatorre.ru/",
+    "sourceUrl": "https://farfatorre.ru/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производит и поставляет сыры моцарелла для ресторанов, кафе, пекарен и пиццерий.",
+    "sourceUrl": "https://farfatorre.ru/",
+    "confidence": "low"
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (905) 038 20 96",
+      "sourceUrl": "https://farfatorre.ru/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@farfatorre.ru",
+      "sourceUrl": "https://farfatorre.ru/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+79050382096"
+      },
+      "sourceUrl": "https://farfatorre.ru/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "+79050382096"
+      },
+      "sourceUrl": "https://farfatorre.ru/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Казань, ул. Бухарская 4В",
+     "sourceUrl": "https://farfatorre.ru/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://farfatorre.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:14.542Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:14.542Z"
+  },
+  {
+   "id": "gfc-russia-ru",
+   "name": "GFC-Russia",
+   "website": {
+    "value": "https://gfc-russia.ru/",
+    "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Поставщик продуктов питания для HoReCa, включая сыр моцарелла для пиццы оптом.",
+    "sourceUrl": "https://gfc-russia.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (800) 550-41-83",
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 903 410 60 20",
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "msk@gfc-russia.ru",
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     },
+     {
+      "value": "zakupadr@gfc-russia.ru",
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     },
+     {
+      "value": "marketing@gfc-russia.ru",
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+79034106020"
+      },
+      "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "gfcrussia"
+      },
+      "sourceUrl": "https://gfc-russia.ru/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "123022, г. Москва, Звенигородское шоссе, д. 9/27с1",
+     "sourceUrl": "https://gfc-russia.ru/contacts/moskva",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 1,
+     "unit": "кг",
+     "rawText": "Минимальный заказ: 1 кг"
+    },
+    "sourceUrl": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 523,
+     "max": 523,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "523 ₽ / кг"
+    },
+    "sourceUrl": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "halal",
+      "title": null,
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow",
+      "moscow-oblast",
+      "Россия"
+     ],
+     "sourceUrl": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "доставка по Москве, Московской области и регионам России",
+     "sourceUrl": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://gfc-russia.ru/delivery/moskva",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "Россия"
+    ],
+    "sourceUrl": "https://gfc-russia.ru/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://gfc-russia.ru/contacts/moskva",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:32.330Z"
+    },
+    {
+     "url": "https://gfc-russia.ru/catalog/moloko-syr-yaytsa/syr/criterii-mocarella-dlya-piccy",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:32.330Z"
+    },
+    {
+     "url": "https://gfc-russia.ru/delivery/moskva",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:32.330Z"
+    },
+    {
+     "url": "https://gfc-russia.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:32.330Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:32.330Z"
+  },
+  {
+   "id": "vamintatarstan-ru",
+   "name": "Вамин Татарстан",
+   "website": {
+    "value": "https://vamintatarstan.ru/",
+    "sourceUrl": "https://vamintatarstan.ru/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 600-02-42",
+      "sourceUrl": "https://vamintatarstan.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@vamintatarstan.ru",
+      "sourceUrl": "https://vamintatarstan.ru/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "marketing@vamintatarstan.ru",
+      "sourceUrl": "https://vamintatarstan.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "vamin_official"
+      },
+      "sourceUrl": "https://vamintatarstan.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "420061, г. Казань, ул. Николая Ершова, 28а, 5 этаж",
+     "sourceUrl": "https://vamintatarstan.ru/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 1,
+     "unit": "тонны",
+     "rawText": "Для СТМ партнеров: партии от 1 тонны"
+    },
+    "sourceUrl": "https://vamintatarstan.ru/partnership/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "gost",
+      "title": null,
+      "documentUrl": null
+     },
+     {
+      "type": "halal",
+      "title": null,
+      "documentUrl": null
+     },
+     {
+      "type": "iso",
+      "title": null,
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://vamintatarstan.ru/products/syr-dlya-pasty-i-pitsy/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия",
+      "СНГ",
+      "MENA"
+     ],
+     "sourceUrl": "https://vamintatarstan.ru/partnership/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка по всей России, странам СНГ, странам MENA",
+     "sourceUrl": "https://vamintatarstan.ru/partnership/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "Россия"
+    ],
+    "sourceUrl": "https://vamintatarstan.ru/partnership/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://vamintatarstan.ru/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:28.440Z"
+    },
+    {
+     "url": "https://vamintatarstan.ru/products/syr-dlya-pasty-i-pitsy/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:28.440Z"
+    },
+    {
+     "url": "https://vamintatarstan.ru/partnership/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:28.440Z"
+    },
+    {
+     "url": "https://vamintatarstan.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:28.440Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:28.440Z"
+  },
+  {
+   "id": "ekorfish-com",
+   "name": "ПТК Экор",
+   "website": {
+    "value": "https://ekorfish.com/",
+    "sourceUrl": "https://ekorfish.com/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Оптовый поставщик продуктов питания для ресторанов, сетей и производств, включая сыр Моцарелла для пиццы.",
+    "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "dairy",
+    "dairy-products"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 505-01-82",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (495) 637-82-28",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (812) 509-52-67",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (861) 212-10-73",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@ekorfish.ru",
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "ekor_bot"
+      },
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     },
+     {
+      "value": {
+       "kind": "max",
+       "handle": "id7722379983_bot"
+      },
+      "sourceUrl": "https://ekorfish.com/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Москва, Открытое шоссе, 13, стр. 1",
+     "sourceUrl": "https://ekorfish.com/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 3000,
+     "unit": "₽",
+     "rawText": "Самовывоз — от 3 000 ₽"
+    },
+    "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 816.38,
+     "max": 816.38,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Цена: 816,38 ₽ / кг"
+    },
+    "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "eaeu-declaration",
+      "title": "Декларация до 15.01.2030",
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow"
+     ],
+     "sourceUrl": "https://ekorfish.com/delivery/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка (бесплатно) — от 5 000 ₽",
+     "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "moscow",
+     "saint-petersburg",
+     "krasnodar"
+    ],
+    "sourceUrl": "https://ekorfish.com/contacts/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://ekorfish.com/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:29.177Z"
+    },
+    {
+     "url": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:29.177Z"
+    },
+    {
+     "url": "https://ekorfish.com/delivery/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:29.177Z"
+    },
+    {
+     "url": "https://ekorfish.com/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:31:29.177Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:31:29.177Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 35765,
+  "candidates": 6,
+  "suppliers": 6,
+  "costRub": 21.063199999999995
+ },
+ "sanitized": {
+  "excluded": [],
+  "removed": []
+ }
+}

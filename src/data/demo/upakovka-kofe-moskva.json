@@ -1,0 +1,742 @@
+{
+ "id": "upakovka-kofe-moskva",
+ "label": "Упаковка для кофе — Москва",
+ "recordedAt": "2026-11-24T06:34:12.000Z",
+ "query": {
+  "category": {
+   "kind": "free",
+   "text": "упаковка для кофе"
+  },
+  "product": "",
+  "location": {
+   "regionId": "moscow",
+   "cityId": "moscow"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "packaging",
+  "film-bags"
+ ],
+ "placeLabel": "Москва",
+ "suppliers": [
+  {
+   "id": "edaprof-ru",
+   "name": "ЕдаПроф",
+   "website": {
+    "value": "https://edaprof.ru/",
+    "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания предлагает оптом упаковку для кофе и другие товары для производства еды.",
+    "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "packaging",
+    "film-bags",
+    "containers",
+    "paper-cardboard",
+    "labels",
+    "disposable-tableware"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (495) 123-30-01",
+      "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+      "confidence": "high"
+     },
+     {
+      "value": "+78126789774",
+      "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@edaprof.ru",
+      "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "max",
+       "handle": "f9LHodD0cOIUzhoM2LVNUYLDXV7TRsPVq1p3nhoY4svw6P4TWMbHrAyeuac"
+      },
+      "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка во все города России",
+     "sourceUrl": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://edaprof.ru/upakovka/upakovka-dlya-kofe/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:05.382Z"
+    },
+    {
+     "url": "https://edaprof.ru/upakovka/termosumka-dlya-dostavki-edy/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:05.382Z"
+    },
+    {
+     "url": "https://edaprof.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:05.382Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:05.382Z"
+  },
+  {
+   "id": "abcpack-official-ru",
+   "name": "ABC-pack",
+   "website": {
+    "value": "https://abcpack-official.ru/",
+    "sourceUrl": "https://abcpack-official.ru/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производитель гибкой упаковки и тубусов, в том числе упаковки для кофе.",
+    "sourceUrl": "https://abcpack-official.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "packaging",
+    "film-bags",
+    "containers"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (495) 777-66-80",
+      "sourceUrl": "https://abcpack-official.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "zakaz@abcpack-official.ru",
+      "sourceUrl": "https://abcpack-official.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [],
+    "address": {
+     "value": "Москва",
+     "sourceUrl": "https://abcpack-official.ru/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 12,
+     "max": 27,
+     "currency": "RUB",
+     "unit": null,
+     "rawText": "Стоимость 12 - 27 руб."
+    },
+    "sourceUrl": "https://abcpack-official.ru/kofe/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://abcpack-official.ru/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:08.798Z"
+    },
+    {
+     "url": "https://abcpack-official.ru/kofe/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:08.798Z"
+    },
+    {
+     "url": "https://abcpack-official.ru/delivery/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:08.798Z"
+    },
+    {
+     "url": "https://abcpack-official.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:08.798Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:08.798Z"
+  },
+  {
+   "id": "zippack-ru",
+   "name": "ZIPPACK.RU",
+   "website": {
+    "value": "https://zippack.ru/",
+    "sourceUrl": "https://zippack.ru/categories/upakovka-dlya-kofe",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Оптовый интернет-магазин упаковки для бизнеса, в том числе упаковки для кофе с клапаном дегазации.",
+    "sourceUrl": "https://zippack.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "packaging",
+    "film-bags",
+    "containers"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 499 346-63-39",
+      "sourceUrl": "https://zippack.ru/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 800 333-47-50",
+      "sourceUrl": "https://zippack.ru/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 905 955-55-32",
+      "sourceUrl": "https://zippack.ru/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "zippack_bot"
+      },
+      "sourceUrl": "https://zippack.ru/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Москва, ул. Складочная, 3стр 5",
+     "sourceUrl": "https://zippack.ru/",
+     "confidence": "medium"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 50,
+     "unit": "штук",
+     "rawText": "Отгрузка от 50 штук одного артикула"
+    },
+    "sourceUrl": "https://zippack.ru/categories/upakovka-dlya-kofe",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://zippack.ru/categories/upakovka-dlya-kofe",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка по России по тарифам ТК",
+     "sourceUrl": "https://zippack.ru/categories/upakovka-dlya-kofe",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://zippack.ru/",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://zippack.ru/categories/upakovka-dlya-kofe",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:05.427Z"
+    },
+    {
+     "url": "https://zippack.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:05.427Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:05.427Z"
+  },
+  {
+   "id": "tvoypaket-ru",
+   "name": "ООО \"Витон\"",
+   "website": {
+    "value": "https://tvoypaket.ru/",
+    "sourceUrl": "https://tvoypaket.ru/kontakty",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания производит гибкую упаковку, в том числе пакеты для кофе.",
+    "sourceUrl": "https://tvoypaket.ru/pakety-dlya-kofe",
+    "confidence": "medium"
+   },
+   "categories": [
+    "packaging",
+    "film-bags"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 350-59-89",
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (495) 123-39-79",
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (495) 542-73-23",
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (495) 542-73-53",
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "viton@tvoypaket.ru",
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "max",
+       "handle": "https://max.ru/u/f9LHodD0cOK5xklT5rspY8HpUTfTS3XJYqhF5Cptx9RLec7_XGjD3TcHEDA"
+      },
+      "sourceUrl": "https://tvoypaket.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Москва, Варшавское шоссе, 37А",
+     "sourceUrl": "https://tvoypaket.ru/kontakty",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 4.5,
+     "max": 4.5,
+     "currency": "RUB",
+     "unit": null,
+     "rawText": "Цена клапана дегазации- 4,50 р."
+    },
+    "sourceUrl": "https://tvoypaket.ru/kontakty",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://tvoypaket.ru/kontakty",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:14.269Z"
+    },
+    {
+     "url": "https://tvoypaket.ru/pakety-dlya-kofe",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:14.269Z"
+    },
+    {
+     "url": "https://tvoypaket.ru/dostavka",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:14.269Z"
+    },
+    {
+     "url": "https://tvoypaket.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:14.269Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:14.269Z"
+  },
+  {
+   "id": "webpack-ru",
+   "name": "WebPack",
+   "website": {
+    "value": "https://webpack.ru/",
+    "sourceUrl": "https://webpack.ru/kontakty/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания продаёт упаковочные материалы оптом и в розницу, включая пакеты для кофе.",
+    "sourceUrl": "https://webpack.ru/po-vidam-deyatelnosti/pakety-dlya-kofe/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "packaging",
+    "film-bags",
+    "containers",
+    "paper-cardboard"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (800) 500-41-07",
+      "sourceUrl": "https://webpack.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (495) 540-47-06",
+      "sourceUrl": "https://webpack.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "mail@webpack.ru",
+      "sourceUrl": "https://webpack.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "webpack_upakovka"
+      },
+      "sourceUrl": "https://webpack.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "111020, г. Москва, ул. Боровая, д. 7, стр. 7",
+     "sourceUrl": "https://webpack.ru/kontakty/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://webpack.ru/kontakty/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:15.147Z"
+    },
+    {
+     "url": "https://webpack.ru/po-vidam-deyatelnosti/pakety-dlya-kofe/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:15.147Z"
+    },
+    {
+     "url": "https://webpack.ru/po-vidam-deyatelnosti/upakovka-dlya-dostavki-edy-i-na-vynos/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:15.147Z"
+    },
+    {
+     "url": "https://webpack.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:15.147Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:15.147Z"
+  },
+  {
+   "id": "univerpaq-ru",
+   "name": "ООО «УНИВЕРПАК»",
+   "website": {
+    "value": "https://univerpaq.ru/",
+    "sourceUrl": "https://univerpaq.ru/page/contacts",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания продаёт упаковку и сопутствующие товары для бизнеса, включая упаковку для кофе.",
+    "sourceUrl": "https://univerpaq.ru/page/priglashaem-k-partnerstvu",
+    "confidence": "low"
+   },
+   "categories": [
+    "packaging",
+    "containers",
+    "film-bags",
+    "paper-cardboard",
+    "labels",
+    "disposable-tableware"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8(800)222-69-33",
+      "sourceUrl": "https://univerpaq.ru/page/contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7(499)755-69-72",
+      "sourceUrl": "https://univerpaq.ru/page/contacts",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "office@univerpaq.ru",
+      "sourceUrl": "https://univerpaq.ru/page/contacts",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "univerpaq"
+      },
+      "sourceUrl": "https://univerpaq.ru/page/contacts",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "г. Москва, Можайское шоссе 25",
+     "sourceUrl": "https://univerpaq.ru/page/contacts",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 5000,
+     "unit": "шт",
+     "rawText": "Кратность продажи: 5000 шт"
+    },
+    "sourceUrl": "https://univerpaq.ru/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow"
+     ],
+     "sourceUrl": "https://univerpaq.ru/page/dostavka-i-oplata",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка в пределах МКАД при сумме заказа до 30 000 руб - 1700 руб. Свыше - БЕСПЛАТНО",
+     "sourceUrl": "https://univerpaq.ru/page/dostavka-i-oplata",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://univerpaq.ru/page/dostavka-i-oplata",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://univerpaq.ru/page/contacts",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:20.161Z"
+    },
+    {
+     "url": "https://univerpaq.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:20.161Z"
+    },
+    {
+     "url": "https://univerpaq.ru/page/dostavka-i-oplata",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:20.161Z"
+    },
+    {
+     "url": "https://univerpaq.ru/page/priglashaem-k-partnerstvu",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T06:30:20.161Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T06:30:20.161Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 32175,
+  "candidates": 6,
+  "suppliers": 6,
+  "costRub": 21.516299999999998
+ },
+ "sanitized": {
+  "excluded": [],
+  "removed": [
+   "edaprof-ru: мессенджер на номер, которого нет среди телефонов компании"
+  ]
+ }
+}

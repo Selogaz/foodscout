@@ -32,7 +32,9 @@ export async function POST(req: Request) {
   const ctx = createRuntimeContext(req.signal);
   const config = ctx.config;
 
-  const limit = ctx.state.limiter.take(clientIp(req));
+  // В режиме «только демо» запрос ничего не стоит (ответ из записанных данных): лимит здесь только мешал бы
+  // проверяющему пройти по примерам подряд. Живой поиск за лимитом остаётся.
+  const limit = config.demoMode === "on" ? { ok: true as const } : ctx.state.limiter.take(clientIp(req));
   if (!limit.ok) {
     return jsonError(
       429,

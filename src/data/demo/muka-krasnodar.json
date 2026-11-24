@@ -1,0 +1,697 @@
+{
+ "id": "muka-krasnodar",
+ "label": "Мука пшеничная — Краснодар",
+ "recordedAt": "2026-11-24T07:21:41.389Z",
+ "query": {
+  "category": {
+   "kind": "catalog",
+   "categoryId": "ingredients",
+   "subcategoryId": "flour-cereals"
+  },
+  "product": "мука пшеничная высшего сорта",
+  "location": {
+   "regionId": "krasnodar-krai",
+   "cityId": "krasnodar"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "ingredients",
+  "flour-cereals"
+ ],
+ "placeLabel": "Краснодар",
+ "suppliers": [
+  {
+   "id": "opt23-ru",
+   "name": "ЮГОПТТОРГ-23",
+   "website": {
+    "value": "https://opt23.ru/",
+    "sourceUrl": "https://opt23.ru/kontakty/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "flour-cereals",
+    "ingredients"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (861) 236-08-55",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "(861) 232-18-51",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (989) 111-00-23",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (989) 299-00-23",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "8 (989) 008-00-23",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@ugopttorg-23.ru",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "sale@ugopttorg-23.ru",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     },
+     {
+      "value": "manager@ugopttorg-23.ru",
+      "sourceUrl": "https://opt23.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [],
+    "address": {
+     "value": "г. Краснодар, Симферопольская 62",
+     "sourceUrl": "https://opt23.ru/kontakty/",
+     "confidence": "medium"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 20,
+     "max": 20,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "20 ₽ За 1 кг"
+    },
+    "sourceUrl": "https://opt23.ru/catalog/muka-pshenichnaya/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "gost",
+      "title": null,
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://opt23.ru/catalog/muka-pshenichnaya/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://opt23.ru/kontakty/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:14.073Z"
+    },
+    {
+     "url": "https://opt23.ru/catalog/muka-pshenichnaya/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:14.073Z"
+    },
+    {
+     "url": "https://opt23.ru/price-list/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:14.073Z"
+    },
+    {
+     "url": "https://opt23.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:14.073Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:14.073Z"
+  },
+  {
+   "id": "krasnodar-ramkhp-ru",
+   "name": "АО «Раменский комбинат хлебопродуктов»",
+   "website": {
+    "value": "https://krasnodar.ramkhp.ru/",
+    "sourceUrl": "https://krasnodar.ramkhp.ru/kontakty/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производит и продаёт оптом натуральную пшеничную муку и комбикорм.",
+    "sourceUrl": "https://krasnodar.ramkhp.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "flour-cereals"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 (804) 700-18-14",
+      "sourceUrl": "https://krasnodar.ramkhp.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "post@ramkhp.ru",
+      "sourceUrl": "https://krasnodar.ramkhp.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "ramensky_kombikorm"
+      },
+      "sourceUrl": "https://krasnodar.ramkhp.ru/kontakty/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "140152, Московская область, г. Раменское, посёлок Дружба",
+     "sourceUrl": "https://krasnodar.ramkhp.ru/kontakty/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 1,
+     "unit": "тонны",
+     "rawText": "Оптовик (от 1 тонны)"
+    },
+    "sourceUrl": "https://krasnodar.ramkhp.ru/shop/flour/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 1590,
+     "max": 1590,
+     "currency": "RUB",
+     "unit": "50кг",
+     "rawText": "Мука пшеничная хлебопекарная высший сорт – 50кг 1590,00 ₽"
+    },
+    "sourceUrl": "https://krasnodar.ramkhp.ru/shop/flour/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://krasnodar.ramkhp.ru/services/dostavka/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка во все регионы России, стоимость рассчитывается индивидуально исходя из тарифа за 1 км",
+     "sourceUrl": "https://krasnodar.ramkhp.ru/services/dostavka/",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://krasnodar.ramkhp.ru/kontakty/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:13.912Z"
+    },
+    {
+     "url": "https://krasnodar.ramkhp.ru/shop/flour/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:13.912Z"
+    },
+    {
+     "url": "https://krasnodar.ramkhp.ru/services/dostavka/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:13.912Z"
+    },
+    {
+     "url": "https://krasnodar.ramkhp.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:13.912Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:13.912Z"
+  },
+  {
+   "id": "krd-mukomoloff-ru",
+   "name": "Мукомолофф",
+   "website": {
+    "value": "https://krd.mukomoloff.ru/",
+    "sourceUrl": "https://krd.mukomoloff.ru/contact/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "flour-cereals",
+    "ingredients"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (861) 204-02-70",
+      "sourceUrl": "https://krd.mukomoloff.ru/contact/",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (926) 533-21-77",
+      "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "krd@mukomoloff.ru",
+      "sourceUrl": "https://krd.mukomoloff.ru/contact/",
+      "confidence": "high"
+     },
+     {
+      "value": "zakaz@mukomoloff.ru",
+      "sourceUrl": "https://krd.mukomoloff.ru/delivery/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+7 (926) 533-21-77"
+      },
+      "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Краснодар, улица Почтовое отделение № 27, 1Б",
+     "sourceUrl": "https://krd.mukomoloff.ru/contact/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 500,
+     "unit": "кг",
+     "rawText": "Минимальная партия для отгрузки - 500 кг."
+    },
+    "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "other",
+      "title": "сертификат качества и соответствия",
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "krasnodar",
+      "Россия"
+     ],
+     "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "С доставкой в Краснодаре и в другие города и населенные пункты России",
+     "sourceUrl": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://krd.mukomoloff.ru/delivery/",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://krd.mukomoloff.ru/contact/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:12.517Z"
+    },
+    {
+     "url": "https://krd.mukomoloff.ru/catalog/muka-pshenichnaya-vysshiy-sort-optom/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:12.517Z"
+    },
+    {
+     "url": "https://krd.mukomoloff.ru/delivery/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:12.517Z"
+    },
+    {
+     "url": "https://krd.mukomoloff.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:12.517Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:12.517Z"
+  },
+  {
+   "id": "yuzhnaya-melnica-ru",
+   "name": "ООО «Южная мельница»",
+   "website": {
+    "value": "https://yuzhnaya-melnica.ru/",
+    "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Производит и оптом поставляет пшеничную муку высшего и 1 сорта и отруби.",
+    "sourceUrl": "https://yuzhnaya-melnica.ru/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "flour-cereals",
+    "ingredients"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (905) 472-80-77",
+      "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (918) 156-23-14",
+      "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "melnizaooo2019@yandex.ru",
+      "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "whatsapp",
+       "handle": "+79054728077"
+      },
+      "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Республика Адыгея, 385233, Теучежский район, Шевченко х, Мира ул, дом № 1Г, офис 1",
+     "sourceUrl": "https://yuzhnaya-melnica.ru/kontakty",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 20,
+     "unit": "тонн",
+     "rawText": "Оптовые партии от 20 тонн."
+    },
+    "sourceUrl": "https://yuzhnaya-melnica.ru/",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": {
+     "min": 26,
+     "max": 26,
+     "currency": "RUB",
+     "unit": "кг",
+     "rawText": "Мука пшеничная высший сорт в мешках 50 кг от 26* руб. /кг"
+    },
+    "sourceUrl": "https://yuzhnaya-melnica.ru/katalog/muka-pshenichnaya-vysshiy-sort-optom",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": [
+     {
+      "type": "gost",
+      "title": "ГОСТ 52189-2003",
+      "documentUrl": null
+     }
+    ],
+    "sourceUrl": "https://yuzhnaya-melnica.ru/",
+    "confidence": "high"
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "Россия"
+     ],
+     "sourceUrl": "https://yuzhnaya-melnica.ru/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "доставка в Краснодар",
+     "sourceUrl": "https://yuzhnaya-melnica.ru/katalog/muka-pshenichnaya-vysshiy-sort-optom",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "krasnodar",
+     "Россия"
+    ],
+    "sourceUrl": "https://yuzhnaya-melnica.ru/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://yuzhnaya-melnica.ru/kontakty",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:24.539Z"
+    },
+    {
+     "url": "https://yuzhnaya-melnica.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:24.539Z"
+    },
+    {
+     "url": "https://yuzhnaya-melnica.ru/katalog/muka-pshenichnaya-vysshiy-sort-optom",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:24.539Z"
+    },
+    {
+     "url": "https://yuzhnaya-melnica.ru/uslugi/proizvodstvo-pod-stm",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:24.539Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:24.539Z"
+  },
+  {
+   "id": "agrokomplexshop-ru",
+   "name": "АО фирма «Агрокомплекс» им. Н.И. Ткачёва",
+   "website": {
+    "value": "https://agrokomplexshop.ru/",
+    "sourceUrl": "https://agrokomplexshop.ru/contacts/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "categories": [
+    "flour-cereals"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 800 250-8-925",
+      "sourceUrl": "https://agrokomplexshop.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@agrokomplexshop.ru",
+      "sourceUrl": "https://agrokomplexshop.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "agrokomplex"
+      },
+      "sourceUrl": "https://agrokomplexshop.ru/contacts/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Краснодарский край, г. Краснодар, ул. В.Н. Мачуги 76",
+     "sourceUrl": "https://agrokomplexshop.ru/contacts/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "moscow",
+      "krasnodar",
+      "rostov-on-don",
+      "stavropol",
+      "sochi",
+      "Адлер",
+      "Новороссийск",
+      "Анапа",
+      "Геленджик",
+      "Ейск",
+      "Туапсе",
+      "Горячий ключ",
+      "Шахты",
+      "Невинномысск",
+      "Таганрог",
+      "Пятигорск",
+      "Ессентуки",
+      "Кисловодск",
+      "Майкоп",
+      "Выселки"
+     ],
+     "sourceUrl": "https://agrokomplexshop.ru/delivery-and-payment/",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "Доставка осуществляется курьером.",
+     "sourceUrl": "https://agrokomplexshop.ru/delivery-and-payment/",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://agrokomplexshop.ru/contacts/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:25.713Z"
+    },
+    {
+     "url": "https://agrokomplexshop.ru/catalog/bakaleya/vse_dlya_vypechki_i_desertov/muka/muka_pshenichnaya_vysshego_sorta_agrokompleks_2kg/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:25.713Z"
+    },
+    {
+     "url": "https://agrokomplexshop.ru/delivery-and-payment/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:25.713Z"
+    },
+    {
+     "url": "https://agrokomplexshop.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:21:25.713Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:21:25.713Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 35857,
+  "candidates": 6,
+  "suppliers": 5,
+  "costRub": 17.9634
+ },
+ "sanitized": {
+  "excluded": [],
+  "removed": []
+ }
+}

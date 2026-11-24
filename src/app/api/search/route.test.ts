@@ -54,6 +54,14 @@ describe("POST /api/search", () => {
     expect((await res.json()).message).toMatch(/Слишком много запросов/);
     expect((await call(validQueryFixtures.catalogMoscow, "8.8.8.8")).status).toBe(200);
   });
+
+  it("DEMO_MODE=on: лимит не применяется (ответ из записи ничего не стоит), в ответе есть дата записи", async () => {
+    vi.stubEnv("DEMO_MODE", "on");
+    for (let i = 0; i < 8; i++) expect((await call(validQueryFixtures.catalogMoscow, "7.7.7.7")).status).toBe(200);
+    const res = await call(validQueryFixtures.catalogMoscow, "7.7.7.7");
+    const last = (await res.text()).trim().split("\n").map((l) => JSON.parse(l) as SearchEvent).at(-1);
+    expect(last).toMatchObject({ type: "result", demo: true, demoReason: "demo-mode", demoInfo: { match: "nearest" } });
+  });
 });
 
 describe("клиент streamSearch", () => {

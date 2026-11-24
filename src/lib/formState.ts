@@ -9,6 +9,7 @@ import {
   type CertificateType,
   type SearchQuery,
 } from "@/domain";
+import { DEMO_EXAMPLES } from "@/data/demo/examples";
 
 /** Состояние формы поиска. Всё, что здесь лежит, переживает перезагрузку через URL. */
 export type FormState = {
@@ -152,21 +153,8 @@ export function hasFormParams(params: URLSearchParams): boolean {
 
 export type ExampleQuery = { label: string; form: FormState };
 
-export const EXAMPLES: ExampleQuery[] = [
-  {
-    label: "Мука пшеничная — Москва",
-    form: { ...EMPTY_FORM, category: "Мука, крупы, злаки", product: "мука пшеничная в/с", location: "Москва", certificates: ["gost"] },
-  },
-  {
-    label: "Упаковка для кофе — Краснодар",
-    form: { ...EMPTY_FORM, category: "крафтовая упаковка для кофе", location: "Краснодарский край", needDelivery: true },
-  },
-  {
-    label: "Мясо и птица — Санкт-Петербург",
-    form: { ...EMPTY_FORM, category: "Мясо, рыба, птица", product: "охлаждённая курица оптом", location: "Санкт-Петербург", certificates: ["haccp"], needDelivery: true },
-  },
-  {
-    label: "Специи оптом — Казань",
-    form: { ...EMPTY_FORM, category: "Специи и пряные травы", product: "паприка, чёрный перец", location: "Казань" },
-  },
-];
+/** Чипы-примеры = записанные демо-запросы (src/data/demo/examples.ts): по ним в демо-режиме есть точное совпадение. */
+export const EXAMPLES: ExampleQuery[] = DEMO_EXAMPLES.map((ex) => ({
+  label: ex.label,
+  form: { ...EMPTY_FORM, category: ex.category, product: ex.product, location: ex.location },
+}));

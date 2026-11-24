@@ -78,8 +78,20 @@ describe("состояния", () => {
   it("демо-баннер, пусто, ошибка с повтором", () => {
     const result = { demo: true, demoMessage: "Ключ не настроен.", results: [] } as unknown as ResultEvent;
     render(<DemoBanner result={result} />);
-    expect(screen.getByText("Показаны демо-данные")).toBeTruthy();
+    expect(screen.getByText("Демо-данные")).toBeTruthy();
     expect(screen.getByText(/Ключ не настроен/)).toBeTruthy();
+    cleanup();
+    const nearest = {
+      demo: true,
+      results: [],
+      demoInfo: { runId: "x", recordedAt: "2026-11-24T07:21:41.389Z", match: "nearest", shownLabel: "Мука — Краснодар", requestedLabel: "Мука — Сочи" },
+    } as unknown as ResultEvent;
+    render(<DemoBanner result={nearest} />);
+    expect(screen.getByText(/собраны 24 ноября 2026/)).toBeTruthy();
+    expect(screen.getByTestId("demo-substitution").textContent).toMatch(/Мука — Сочи.*ближайший.*Мука — Краснодар/);
+    cleanup();
+    render(<DemoBanner result={{ ...nearest, demoInfo: { ...nearest.demoInfo!, match: "exact" } }} />);
+    expect(screen.queryByTestId("demo-substitution")).toBeNull();
     cleanup();
     render(<EmptyState onEdit={() => {}} />);
     expect(screen.getByText(/регион крупнее/)).toBeTruthy();

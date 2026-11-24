@@ -1,0 +1,479 @@
+{
+ "id": "posuda-ekb",
+ "label": "Контейнеры для еды — Екатеринбург",
+ "recordedAt": "2026-11-24T07:24:04.759Z",
+ "query": {
+  "category": {
+   "kind": "catalog",
+   "categoryId": "packaging",
+   "subcategoryId": "containers"
+  },
+  "product": "контейнеры для еды навынос",
+  "location": {
+   "regionId": "sverdlovsk-oblast",
+   "cityId": "yekaterinburg"
+  },
+  "needCertificates": [],
+  "maxMinOrder": null,
+  "needDelivery": false,
+  "priceImportance": "medium"
+ },
+ "categoryIds": [
+  "packaging",
+  "containers"
+ ],
+ "placeLabel": "Екатеринбург",
+ "suppliers": [
+  {
+   "id": "edaprof-ru",
+   "name": "Едапроф",
+   "website": {
+    "value": "https://edaprof.ru/",
+    "sourceUrl": "https://edaprof.ru/upakovka/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Интернет-магазин оптовой продажи упаковки, ингредиентов и товаров для производства еды.",
+    "sourceUrl": "https://edaprof.ru/upakovka/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "containers",
+    "disposable-tableware",
+    "packaging"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (495) 123-30-01",
+      "sourceUrl": "https://edaprof.ru/upakovka/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "info@edaprof.ru",
+      "sourceUrl": "https://edaprof.ru/upakovka/",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "max",
+       "handle": "f9LHodD0cOIUzhoM2LVNUYLDXV7TRsPVq1p3nhoY4svw6P4TWMbHrAyeuac"
+      },
+      "sourceUrl": "https://edaprof.ru/upakovka/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": [
+     "yekaterinburg"
+    ],
+    "sourceUrl": "https://edaprof.ru/upakovka/",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://edaprof.ru/upakovka/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:35.275Z"
+    },
+    {
+     "url": "https://edaprof.ru/upakovka/termosumka-dlya-dostavki-edy/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:35.275Z"
+    },
+    {
+     "url": "https://edaprof.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:35.275Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:23:35.275Z"
+  },
+  {
+   "id": "market-leopak-ru",
+   "name": "Леопак",
+   "website": {
+    "value": "https://market.leopak.ru/",
+    "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Торговый дом «Леопак» продаёт оптом и в розницу одноразовую посуду, упаковку и контейнеры для еды.",
+    "sourceUrl": "https://market.leopak.ru/categories/konteinery",
+    "confidence": "low"
+   },
+   "categories": [
+    "containers",
+    "disposable-tableware",
+    "packaging"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 (343) 344-10-04",
+      "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (343) 344-10-75",
+      "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 (912) 040-74-60",
+      "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+      "confidence": "high"
+     }
+    ],
+    "emails": [
+     {
+      "value": "leopak@leopak.ru",
+      "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+      "confidence": "high"
+     }
+    ],
+    "messengers": [
+     {
+      "value": {
+       "kind": "telegram",
+       "handle": "marketleopak"
+      },
+      "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "620030, г. Екатеринбург, ул. Карьерная, 28, оф. 32",
+     "sourceUrl": "https://market.leopak.ru/pages/articles-contacts",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": [
+      "yekaterinburg"
+     ],
+     "sourceUrl": "https://market.leopak.ru/categories/konteinery",
+     "confidence": "high"
+    },
+    "terms": {
+     "value": "При покупке на сумму 2500 рублей и более товар доставляется по Екатеринбургу бесплатно",
+     "sourceUrl": "https://market.leopak.ru/categories/konteinery",
+     "confidence": "high"
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://market.leopak.ru/pages/articles-contacts",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:37.039Z"
+    },
+    {
+     "url": "https://market.leopak.ru/categories/konteinery",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:37.039Z"
+    },
+    {
+     "url": "https://market.leopak.ru/pages/oplata",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:37.039Z"
+    },
+    {
+     "url": "https://market.leopak.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:37.039Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:23:37.039Z"
+  },
+  {
+   "id": "sima-land-ru",
+   "name": "Сима-ленд",
+   "website": {
+    "value": "https://www.sima-land.ru/",
+    "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Интернет-магазин, продающий оптом и в розницу контейнеры на вынос и другие товары.",
+    "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "containers",
+    "disposable-tableware"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "8 800 234 1000",
+      "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [
+     {
+      "value": {
+       "kind": "max",
+       "handle": "sima_land"
+      },
+      "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+      "confidence": "high"
+     }
+    ],
+    "address": {
+     "value": "Екатеринбург, ул. Черняховского, 86/8",
+     "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+     "confidence": "high"
+    }
+   },
+   "minOrder": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "priceHint": {
+    "value": {
+     "min": 3.85,
+     "max": 3.85,
+     "currency": "RUB",
+     "unit": null,
+     "rawText": "Цена от 3.85 р"
+    },
+    "sourceUrl": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+    "confidence": "high"
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "pickup": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    }
+   },
+   "workRegions": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "sources": [
+    {
+     "url": "https://www.sima-land.ru/upakovka/pischevaya-upakovka/universalnye-konteynery/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:34.980Z"
+    },
+    {
+     "url": "https://www.sima-land.ru/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:34.980Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:23:34.980Z"
+  },
+  {
+   "id": "uralpack-org",
+   "name": "Уралпак",
+   "website": {
+    "value": "https://uralpack.org/",
+    "sourceUrl": "https://uralpack.org/ekb.html",
+    "confidence": "high"
+   },
+   "description": {
+    "value": "Компания производит и продаёт оптом упаковочные материалы, в том числе пластиковые контейнеры.",
+    "sourceUrl": "https://uralpack.org/",
+    "confidence": "medium"
+   },
+   "categories": [
+    "containers",
+    "disposable-tableware",
+    "packaging"
+   ],
+   "contacts": {
+    "phones": [
+     {
+      "value": "+7 343 345–01–84",
+      "sourceUrl": "https://uralpack.org/ekb.html",
+      "confidence": "high"
+     },
+     {
+      "value": "+7 343 345–01–85",
+      "sourceUrl": "https://uralpack.org/ekb.html",
+      "confidence": "high"
+     }
+    ],
+    "emails": [],
+    "messengers": [],
+    "address": {
+     "value": "620137, Свердловская область, г. Екатеринбург, ул. Шефская, 1Б",
+     "sourceUrl": "https://uralpack.org/ekb.html",
+     "confidence": "medium"
+    }
+   },
+   "minOrder": {
+    "value": {
+     "quantity": 1,
+     "unit": "тарное место",
+     "rawText": "Минимальная партия отгрузки - 1 тарное место (коробка, мешок, рулон)."
+    },
+    "sourceUrl": "https://uralpack.org/100001588.html",
+    "confidence": "high"
+   },
+   "priceHint": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "certificates": {
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
+   },
+   "delivery": {
+    "regions": {
+     "value": null,
+     "sourceUrl": null,
+     "confidence": null
+    },
+    "terms": {
+     "value": "Доставка в любой регион РФ",
+     "sourceUrl": "https://uralpack.org/100001588.html",
+     "confidence": "medium"
+    },
+    "pickup": {
+     "value": true,
+     "sourceUrl": "https://uralpack.org/100001588.html",
+     "confidence": "high"
+    }
+   },
+   "workRegions": {
+    "value": [
+     "yekaterinburg",
+     "Тюмень",
+     "Сургут",
+     "Киров",
+     "Новокузнецк"
+    ],
+    "sourceUrl": "https://uralpack.org/ekb.html",
+    "confidence": "high"
+   },
+   "sources": [
+    {
+     "url": "https://uralpack.org/ekb.html",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:51.501Z"
+    },
+    {
+     "url": "https://uralpack.org/kontejnery-iz-plastika.html",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:51.501Z"
+    },
+    {
+     "url": "https://uralpack.org/100001588.html",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:51.501Z"
+    },
+    {
+     "url": "https://uralpack.org/",
+     "type": "official-site",
+     "collectedAt": "2026-11-24T07:23:51.501Z"
+    }
+   ],
+   "collectedAt": "2026-11-24T07:23:51.501Z"
+  }
+ ],
+ "warnings": [],
+ "stats": {
+  "durationMs": 41052,
+  "candidates": 6,
+  "suppliers": 4,
+  "costRub": 14.0368
+ },
+ "sanitized": {
+  "excluded": [],
+  "removed": [
+   "edaprof-ru: мессенджер на номер, которого нет среди телефонов компании"
+  ]
+ }
+}
