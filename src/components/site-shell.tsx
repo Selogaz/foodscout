@@ -26,6 +26,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <footer className="border-t">
         <div className="mx-auto w-full max-w-5xl px-4 py-4 text-sm text-muted-foreground">
           © FoodScout — прототип. Данные о поставщиках приводятся со ссылками на источники.
+          <p className="mt-1">
+            Made by{" "}
+            <a
+              href="https://t.me/meaning_inside"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-text font-medium text-foreground underline underline-offset-2"
+            >
+              Selogaz
+            </a>
+          </p>
         </div>
       </footer>
     </div>
