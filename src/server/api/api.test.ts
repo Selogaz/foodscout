@@ -247,10 +247,10 @@ describe("лимиты", () => {
   });
 
   it("конфиг: значения по умолчанию и прод", () => {
-    expect(readApiConfig({})).toMatchObject({ demoMode: "auto", liveDailyLimit: 5, rateLimitMax: 5 });
+    expect(readApiConfig({})).toMatchObject({ demoMode: "auto", liveDailyLimit: 15, rateLimitMax: 5 });
     expect(readApiConfig({ NODE_ENV: "production" }).demoMode).toBe("on");
     expect(readApiConfig({ NODE_ENV: "production", DEMO_MODE: "auto" }).demoMode).toBe("auto");
-    expect(readApiConfig({ DEMO_MODE: "мусор", LIVE_SEARCH_DAILY_LIMIT: "x" })).toMatchObject({ demoMode: "auto", liveDailyLimit: 5 });
+    expect(readApiConfig({ DEMO_MODE: "мусор", LIVE_SEARCH_DAILY_LIMIT: "x" })).toMatchObject({ demoMode: "auto", liveDailyLimit: 15 });
     expect(readApiConfig({ LIVE_SEARCH_DAILY_LIMIT: "0" }).liveDailyLimit).toBe(0);
   });
 });

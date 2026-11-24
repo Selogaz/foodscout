@@ -236,7 +236,7 @@ describe("границы входа помощника", () => {
       expect(AdviseInputSchema.safeParse({ query, suppliers: [supplier] }).success).toBe(false);
       expect(DraftInputSchema.safeParse({ query, supplier }).success).toBe(false);
     }
-    expect(cfg().assistDailyLlmLimit).toBe(50);
+    expect(cfg().assistDailyLlmLimit).toBe(100);
   });
 
   it("длинные URL (до 2048 символов) проходят, прочие строки остаются в пределах 300", () => {
