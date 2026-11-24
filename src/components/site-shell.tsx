@@ -24,9 +24,8 @@ export function SiteShell({ children }: { children: ReactNode }) {
       <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10">{children}</main>
 
       <footer className="border-t">
-        <div className="mx-auto w-full max-w-5xl px-4 py-4 text-sm text-muted-foreground">
-          © FoodScout — прототип. Данные о поставщиках приводятся со ссылками на источники.
-          <p className="mt-1">
+        <div className="mx-auto w-full max-w-5xl px-4 py-4 text-center text-sm text-muted-foreground">
+          <p>
             Made by{" "}
             <a
               href="https://t.me/meaning_inside"
