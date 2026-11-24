@@ -39,7 +39,6 @@ describe("Supplier: фикстуры", () => {
         `МОЗ=${s.minOrder.value ? "да" : "нет"} цена=${s.priceHint.value ? "да" : "нет"} ` +
         `сертиф=${s.certificates.value?.length ?? 0}`;
     });
-    console.log("\n" + rows.join("\n"));
     expect(rows.every((r) => r.startsWith("OK"))).toBe(true);
   });
 });

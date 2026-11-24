@@ -99,6 +99,26 @@ describe("runSearch на моках", () => {
     expect(r.stats.droppedFields).toBeGreaterThanOrEqual(5);
   });
 
+  it.each([
+    { quantity: 1000, unit: "шт", quote: "Бесплатная доставка при заказе от 1000 шт." },
+    { quantity: 1000, unit: "шт", quote: "Самовывоз от 1000 шт." },
+    { quantity: 2000, unit: "кг", quote: "Минимальная партия — от 1000 шт." },
+  ])("отбрасывает неподтверждённый минимум и цену 0", async (order) => {
+    const url = "https://kofepack.example.ru/";
+    const priceQuote = "Цена товара 0 руб. 550 руб.";
+    const sites = { ...SITES, [url]: SITES[url].replace("</body>", `<p>${order.quote}</p><p>${priceQuote}</p></body>`) };
+    const model = new MockProvider(({ schemaName, user }) => {
+      if (schemaName === "normalize_query") return NORMALIZE_ANSWER;
+      const extraction = extractionFor(user);
+      if (!user.includes(`URL: ${url}`)) return extraction;
+      return { ...extraction, minOrder: { ...order, url }, price: { min: 0, max: 550, unit: null, currency: "RUB", quote: priceQuote, url } };
+    });
+    const run = await runSearch(INPUT, () => {}, deps({ llm: model, fetchImpl: fakeFetch(sites) }));
+    const supplier = run.suppliers.find((s) => s.id === "kofepack-example-ru")!;
+    expect(supplier.minOrder.value).toBeNull();
+    expect(supplier.priceHint.value).toBeNull();
+  });
+
   it("почта и телефон со страницы, но не из цитаты — принимаются с уверенностью medium", async () => {
     const ex = structuredClone(EXTRACTIONS["upak-dvor.example.ru"]);
     ex.emails = [{ value: "info@upak-dvor.example.ru", quote: "Компания «Тест Упак-Двор»", url: "https://upak-dvor.example.ru/contacts" }];

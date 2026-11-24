@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { SearchQuerySchema } from "@/domain";
-import type { ErrorEvent, SearchEvent } from "@/lib/searchEvents";
+import { clientIp, jsonError } from "@/server/api/http";
+import type { SearchEvent } from "@/lib/searchEvents";
 import { isRecordedExample } from "@/server/api/demo";
 import { createRuntimeContext } from "@/server/api/runtime";
 import { executeSearch } from "@/server/api/search-service";
@@ -15,15 +16,6 @@ const NDJSON_HEADERS = {
   "X-Accel-Buffering": "no",
 };
 
-function jsonError(status: number, error: ErrorEvent, extra: Record<string, unknown> = {}, headers: HeadersInit = {}) {
-  return Response.json({ ...error, ...extra }, { status, headers: { "Cache-Control": "no-store", ...headers } });
-}
-
-function clientIp(req: Request): string {
-  const fwd = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return fwd || req.headers.get("x-real-ip")?.trim() || "unknown";
-}
-
 /**
  * POST /api/search — тело: SearchQuery (JSON). Ответ: поток NDJSON, по строке на событие
  * (stage / candidate / warning, в конце result или error). Ошибки до старта потока — обычный JSON
@@ -37,7 +29,7 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return jsonError(400, { type: "error", code: "invalid_request", message: "Тело запроса должно быть корректным JSON." });
+    return jsonError(400, "invalid_request", "Тело запроса должно быть корректным JSON.");
   }
   const parsed = SearchQuerySchema.safeParse(body, { error: z.locales.ru().localeError });
   if (!parsed.success) {
@@ -45,7 +37,7 @@ export async function POST(req: Request) {
     const first = issues[0];
     return jsonError(
       400,
-      { type: "error", code: "invalid_request", message: `Некорректный запрос: ${first.path} — ${first.message}${issues.length > 1 ? ` (и ещё ${issues.length - 1})` : ""}.` },
+      "invalid_request", `Некорректный запрос: ${first.path} — ${first.message}${issues.length > 1 ? ` (и ещё ${issues.length - 1})` : ""}.`,
       { issues },
     );
   }
@@ -56,7 +48,7 @@ export async function POST(req: Request) {
   if (!limit.ok) {
     return jsonError(
       429,
-      { type: "error", code: "rate_limited", message: `Слишком много запросов: не больше ${config.rateLimitMax} поисков в минуту. Повторите через ${limit.retryAfterS} с.` },
+      "rate_limited", `Слишком много запросов: не больше ${config.rateLimitMax} поисков в минуту. Повторите через ${limit.retryAfterS} с.`,
       { retryAfterS: limit.retryAfterS },
       { "Retry-After": String(limit.retryAfterS) },
     );

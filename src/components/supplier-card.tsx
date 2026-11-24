@@ -3,7 +3,7 @@
 import { BookmarkCheckIcon, CheckIcon, GlobeIcon, InfoIcon, LinkIcon, MailIcon, MapPinIcon, PhoneIcon, PlusIcon, XIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CERTIFICATE_LABELS, findRegion, type RankedSupplier } from "@/domain";
+import { CERTIFICATE_LABELS, placeName, type RankedSupplier } from "@/domain";
 import { hostOf } from "@/lib/supplierFormat";
 import { cn } from "@/lib/utils";
 
@@ -44,7 +44,7 @@ export function SupplierCard({ item, selected, compareFull = false, onToggleComp
   const { supplier: s, score, rank } = item;
   const tone = scoreTone(score.total);
   // Регионы бывают id справочника или свободным текстом — id показываем названием.
-  const regions = (s.workRegions.value ?? s.delivery.regions.value ?? []).map((r) => findRegion(r)?.name ?? r);
+  const regions = (s.workRegions.value ?? s.delivery.regions.value ?? []).map(placeName);
   const phones = s.contacts.phones.filter((p) => p.value);
   const emails = s.contacts.emails.filter((p) => p.value);
   const messengers = s.contacts.messengers.filter((p) => p.value);
@@ -179,11 +179,11 @@ export function SupplierCard({ item, selected, compareFull = false, onToggleComp
           </a>
         ))}
         {messengers.map((m, i) => (
-          <span key={`m${i}`} className="inline-flex min-h-8 items-center gap-2">
-            <span className="w-4 text-center text-xs text-muted-foreground" aria-hidden>
+          <span key={`m${i}`} className="inline-flex min-h-8 min-w-0 items-center gap-2">
+            <span className="w-4 shrink-0 text-center text-xs text-muted-foreground" aria-hidden>
               @
             </span>
-            {m.value!.kind}: {m.value!.handle}
+            <span className="min-w-0 break-all">{m.value!.kind}: {m.value!.handle}</span>
           </span>
         ))}
         {site && (

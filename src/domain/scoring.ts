@@ -1,4 +1,4 @@
-import { CATEGORIES, findCategory, findCity, findRegion, findSubcategory, REGIONS } from "./catalog";
+import { CATEGORIES, findCategory, findCity, findRegion, placeName, findSubcategory, REGIONS } from "./catalog";
 import type { Confidence } from "./field";
 import { CERTIFICATE_LABELS, type CertificateType, type SearchQuery } from "./query";
 import type { Supplier } from "./supplier";
@@ -149,13 +149,9 @@ function queryLocationText(q: SearchQuery): LocationText {
 
 function knownRegions(s: Supplier): string[] {
   return uniq([
-    ...(present(s.delivery.regions) ? s.delivery.regions.value.map(regionLabel) : []),
-    ...(present(s.workRegions) ? s.workRegions.value.map(regionLabel) : []),
+    ...(present(s.delivery.regions) ? s.delivery.regions.value.map(placeName) : []),
+    ...(present(s.workRegions) ? s.workRegions.value.map(placeName) : []),
   ]);
-}
-
-function regionLabel(entry: string): string {
-  return findCity(entry)?.city.name ?? findRegion(entry)?.name ?? entry;
 }
 
 /** Приводит запись региона (id региона, id города или название) к id региона справочника. */

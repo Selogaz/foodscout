@@ -284,11 +284,15 @@ export function buildSupplier(
       const unitOk = mo.unit === null || unitInText(mo.unit, mo.quote);
       if (!qtyOk) gr.drop("minOrder.quantity", mo.quantity, "числа нет в цитате");
       if (!unitOk) gr.drop("minOrder.unit", mo.unit, "единицы нет в цитате");
-      minOrder = sourced(
-        { quantity: qtyOk ? mo.quantity : null, unit: unitOk && mo.unit ? mo.unit.trim() : null, rawText: clip(mo.quote.trim()) },
-        g,
-        conf(g, qtyOk && unitOk && mo.quantity !== null),
-      );
+      const quantity = qtyOk ? mo.quantity : null;
+      const unit = unitOk && mo.unit ? mo.unit.trim() : null;
+      if (/доставк|самовывоз/i.test(mo.quote)) {
+        gr.drop("minOrder", mo, "цитата об условиях доставки или самовывоза");
+      } else if (quantity === null && !unit) {
+        gr.drop("minOrder", mo, "нет подтверждённого количества или единицы");
+      } else {
+        minOrder = sourced({ quantity, unit, rawText: clip(mo.quote.trim()) }, g, conf(g, qtyOk && unitOk && quantity !== null));
+      }
     }
   }
 
@@ -297,7 +301,9 @@ export function buildSupplier(
   if (ex.price) {
     const pr = ex.price;
     const g = gr.check("priceHint", pr, pr);
-    if (g) {
+    if (g && (pr.min === 0 || pr.max === 0)) {
+      gr.drop("priceHint", pr.quote, "нулевая цена");
+    } else if (g) {
       let min = pr.min !== null && pr.min >= 0 && numberInText(pr.min, pr.quote) ? pr.min : null;
       let max = pr.max !== null && pr.max >= 0 && numberInText(pr.max, pr.quote) ? pr.max : null;
       if (pr.min !== null && min === null) gr.drop("priceHint.min", pr.min, "числа нет в цитате");

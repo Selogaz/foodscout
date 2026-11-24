@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CATEGORIES, REGIONS, allCategoryIds, findCity } from "./catalog";
+import { CATEGORIES, REGIONS, allCategoryIds, findCity, placeName } from "./catalog";
 
 describe("справочники", () => {
   it("id категорий, подкатегорий, регионов и городов уникальны", () => {
@@ -15,6 +15,12 @@ describe("справочники", () => {
       expect(c.subcategories.length).toBeGreaterThan(0);
       expect(c.label).toMatch(/[А-Яа-я]/);
     }
+  });
+
+  it("показывает название города и региона, сохраняет свободный текст", () => {
+    expect(placeName("krasnodar")).toBe("Краснодар");
+    expect(placeName("moscow-oblast")).toBe("Московская область");
+    expect(placeName("Тульская область")).toBe("Тульская область");
   });
 
   it("города-миллионники присутствуют", () => {

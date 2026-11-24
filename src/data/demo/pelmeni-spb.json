@@ -424,13 +424,9 @@
     }
    },
    "minOrder": {
-    "value": {
-     "quantity": 5000,
-     "unit": "руб",
-     "rawText": "Бесплатная доставка в столовые и маркеты по Москве и Санкт-Петербургу при заказе от 5 000 руб в ассортименте."
-    },
-    "sourceUrl": "https://ekorfish.com/catalog/polufabrikaty/pelmeni-myasnye/",
-    "confidence": "high"
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
    },
    "priceHint": {
     "value": {
@@ -513,7 +509,7 @@
   "durationMs": 50163,
   "candidates": 6,
   "suppliers": 4,
-  "costRub": 21.670899999999996
+  "costRub": 21.67
  },
  "sanitized": {
   "excluded": [

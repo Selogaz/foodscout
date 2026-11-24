@@ -83,15 +83,9 @@
     "confidence": null
    },
    "priceHint": {
-    "value": {
-     "min": 550,
-     "max": 550,
-     "currency": "RUB",
-     "unit": "кг",
-     "rawText": "Замороженный крыжовник 0 руб 550 руб 1 кг"
-    },
-    "sourceUrl": "https://zamorozka54.ru/catalog/yagody",
-    "confidence": "high"
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
    },
    "certificates": {
     "value": [
@@ -511,15 +505,9 @@
     "confidence": "high"
    },
    "priceHint": {
-    "value": {
-     "min": 510,
-     "max": 510,
-     "currency": "RUB",
-     "unit": "кг",
-     "rawText": "Клюква 1кг Доставка ягоды только для жителей Новосибирска. Цена розничная 510 руб."
-    },
-    "sourceUrl": "https://www.sibdar.net/catalog/yagody/",
-    "confidence": "high"
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
    },
    "certificates": {
     "value": null,
@@ -571,7 +559,7 @@
   "durationMs": 37166,
   "candidates": 6,
   "suppliers": 4,
-  "costRub": 23.8894
+  "costRub": 23.89
  },
  "sanitized": {
   "excluded": [

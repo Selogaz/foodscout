@@ -12,5 +12,5 @@ import pelmeni from "./pelmeni-spb.json";
 import pechenye from "./pechenye-nn.json";
 import posuda from "./posuda-ekb.json";
 
-export const DEMO_RUNS = [upakovkaKofe, yagody, syr, muka, pelmeni, pechenye, posuda] as unknown as readonly DemoRun[];
+export const DEMO_RUNS = [upakovkaKofe, yagody, muka, pelmeni, pechenye, posuda, syr] as unknown as readonly DemoRun[];
 export { DEMO_EXAMPLES } from "./examples";

@@ -5,6 +5,7 @@ import {
   SupplierSchema,
   findCity,
   findRegion,
+  placeName,
   type Confidence,
   type RankedSupplier,
   type SearchQuery,
@@ -72,10 +73,6 @@ const join = (xs: string[]) => xs.join("; ");
 type Sourced<T> = { value: T | null; sourceUrl: string | null; confidence: Confidence | null };
 const has = <T,>(f: Sourced<T>): f is Sourced<T> & { value: T; sourceUrl: string } => f.value !== null && f.sourceUrl !== null;
 
-function regionLabel(entry: string): string {
-  return findRegion(entry)?.name ?? entry;
-}
-
 /** Название места запроса: город или регион. */
 export function queryPlace(q: SearchQuery): { name: string; locative: string; to: string } {
   const city = q.location.cityId ? findCity(q.location.cityId)?.city : undefined;
@@ -129,9 +126,9 @@ export function buildFacts(item: RankedSupplier, query: SearchQuery): SupplierFa
     };
   }
   if (has(s.delivery.terms)) fields.deliveryTerms = { text: clip(s.delivery.terms.value, 200), confidence: s.delivery.terms.confidence };
-  if (has(s.delivery.regions)) fields.deliveryRegions = { text: s.delivery.regions.value.slice(0, 5).map(regionLabel).join(", "), confidence: s.delivery.regions.confidence };
+  if (has(s.delivery.regions)) fields.deliveryRegions = { text: s.delivery.regions.value.slice(0, 5).map(placeName).join(", "), confidence: s.delivery.regions.confidence };
   if (has(s.delivery.pickup)) fields.pickup = { text: s.delivery.pickup.value ? "есть" : "нет", confidence: s.delivery.pickup.confidence };
-  if (has(s.workRegions)) fields.workRegions = { text: s.workRegions.value.slice(0, 5).map(regionLabel).join(", "), confidence: s.workRegions.confidence };
+  if (has(s.workRegions)) fields.workRegions = { text: s.workRegions.value.slice(0, 5).map(placeName).join(", "), confidence: s.workRegions.confidence };
   fields.score = { text: `${score.total} из 100`, confidence: null };
 
   const region = regionOf(item, query);

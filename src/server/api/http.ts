@@ -1,4 +1,4 @@
-/** Общие мелочи HTTP-роутов помощника (поиск держит свои копии в route.ts). */
+/** Общие функции HTTP-роутов. */
 
 export function clientIp(req: Request): string {
   const fwd = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();

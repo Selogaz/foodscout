@@ -1,4 +1,4 @@
-import { findCategory, findCity, findRegion, findSubcategory, type Confidence, type SearchQuery, type Source } from "@/domain";
+import { findCategory, findCity, findRegion, placeName, findSubcategory, type Confidence, type SearchQuery, type Source } from "@/domain";
 
 export function hostOf(url: string): string {
   try {
@@ -10,7 +10,7 @@ export function hostOf(url: string): string {
 
 /** Регионы бывают id справочника или свободным текстом: id показываем названием. */
 export function regionNames(list: readonly string[]): string {
-  return list.map((r) => findRegion(r)?.name ?? r).join(", ");
+  return list.map(placeName).join(", ");
 }
 
 export const CONFIDENCE_LABELS: Record<Confidence, string> = {

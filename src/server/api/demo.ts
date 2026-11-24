@@ -90,8 +90,9 @@ export function pickDemoRun(query: SearchQuery): { results: RankedSupplier[]; wa
     priceImportance: query.priceImportance,
   };
   const date = run.recordedAt.slice(0, 10).split("-").reverse().join(".");
+  const results = rankSuppliers(run.suppliers, shown);
   return {
-    results: rankSuppliers(run.suppliers, shown),
+    results: match === "exact" ? results : results.map((item) => ({ ...item, bestFor: [] })),
     warnings: [...run.warnings, `Данные записаны ${date} с реальных сайтов поставщиков; цены и контакты могли измениться — проверяйте на сайте по ссылке у каждого значения.`],
     query: shown,
     stats: run.stats,

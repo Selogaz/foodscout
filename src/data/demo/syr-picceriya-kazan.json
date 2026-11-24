@@ -720,13 +720,9 @@
     }
    },
    "minOrder": {
-    "value": {
-     "quantity": 3000,
-     "unit": "₽",
-     "rawText": "Самовывоз — от 3 000 ₽"
-    },
-    "sourceUrl": "https://ekorfish.com/products/syr-motsarella-dlya-pitstsy-40-syry-kubani-5-6kg-1-3/",
-    "confidence": "high"
+    "value": null,
+    "sourceUrl": null,
+    "confidence": null
    },
    "priceHint": {
     "value": {
@@ -808,7 +804,7 @@
   "durationMs": 35765,
   "candidates": 6,
   "suppliers": 6,
-  "costRub": 21.063199999999995
+  "costRub": 21.06
  },
  "sanitized": {
   "excluded": [],

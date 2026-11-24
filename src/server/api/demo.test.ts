@@ -53,12 +53,14 @@ describe("подбор демо-прогона", () => {
     expect(a.info.match).toBe("exact");
     const b = pickDemoRun({ ...q("Мука, крупы, злаки", "Краснодар", "мука пшеничная высшего сорта"), needDelivery: true, needCertificates: ["gost"] });
     expect(b.info.match).toBe("exact");
+    expect(b.results.some((s) => s.bestFor.length)).toBe(true);
     expect(b.query.needCertificates).toEqual(["gost"]);
   });
 
   it("другой город той же категории → ближайший с пометкой", () => {
     const r = pickDemoRun(q("Мука, крупы, злаки", "Ростов-на-Дону", "мука"));
     expect(r.info.match).toBe("nearest");
+    expect(r.results.every((s) => s.bestFor.length === 0)).toBe(true);
     expect(r.info.runId).toBe("muka-krasnodar");
     expect(r.info.requestedLabel).toContain("Ростов");
     expect(r.info.shownLabel).toContain("Краснодар");
@@ -71,6 +73,7 @@ describe("подбор демо-прогона", () => {
   it("ничего общего → прогон по умолчанию", () => {
     const r = pickDemoRun(q("Вода", "Владивосток"));
     expect(r.info.match).toBe("default");
+    expect(r.results.every((s) => s.bestFor.length === 0)).toBe(true);
     expect(r.info.runId).toBe(DEMO_RUNS[0].id);
     expect(r.results.length).toBeGreaterThan(0);
   });

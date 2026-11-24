@@ -167,7 +167,7 @@ export function buildDemoRun(input: { id: string; label: string; query: SearchQu
     placeLabel: run.normalized.placeLabel,
     suppliers,
     warnings: run.warnings,
-    stats: { durationMs: run.stats.durationMs, candidates: run.stats.candidates, suppliers: suppliers.length, costRub: run.stats.costRub },
+    stats: { durationMs: run.stats.durationMs, candidates: run.stats.candidates, suppliers: suppliers.length, costRub: run.stats.costRub === null ? null : Number(run.stats.costRub.toFixed(2)) },
     sanitized: { excluded, removed },
   };
   const report = [...excluded.map((e) => `исключён ${e.domain}: ${e.reason}`), ...removed];

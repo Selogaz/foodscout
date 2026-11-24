@@ -196,6 +196,10 @@ export function findCity(id: string): { city: CatalogCity; region: CatalogRegion
   return undefined;
 }
 
+export function placeName(id: string): string {
+  return findRegion(id)?.name ?? findCity(id)?.city.name ?? id;
+}
+
 /** Все id категорий и подкатегорий (для проверки Supplier.categories). */
 export function allCategoryIds(): string[] {
   return CATEGORIES.flatMap((c) => [c.id, ...c.subcategories.map((s) => s.id)]);
