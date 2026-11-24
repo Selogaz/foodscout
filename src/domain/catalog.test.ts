@@ -43,4 +43,16 @@ describe("справочники", () => {
     expect(findCity("vladivostok")?.city.locative).toBe("во Владивостоке");
     expect(REGIONS.find((r) => r.id === "tatarstan")?.locative).toBe("в Республике Татарстан");
   });
+
+  it("у каждого города и региона есть винительный падеж (направление) с предлогом", () => {
+    for (const r of REGIONS) {
+      expect(r.accusative).toMatch(/^во? [А-ЯЁ]/);
+      for (const c of r.cities) expect(c.accusative).toMatch(/^во? [А-ЯЁ]/);
+    }
+    expect(findCity("moscow")?.city.accusative).toBe("в Москву");
+    expect(findCity("vladivostok")?.city.accusative).toBe("во Владивосток");
+    expect(findCity("kazan")?.city.accusative).toBe("в Казань");
+    expect(REGIONS.find((r) => r.id === "tatarstan")?.accusative).toBe("в Республику Татарстан");
+    expect(REGIONS.find((r) => r.id === "krasnodar-krai")?.accusative).toBe("в Краснодарский край");
+  });
 });

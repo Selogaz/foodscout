@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { rankSuppliers, SearchQuerySchema, type SearchQuery, type Supplier } from "@/domain";
 import { supplierFixtures, fullSupplier, minimalSupplier } from "@/domain/__fixtures__/suppliers";
-import { AdviceLlmSchema, buildFacts, factsForPrompt, fallbackAdvice, mergeLlmAdvice, reasonIsValid, type AdviceLlm } from "@/lib/advisor";
+import { AdviceLlmSchema, buildFacts, factsForPrompt, fallbackAdvice, fallbackReasons, regionWarning, mergeLlmAdvice, reasonIsValid, type AdviceLlm } from "@/lib/advisor";
 import { createApiState, readApiConfig, type ApiConfig } from "../api";
 import { MockProvider } from "../llm/mock";
 import { runAdvise, runDraft, type AssistContext } from "./index";
@@ -141,6 +141,15 @@ describe("честность по региону", () => {
     expect(notOk.length).toBeGreaterThan(0);
     expect(adv.regionWarning).toMatch(/подтвердил/);
     for (const i of notOk) expect(i.region.note).toBeTruthy();
+  });
+
+  it("регион подтверждён только адресом: так и сказано, а не «регион подтверждён»", () => {
+    const f = facts().map((x) => ({ ...x, region: { state: "ok" as const, place: "Москва", note: null } }));
+    const first = { ...f[0], pros: ["Адрес поставщика — Москва"], region: { ...f[0].region, addressOnly: true } };
+    const reasons = fallbackReasons(first, query);
+    expect(reasons[0].text).toMatch(/^Адрес поставщика в Москве, доставку в Москву/);
+    const warn = regionWarning([first, ...f.slice(1)], query);
+    expect(warn).toMatch(/только адрес/);
   });
 });
 

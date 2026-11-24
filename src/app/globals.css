@@ -128,3 +128,26 @@
     @apply font-sans;
   }
 }
+/* Мобильные тач-цели: не меньше 44 px (WCAG 2.5.5). Правило вне слоёв, чтобы перекрывать утилиты высоты. */
+@media (max-width: 767px) {
+  button,
+  select,
+  summary,
+  input:not([type="checkbox"]):not([type="radio"]),
+  a.inline-flex,
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  a[target="_blank"],
+  label:has(> input[type="checkbox"]) {
+    min-height: 2.75rem;
+  }
+  a[href^="tel:"],
+  a[href^="mailto:"],
+  a[target="_blank"] {
+    display: inline-flex;
+    align-items: center;
+  }
+  button:has(> svg:only-child) {
+    min-width: 2.75rem;
+  }
+}

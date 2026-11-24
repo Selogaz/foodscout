@@ -267,7 +267,7 @@ export function SupplierDetailSheet({ open, item, status, onClose, onRestore, sh
         showCloseButton={false}
         className="gap-0 overflow-y-auto data-[side=right]:w-full data-[side=right]:sm:max-w-xl"
       >
-        <SheetHeader className="sticky top-0 z-10 border-b bg-popover pr-12">
+        <SheetHeader className="sticky top-0 z-10 border-b bg-popover pr-14">
           <SheetClose render={<Button variant="ghost" size="icon-sm" className="absolute top-3 right-3" aria-label="Закрыть карточку" />}>
             <XIcon />
           </SheetClose>

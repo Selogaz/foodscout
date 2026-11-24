@@ -23,12 +23,13 @@ const selectCls =
   "h-10 rounded-lg border border-input bg-transparent px-2 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:h-9 md:text-sm dark:bg-input/30";
 
 export function SearchForm({ form, onChange, errors, busy, onSubmit, onCancel, onExample }: Props) {
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  // null — пользователь ещё не трогал переключатель: фильтры раскрыты, если какие-то уже заданы (например, из ссылки).
+  const [filtersToggled, setFiltersToggled] = useState<boolean | null>(null);
   const set = <K extends keyof FormState>(k: K, v: FormState[K]) => onChange({ ...form, [k]: v });
   const activeFilters =
     form.certificates.length + (form.maxMoq.trim() ? 1 : 0) + (form.needDelivery ? 1 : 0) + (form.priceImportance !== "medium" ? 1 : 0);
   // Фильтры с ошибкой нельзя прятать: пользователь не увидит причину.
-  const filtersShown = filtersOpen || Boolean(errors.maxMoq);
+  const filtersShown = (filtersToggled ?? activeFilters > 0) || Boolean(errors.maxMoq);
 
   const toggleCert = (c: CertificateType) =>
     set("certificates", form.certificates.includes(c) ? form.certificates.filter((x) => x !== c) : [...form.certificates, c]);
@@ -85,7 +86,7 @@ export function SearchForm({ form, onChange, errors, busy, onSubmit, onCancel, o
           type="button"
           aria-expanded={filtersShown}
           aria-controls="filters-panel"
-          onClick={() => setFiltersOpen((o) => !o)}
+          onClick={() => setFiltersToggled(!filtersShown)}
           className="inline-flex items-center gap-1.5 rounded-md py-1 text-sm font-medium text-muted-foreground outline-none hover:text-foreground focus-visible:ring-3 focus-visible:ring-ring/50"
         >
           <ChevronDownIcon className={cn("size-4 transition-transform", filtersShown && "rotate-180")} />
