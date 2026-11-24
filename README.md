@@ -1,6 +1,7 @@
 # FoodScout — поиск и сравнение поставщиков для food-сегмента
 
 Прототип: **https://foodscout-nine.vercel.app** · Репозиторий: https://github.com/Selogaz/foodscout
+· Как работает поиск (одна страница): https://foodscout-nine.vercel.app/foodscout-demo.html
 
 FoodScout помогает закупщику, технологу или владельцу небольшого food-бизнеса найти поставщиков
 ингредиентов, готовой продукции и упаковки в нужном регионе, собрать структурированные карточки со
