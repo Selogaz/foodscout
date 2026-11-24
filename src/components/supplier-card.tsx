@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, GlobeIcon, InfoIcon, LinkIcon, MailIcon, MapPinIcon, PhoneIcon, PlusIcon, XIcon } from "lucide-react";
+import { BookmarkCheckIcon, CheckIcon, GlobeIcon, InfoIcon, LinkIcon, MailIcon, MapPinIcon, PhoneIcon, PlusIcon, XIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CERTIFICATE_LABELS, findRegion, type RankedSupplier } from "@/domain";
@@ -35,10 +35,12 @@ type Props = {
   compareFull?: boolean;
   onToggleCompare: (id: string) => void;
   onOpen: (id: string) => void;
-  onShortlist: (id: string) => void;
+  /** Поставщик уже в шортлисте: кнопка работает как переключатель. */
+  shortlisted?: boolean;
+  onToggleShortlist: (id: string) => void;
 };
 
-export function SupplierCard({ item, selected, compareFull = false, onToggleCompare, onOpen, onShortlist }: Props) {
+export function SupplierCard({ item, selected, compareFull = false, onToggleCompare, onOpen, shortlisted = false, onToggleShortlist }: Props) {
   const { supplier: s, score, rank } = item;
   const tone = scoreTone(score.total);
   // Регионы бывают id справочника или свободным текстом — id показываем названием.
@@ -200,8 +202,17 @@ export function SupplierCard({ item, selected, compareFull = false, onToggleComp
         <Button type="button" variant="default" size="sm" className="h-8" onClick={() => onOpen(s.id)} aria-label={`Подробнее: ${s.name}`}>
           Подробнее
         </Button>
-        <Button type="button" variant="outline" size="sm" className="h-8" onClick={() => onShortlist(s.id)}>
-          <PlusIcon data-icon="inline-start" />В шортлист
+        <Button
+          type="button"
+          variant={shortlisted ? "secondary" : "outline"}
+          size="sm"
+          className="h-8"
+          aria-pressed={shortlisted}
+          title={shortlisted ? "Нажмите, чтобы убрать из шортлиста" : "Сохранить в шортлист"}
+          onClick={() => onToggleShortlist(s.id)}
+        >
+          {shortlisted ? <BookmarkCheckIcon data-icon="inline-start" /> : <PlusIcon data-icon="inline-start" />}
+          {shortlisted ? "В шортлисте" : "В шортлист"}
         </Button>
         {sourceUrl && (
           <a

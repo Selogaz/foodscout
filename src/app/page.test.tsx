@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import Home from "./page";
+
+vi.mock("next/navigation", () => ({ useRouter: () => ({ push: vi.fn() }) }));
 
 describe("главная страница", () => {
   it("показывает шапку, форму поиска, примеры и подвал", () => {
@@ -13,5 +15,6 @@ describe("главная страница", () => {
     expect(screen.getByRole("button", { name: "Мука пшеничная — Москва" })).toBeTruthy();
     expect(screen.getByRole("contentinfo")).toBeTruthy();
     expect(screen.getByText("FoodScout")).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Шортлист" }).getAttribute("href")).toBe("/shortlist");
   });
 });

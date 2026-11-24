@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckIcon, FileTextIcon, InfoIcon, XIcon } from "lucide-react";
+import { BookmarkCheckIcon, CheckIcon, FileTextIcon, InfoIcon, PlusIcon, XIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import { NoData, SourcedList, SourcedValue } from "@/components/sourced-value";
 import { scoreTone, telHref } from "@/components/supplier-card";
@@ -247,10 +247,13 @@ type SheetProps = {
   status: DetailStatus;
   onClose: () => void;
   onRestore?: (() => void) | null;
+  /** Кнопка «в шортлист» в шапке карточки; без колбэка не показывается. */
+  shortlisted?: boolean;
+  onToggleShortlist?: ((id: string) => void) | null;
 };
 
 /** Карточка в боковой панели: на десктопе справа, на мобиле — на весь экран. */
-export function SupplierDetailSheet({ open, item, status, onClose, onRestore }: SheetProps) {
+export function SupplierDetailSheet({ open, item, status, onClose, onRestore, shortlisted = false, onToggleShortlist = null }: SheetProps) {
   const tone = item ? scoreTone(item.score.total) : null;
   return (
     <Sheet open={open} onOpenChange={(o) => !o && onClose()}>
@@ -269,6 +272,20 @@ export function SupplierDetailSheet({ open, item, status, onClose, onRestore }: 
               ? `#${item.rank} в выдаче · балл ${item.score.total}/100, ${tone.label}`
               : "Данные со ссылками на источники"}
           </SheetDescription>
+          {item && status === "ready" && onToggleShortlist && (
+            <Button
+              type="button"
+              size="sm"
+              variant={shortlisted ? "secondary" : "default"}
+              className="mt-1 w-fit"
+              aria-pressed={shortlisted}
+              title={shortlisted ? "Нажмите, чтобы убрать из шортлиста" : "Сохранить в шортлист"}
+              onClick={() => onToggleShortlist(item.supplier.id)}
+            >
+              {shortlisted ? <BookmarkCheckIcon data-icon="inline-start" /> : <PlusIcon data-icon="inline-start" />}
+              {shortlisted ? "В шортлисте" : "В шортлист"}
+            </Button>
+          )}
         </SheetHeader>
         {item && status === "ready" ? (
           <SupplierDetail item={item} />

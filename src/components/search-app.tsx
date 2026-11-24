@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { CompareTable } from "@/components/compare-table";
 import { SearchForm } from "@/components/search-form";
@@ -12,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useSupplierSearch } from "@/components/use-supplier-search";
 import type { SearchQuery } from "@/domain";
 import { MAX_COMPARE, MIN_COMPARE } from "@/lib/compare";
+import { useShortlist } from "@/lib/shortlistStore";
 import { buildQuery, EMPTY_FORM, formToParams, hasFormParams, paramsToForm, type FormState } from "@/lib/formState";
 
 const plural = (n: number, one: string, few: string, many: string) => {
@@ -30,6 +32,8 @@ export function SearchApp() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [view, setView] = useState<"results" | "compare">("results");
   const { state, run, cancel } = useSupplierSearch();
+  const shortlist = useShortlist();
+  const router = useRouter();
   const lastQuery = useRef<SearchQuery | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
@@ -103,6 +107,24 @@ export function SearchApp() {
 
   const result = state.result;
   const ranked = result?.results ?? [];
+  const shortlistedIds = new Set(shortlist.entries.map((e) => e.id));
+  const toggleShortlist = (id: string) => {
+    const item = ranked.find((r) => r.supplier.id === id);
+    if (!item || !result) return;
+    if (shortlist.store.has(id)) {
+      shortlist.store.remove(id);
+      toast.info(`${item.supplier.name} убран из шортлиста`, { duration: 3000 });
+      return;
+    }
+    shortlist.store.add(item, result.query);
+    toast.success(`${item.supplier.name} в шортлисте`, {
+      action: { label: "Открыть шортлист", onClick: () => router.push("/shortlist") },
+      duration: 3000,
+    });
+    if (!shortlist.store.getSnapshot().persistent) {
+      toast.warning("Браузер не даёт сохранять данные", { description: "Шортлист останется только до закрытия вкладки." });
+    }
+  };
   const openItem = openId ? (ranked.find((r) => r.supplier.id === openId) ?? null) : null;
   const detailStatus: DetailStatus = openItem ? "ready" : state.status === "loading" ? "loading" : "missing";
   // Ссылку на карточку/сравнение открыли без результатов: можно повторить поиск по параметрам из URL.
@@ -189,7 +211,8 @@ export function SearchApp() {
                           compareFull={compare.length >= MAX_COMPARE}
                           onToggleCompare={toggleCompare}
                           onOpen={setOpenId}
-                          onShortlist={() => toast.info("Шортлист появится в следующей версии", { description: "Пока можно отметить карточки «К сравнению»." })}
+                          shortlisted={shortlistedIds.has(item.supplier.id)}
+                          onToggleShortlist={toggleShortlist}
                         />
                       </div>
                     </li>
@@ -231,7 +254,10 @@ export function SearchApp() {
         </div>
       )}
 
-      <SupplierDetailSheet open={openId !== null} item={openItem} status={detailStatus} onClose={() => setOpenId(null)} onRestore={canRestore ? restore : null} />
+      <SupplierDetailSheet open={openId !== null} item={openItem} status={detailStatus} onClose={() => setOpenId(null)} onRestore={canRestore ? restore : null}
+        shortlisted={openItem ? shortlistedIds.has(openItem.supplier.id) : false}
+        onToggleShortlist={toggleShortlist}
+      />
     </>
   );
 }
