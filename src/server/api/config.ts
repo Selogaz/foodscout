@@ -12,6 +12,12 @@ export type ApiConfig = {
   liveTimeoutMs: number;
   cacheTtlMs: number;
   cacheMaxEntries: number;
+  /** Помощник решения (advise, draft-request): запросов в окно с одного IP. */
+  assistRateLimitMax: number;
+  /** Вызовов LLM помощником в сутки на инстанс (дешёвые, но предохранитель нужен). */
+  assistDailyLlmLimit: number;
+  /** Таймаут одного вызова LLM помощником, после него — детерминированный фолбэк. */
+  assistTimeoutMs: number;
 };
 
 type Env = Record<string, string | undefined>;
@@ -37,5 +43,8 @@ export function readApiConfig(env: Env = process.env): ApiConfig {
     liveTimeoutMs: int(env.LIVE_SEARCH_TIMEOUT_S, 100, 5) * 1000,
     cacheTtlMs: int(env.SEARCH_CACHE_TTL_MIN, 360, 1) * 60_000,
     cacheMaxEntries: 50,
+    assistRateLimitMax: int(env.ASSIST_RATE_LIMIT_PER_MINUTE, 15, 1),
+    assistDailyLlmLimit: int(env.ASSIST_DAILY_LLM_LIMIT, 300),
+    assistTimeoutMs: int(env.ASSIST_TIMEOUT_S, 25, 3) * 1000,
   };
 }

@@ -14,6 +14,9 @@ export type ApiState = {
   cache: TtlLruCache<CachedResult>;
   limiter: RateLimiter;
   daily: DailyCounter;
+  /** Помощник решения: отдельное окно запросов и суточный счётчик вызовов LLM (поиск не страдает). */
+  assistLimiter: RateLimiter;
+  assistDaily: DailyCounter;
 };
 
 export function createApiState(config: ApiConfig): ApiState {
@@ -21,6 +24,8 @@ export function createApiState(config: ApiConfig): ApiState {
     cache: new TtlLruCache(config.cacheMaxEntries, config.cacheTtlMs),
     limiter: new RateLimiter(config.rateLimitMax, config.rateLimitWindowMs),
     daily: new DailyCounter(config.liveDailyLimit),
+    assistLimiter: new RateLimiter(config.assistRateLimitMax, config.rateLimitWindowMs),
+    assistDaily: new DailyCounter(config.assistDailyLlmLimit),
   };
 }
 

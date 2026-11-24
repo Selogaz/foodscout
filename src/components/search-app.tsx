@@ -7,6 +7,7 @@ import { CompareTable } from "@/components/compare-table";
 import { SearchForm } from "@/components/search-form";
 import { SearchProgress } from "@/components/search-progress";
 import { EmptyState, ErrorState, DemoBanner } from "@/components/search-states";
+import { AdvisorPanel } from "@/components/advisor-panel";
 import { SupplierCard } from "@/components/supplier-card";
 import { SupplierDetailSheet, type DetailStatus } from "@/components/supplier-detail";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,7 @@ export function SearchApp() {
   const [compare, setCompare] = useState<string[]>([]);
   /** Открытая детальная карточка (`?s=<id>`) и режим «Сравнение» (`?v=compare`): оба живут в URL. */
   const [openId, setOpenId] = useState<string | null>(null);
+  const [draftOpen, setDraftOpen] = useState(false);
   const [view, setView] = useState<"results" | "compare">("results");
   const { state, run, cancel } = useSupplierSearch();
   const shortlist = useShortlist();
@@ -194,6 +196,18 @@ export function SearchApp() {
                     {result.cached && " Ответ взят из кеша: так же отвечали на такой же запрос недавно."}
                   </p>
                 </div>
+                {result.results.length >= 2 && (
+                  <AdvisorPanel
+                    suppliers={result.results.slice(0, 4).map((r) => r.supplier)}
+                    query={result.query}
+                    scopeLabel="из топа выдачи"
+                    onOpen={setOpenId}
+                    onDraft={(id) => {
+                      setOpenId(id);
+                      setDraftOpen(true);
+                    }}
+                  />
+                )}
                 {result.warnings.length > 0 && (
                   <ul className="rounded-lg bg-muted/60 p-3 text-sm text-muted-foreground">
                     {result.warnings.map((w) => (
@@ -254,7 +268,14 @@ export function SearchApp() {
         </div>
       )}
 
-      <SupplierDetailSheet open={openId !== null} item={openItem} status={detailStatus} onClose={() => setOpenId(null)} onRestore={canRestore ? restore : null}
+      <SupplierDetailSheet open={openId !== null} item={openItem} status={detailStatus} onClose={() => {
+          setOpenId(null);
+          setDraftOpen(false);
+        }}
+        onRestore={canRestore ? restore : null}
+        query={result?.query ?? null}
+        draftOpen={draftOpen}
+        onDraftOpenChange={setDraftOpen}
         shortlisted={openItem ? shortlistedIds.has(openItem.supplier.id) : false}
         onToggleShortlist={toggleShortlist}
       />
