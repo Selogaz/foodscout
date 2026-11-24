@@ -4,6 +4,7 @@ import { CheckIcon, GlobeIcon, InfoIcon, LinkIcon, MailIcon, MapPinIcon, PhoneIc
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CERTIFICATE_LABELS, findRegion, type RankedSupplier } from "@/domain";
+import { hostOf } from "@/lib/supplierFormat";
 import { cn } from "@/lib/utils";
 
 export type ScoreTone = "good" | "mid" | "low";
@@ -27,22 +28,17 @@ export function telHref(phone: string): string {
   return `tel:${plus}${phone.replace(/\D/g, "")}`;
 }
 
-function hostOf(url: string): string {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
-
 type Props = {
   item: RankedSupplier;
   selected: boolean;
+  /** Лимит сравнения исчерпан: новых поставщиков отметить нельзя. */
+  compareFull?: boolean;
   onToggleCompare: (id: string) => void;
+  onOpen: (id: string) => void;
   onShortlist: (id: string) => void;
 };
 
-export function SupplierCard({ item, selected, onToggleCompare, onShortlist }: Props) {
+export function SupplierCard({ item, selected, compareFull = false, onToggleCompare, onOpen, onShortlist }: Props) {
   const { supplier: s, score, rank } = item;
   const tone = scoreTone(score.total);
   // Регионы бывают id справочника или свободным текстом — id показываем названием.
@@ -198,9 +194,12 @@ export function SupplierCard({ item, selected, onToggleCompare, onShortlist }: P
 
       <footer className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t pt-3">
         <label className="inline-flex min-h-9 cursor-pointer items-center gap-2 text-sm">
-          <input type="checkbox" className="size-4 accent-primary" checked={selected} onChange={() => onToggleCompare(s.id)} />
+          <input type="checkbox" className="size-4 accent-primary" checked={selected} disabled={compareFull && !selected} onChange={() => onToggleCompare(s.id)} />
           К сравнению
         </label>
+        <Button type="button" variant="default" size="sm" className="h-8" onClick={() => onOpen(s.id)} aria-label={`Подробнее: ${s.name}`}>
+          Подробнее
+        </Button>
         <Button type="button" variant="outline" size="sm" className="h-8" onClick={() => onShortlist(s.id)}>
           <PlusIcon data-icon="inline-start" />В шортлист
         </Button>

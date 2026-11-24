@@ -2,13 +2,17 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { CompareTable } from "@/components/compare-table";
 import { SearchForm } from "@/components/search-form";
 import { SearchProgress } from "@/components/search-progress";
 import { EmptyState, ErrorState, DemoBanner } from "@/components/search-states";
 import { SupplierCard } from "@/components/supplier-card";
+import { SupplierDetailSheet, type DetailStatus } from "@/components/supplier-detail";
+import { Button } from "@/components/ui/button";
 import { useSupplierSearch } from "@/components/use-supplier-search";
 import type { SearchQuery } from "@/domain";
-import { buildQuery, EMPTY_FORM, formToParams, paramsToForm, type FormState } from "@/lib/formState";
+import { MAX_COMPARE, MIN_COMPARE } from "@/lib/compare";
+import { buildQuery, EMPTY_FORM, formToParams, hasFormParams, paramsToForm, type FormState } from "@/lib/formState";
 
 const plural = (n: number, one: string, few: string, many: string) => {
   const m10 = n % 10;
@@ -20,7 +24,11 @@ export function SearchApp() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [errors, setErrors] = useState<{ category?: string; location?: string; maxMoq?: string }>({});
   const [urlReady, setUrlReady] = useState(false);
+  const [urlHasQuery, setUrlHasQuery] = useState(false);
   const [compare, setCompare] = useState<string[]>([]);
+  /** Открытая детальная карточка (`?s=<id>`) и режим «Сравнение» (`?v=compare`): оба живут в URL. */
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [view, setView] = useState<"results" | "compare">("results");
   const { state, run, cancel } = useSupplierSearch();
   const lastQuery = useRef<SearchQuery | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
@@ -28,26 +36,40 @@ export function SearchApp() {
   // Форма ↔ URL: при открытии читаем ссылку, дальше каждое изменение пишем обратно.
   useEffect(() => {
     // Однократное чтение URL после гидрации (на сервере его нет) — осознанный setState в эффекте.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setForm(paramsToForm(new URLSearchParams(window.location.search)));
+    /* eslint-disable react-hooks/set-state-in-effect */
+    const params = new URLSearchParams(window.location.search);
+    setForm(paramsToForm(params));
+    setOpenId(params.get("s"));
+    setCompare((params.get("cmp") ?? "").split(",").filter(Boolean).slice(0, MAX_COMPARE));
+    setView(params.get("v") === "compare" ? "compare" : "results");
+    setUrlHasQuery(hasFormParams(params));
     setUrlReady(true);
+    /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
   useEffect(() => {
     if (!urlReady) return;
-    const qs = formToParams(form).toString();
+    const params = formToParams(form);
+    if (compare.length > 0) params.set("cmp", compare.join(","));
+    if (view === "compare") params.set("v", "compare");
+    if (openId) params.set("s", openId);
+    const qs = params.toString();
     const next = `${window.location.pathname}${qs ? `?${qs}` : ""}`;
     if (next !== `${window.location.pathname}${window.location.search}`) window.history.replaceState(null, "", next);
-  }, [form, urlReady]);
+  }, [form, urlReady, compare, view, openId]);
 
   const start = useCallback(
-    (f: FormState) => {
+    (f: FormState, keepSelection = false) => {
       const built = buildQuery(f);
       if (!built.ok) {
         setErrors(built.errors);
         return;
       }
       setErrors({});
-      setCompare([]);
+      if (!keepSelection) {
+        setCompare([]);
+        setView("results");
+        setOpenId(null);
+      }
       lastQuery.current = built.query;
       void run(built.query);
       requestAnimationFrame(() => resultsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
@@ -66,9 +88,28 @@ export function SearchApp() {
     input?.focus();
   };
 
-  const toggleCompare = (id: string) => setCompare((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
+  const toggleCompare = (id: string) => {
+    if (!compare.includes(id) && compare.length >= MAX_COMPARE) {
+      toast.info(`В сравнении не больше ${MAX_COMPARE} поставщиков`, { description: "Уберите кого-нибудь, чтобы добавить другого." });
+      return;
+    }
+    setCompare((c) => (c.includes(id) ? c.filter((x) => x !== id) : [...c, id]));
+  };
+  const removeFromCompare = (id: string) => {
+    const next = compare.filter((x) => x !== id);
+    setCompare(next);
+    if (next.length < MIN_COMPARE) setView("results");
+  };
 
   const result = state.result;
+  const ranked = result?.results ?? [];
+  const openItem = openId ? (ranked.find((r) => r.supplier.id === openId) ?? null) : null;
+  const detailStatus: DetailStatus = openItem ? "ready" : state.status === "loading" ? "loading" : "missing";
+  // Ссылку на карточку/сравнение открыли без результатов: можно повторить поиск по параметрам из URL.
+  const canRestore = urlHasQuery && state.status !== "done" && state.status !== "loading";
+  const restore = () => start(form, true);
+  const compareItems = compare.flatMap((id) => ranked.filter((r) => r.supplier.id === id));
+  const showCompare = view === "compare";
   return (
     <>
       <SearchForm
@@ -98,6 +139,28 @@ export function SearchApp() {
             {result.demo && <DemoBanner result={result} />}
             {result.results.length === 0 ? (
               <EmptyState onEdit={editQuery} />
+            ) : showCompare ? (
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <h2 className="text-xl font-semibold">Сравнение: {compareItems.length} {plural(compareItems.length, "поставщик", "поставщика", "поставщиков")}</h2>
+                  <Button type="button" variant="outline" size="sm" onClick={() => setView("results")}>
+                    К результатам
+                  </Button>
+                </div>
+                {compareItems.length < MIN_COMPARE ? (
+                  <p role="status" className="rounded-lg bg-muted/60 p-3 text-sm">
+                    Для сравнения нужно минимум {MIN_COMPARE} поставщика: вернитесь к результатам и отметьте «К сравнению».
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-sm text-muted-foreground">
+                      Лучшее значение в строке подсвечено: больше баллов, меньше минимальный заказ и цена (если единицы совпадают), больше сертификатов и регионов.
+                      Пропуски помечены «нет данных». Название поставщика открывает карточку.
+                    </p>
+                    <CompareTable items={compareItems} onOpen={setOpenId} onRemove={removeFromCompare} />
+                  </>
+                )}
+              </div>
             ) : (
               <>
                 <div>
@@ -123,7 +186,9 @@ export function SearchApp() {
                         <SupplierCard
                           item={item}
                           selected={compare.includes(item.supplier.id)}
+                          compareFull={compare.length >= MAX_COMPARE}
                           onToggleCompare={toggleCompare}
+                          onOpen={setOpenId}
                           onShortlist={() => toast.info("Шортлист появится в следующей версии", { description: "Пока можно отметить карточки «К сравнению»." })}
                         />
                       </div>
@@ -136,18 +201,37 @@ export function SearchApp() {
         )}
       </div>
 
-      {compare.length > 0 && (
+      {showCompare && state.status !== "done" && (
+        <section aria-label="Сравнение" className="mt-6 rounded-lg bg-muted/60 p-4 text-sm" role="status">
+          <p>Сравнение строится по результатам поиска, а они не сохраняются между визитами. Запустите поиск заново.</p>
+          {canRestore && (
+            <Button type="button" className="mt-3" onClick={restore}>
+              Повторить поиск из ссылки
+            </Button>
+          )}
+        </section>
+      )}
+
+      {compare.length > 0 && !showCompare && state.status === "done" && (
         <div role="status" className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 p-3 backdrop-blur">
           <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-1 text-sm">
             <span>
-              К сравнению отмечено: <strong>{compare.length}</strong>. Таблица сравнения появится в следующей версии.
+              К сравнению отмечено: <strong>{compare.length}</strong>
+              {compare.length < MIN_COMPARE && ` (нужно минимум ${MIN_COMPARE})`}
             </span>
-            <button type="button" className="shrink-0 underline" onClick={() => setCompare([])}>
-              Сбросить
-            </button>
+            <span className="flex shrink-0 items-center gap-3">
+              <button type="button" className="underline" onClick={() => setCompare([])}>
+                Сбросить
+              </button>
+              <Button type="button" size="sm" disabled={compare.length < MIN_COMPARE} onClick={() => setView("compare")}>
+                Сравнить
+              </Button>
+            </span>
           </div>
         </div>
       )}
+
+      <SupplierDetailSheet open={openId !== null} item={openItem} status={detailStatus} onClose={() => setOpenId(null)} onRestore={canRestore ? restore : null} />
     </>
   );
 }
