@@ -153,6 +153,24 @@ describe("runSearch на моках", () => {
     expect(events.at(-1)?.type).toBe("done");
   });
 
+  it("общий срок вышел на этапе кандидатов: отдаём то, что успели собрать", async () => {
+    const events: ProgressEvent[] = [];
+    const r = await runSearch(INPUT, (e) => events.push(e), deps({
+      fetchImpl: fakeFetch(SITES, { hang: ["upak-dvor.example.ru"] }),
+      limits: { pageTimeoutMs: 60_000, candidateTimeoutMs: 60_000 },
+    }), { deadline: AbortSignal.timeout(300) });
+    expect(r.timedOut).toBe(true);
+    expect(r.suppliers.map((s) => s.id)).toEqual(["kofepack-example-ru"]);
+    expect(r.outcomes.find((o) => o.domain === "upak-dvor.example.ru")).toMatchObject({ status: "failed", error: "не хватило времени" });
+    expect(r.warnings.join(" ")).toMatch(/по времени/);
+    expect(events.at(-1)?.type).toBe("done");
+  });
+
+  it("без превышения срока поиск не помечается неполным", async () => {
+    const r = await runSearch(INPUT, () => {}, deps(), { deadline: AbortSignal.timeout(30_000) });
+    expect(r.timedOut).toBe(false);
+  });
+
   it("невалидный ответ модели по одному сайту не роняет поиск", async () => {
     const provider = new MockProvider(({ schemaName, user }) => {
       if (schemaName === "normalize_query") return NORMALIZE_ANSWER;

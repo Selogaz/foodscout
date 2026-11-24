@@ -42,7 +42,7 @@ export async function runSearch(
   input: SearchInput,
   onProgress: (e: ProgressEvent) => void,
   deps: PipelineDeps,
-  opts: { signal?: AbortSignal } = {},
+  opts: { signal?: AbortSignal; deadline?: AbortSignal } = {},
 ): Promise<SearchRunResult> {
   const started = Date.now();
   const limits = { ...DEFAULT_LIMITS, ...deps.limits };
@@ -57,12 +57,16 @@ export async function runSearch(
     }
   };
 
+  // Общий срок: до этапа кандидатов его истечение прерывает поиск, на этапе кандидатов — только
+  // останавливает обработку, а уже готовые карточки отдаются как частичный результат.
+  const stageSignal = opts.deadline ? (opts.signal ? AbortSignal.any([opts.signal, opts.deadline]) : opts.deadline) : opts.signal;
+
   emit({ type: "stage", stage: "normalize", message: "Разбираем запрос" });
-  const nq = await normalizeQuery(input, llm, { maxPhrases: limits.maxPhrases, signal: opts.signal });
+  const nq = await normalizeQuery(input, llm, { maxPhrases: limits.maxPhrases, signal: stageSignal });
   emit({ type: "normalized", phrases: nq.searchPhrases, lr: nq.lr, place: nq.placeLabel, notes: nq.notes });
 
   emit({ type: "stage", stage: "search", message: `Ищем поставщиков: ${nq.searchPhrases.length} запроса в Яндексе` });
-  const found = await findCandidates(nq, deps.search, { limit: limits.maxCandidates, signal: opts.signal });
+  const found = await findCandidates(nq, deps.search, { limit: limits.maxCandidates, signal: stageSignal });
   for (const err of found.errors) {
     console.error("Ошибка поискового провайдера", err);
     warnings.push("Поиск по одной из фраз не удался");
@@ -79,9 +83,10 @@ export async function runSearch(
   emit({ type: "stage", stage: "fetch", message: `Изучаем сайты: ${found.candidates.length}` });
   const outcomes = await mapLimit(found.candidates, limits.concurrency, async (c: Candidate, i): Promise<CandidateOutcome> => {
     if (fatal) return { status: "failed", domain: c.domain, error: "поиск остановлен из-за ошибки доступа к модели" };
+    if (opts.deadline?.aborted && !opts.signal?.aborted) return { status: "failed", domain: c.domain, error: "не хватило времени" };
     emit({ type: "candidate-start", domain: c.domain, index: i + 1, total: found.candidates.length });
     const budget = AbortSignal.timeout(limits.candidateTimeoutMs);
-    const signal = opts.signal ? AbortSignal.any([opts.signal, budget]) : budget;
+    const signal = AbortSignal.any([budget, ...(opts.signal ? [opts.signal] : []), ...(opts.deadline ? [opts.deadline] : [])]);
     try {
       const { pages } = await fetchPages(c, limits, { fetchImpl: deps.fetchImpl, signal });
       pagesFetched += pages.length;
@@ -95,12 +100,17 @@ export async function runSearch(
     } catch (e) {
       if (isFatal(e)) fatal = e;
       console.error("Ошибка обработки кандидата", c.domain, e);
-      const error = signal.aborted && !opts.signal?.aborted ? `не уложился в ${limits.candidateTimeoutMs / 1000} с` : e instanceof LlmError ? "Модель временно недоступна" : e instanceof FetchError ? "Сайт не ответил или истёк таймаут" : "Не удалось обработать карточку";
+      const error = opts.deadline?.aborted && !opts.signal?.aborted ? "не хватило времени" : signal.aborted && !opts.signal?.aborted ? `не уложился в ${limits.candidateTimeoutMs / 1000} с` : e instanceof LlmError ? "Модель временно недоступна" : e instanceof FetchError ? "Сайт не ответил или истёк таймаут" : "Не удалось обработать карточку";
       emit({ type: "candidate-failed", domain: c.domain, error });
       return { status: "failed", domain: c.domain, error };
     }
   });
   if (fatal) throw fatal;
+  const timedOut = !!opts.deadline?.aborted && !opts.signal?.aborted;
+  if (timedOut) {
+    warnings.push("Поиск остановлен по времени: показаны карточки, которые успели собрать");
+    emit({ type: "warning", message: "Время поиска вышло: показываем то, что успели собрать" });
+  }
 
   emit({ type: "stage", stage: "dedupe", message: "Убираем дубли" });
   const extracted = outcomes.flatMap((o) => (o.status === "supplier" ? [o.supplier] : []));
@@ -123,6 +133,7 @@ export async function runSearch(
     duplicates,
     invalid,
     warnings,
+    timedOut,
     stats: {
       searchRequests: found.requests,
       candidates: found.candidates.length,

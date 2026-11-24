@@ -156,7 +156,6 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
   };
 
   const timeoutSignal = AbortSignal.timeout(config.liveTimeoutMs);
-  const signal = ctx.signal ? AbortSignal.any([ctx.signal, timeoutSignal]) : timeoutSignal;
   let timer: ReturnType<typeof setTimeout> | undefined;
   try {
     // страховка: если какой-то шаг проигнорирует сигнал, всё равно прекращаем ожидание
@@ -169,10 +168,13 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
         query,
         onProgress,
         { llm: ctx.llm, search: ctx.search, fetchImpl: ctx.fetchImpl },
-        { signal },
+        // общий срок передаём отдельно: на этапе кандидатов его истечение отдаёт частичный результат
+        { signal: ctx.signal, deadline: timeoutSignal },
       ),
       hardTimeout,
     ]);
+    // срок вышел, а карточек нет — это обычный таймаут, а не пустая выдача
+    if (run.timedOut && run.suppliers.length === 0) throw new LiveTimeout();
     const results = rankSuppliers(run.suppliers, run.normalized.query);
     const payload: CachedResult = {
       query: run.normalized.query,
@@ -180,8 +182,8 @@ export async function executeSearch(query: SearchQuery, emit: (e: SearchEvent) =
       warnings: run.warnings,
       stats: { durationMs: run.stats.durationMs, candidates: run.stats.candidates, suppliers: run.stats.suppliers, costRub: run.stats.costRub },
     };
-    // пустую выдачу не кешируем: она может быть следствием временного сбоя
-    if (results.length > 0) state.cache.set(key, payload);
+    // пустую и неполную (по таймауту) выдачу не кешируем: это может быть временный сбой
+    if (results.length > 0 && !run.timedOut) state.cache.set(key, payload);
     emit({ type: "result", demo: false, cached: false, ...payload });
   } catch (e) {
     if (ctx.signal?.aborted) return emit({ type: "error", code: "aborted", message: "Поиск отменён" });

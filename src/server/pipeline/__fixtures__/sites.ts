@@ -122,6 +122,7 @@ export function fakeFetch(pages: Record<string, string>, opts: { hang?: string[]
     if (opts.hang?.includes(host)) {
       return new Promise<Response>((_, reject) => {
         const signal = init?.signal;
+        if (signal?.aborted) return reject(signal.reason ?? new DOMException("aborted", "AbortError"));
         signal?.addEventListener("abort", () => reject(signal.reason ?? new DOMException("aborted", "AbortError")));
       });
     }

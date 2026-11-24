@@ -191,6 +191,18 @@ describe("режимы и демо-фолбэк", () => {
     expect(r).toMatchObject({ type: "result", demo: true, demoReason: "timeout" });
   }, 10_000);
 
+  it("срок вышел посреди обработки кандидатов → частичный результат, не демо и не кеш", async () => {
+    const { ctx } = liveCtx({
+      fetchImpl: fakeFetch(SITES, { hang: ["upak-dvor.example.ru"] }),
+      config: { liveTimeoutMs: 400 },
+    });
+    const r = last(await run(ctx)) as ResultEvent;
+    expect(r).toMatchObject({ type: "result", demo: false, cached: false });
+    expect(r.results.map((x) => x.supplier.id)).toEqual(["kofepack-example-ru"]);
+    expect(r.warnings.join(" ")).toMatch(/по времени/);
+    expect(ctx.state.cache.get(cacheKey(query))).toBeUndefined();
+  }, 10_000);
+
   it("суточный лимит живых поисков: сверх лимита — демо, кеш при этом работает", async () => {
     const { ctx, llm } = liveCtx({ config: { liveDailyLimit: 1 } });
     await run(ctx); // живой №1

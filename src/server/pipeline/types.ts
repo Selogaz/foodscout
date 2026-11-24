@@ -75,7 +75,7 @@ export type PipelineLimits = {
   maxPageBytes: number;
   /** Сколько символов текста всех страниц отдавать модели на кандидата. */
   maxCharsPerCandidate: number;
-  /** Общий бюджет времени на одного кандидата (загрузка + извлечение). */
+  /** Бюджет времени на одного кандидата (загрузка + извлечение): 35 с, чтобы две «волны» по 3 кандидата уложились в общий срок. */
   candidateTimeoutMs: number;
   /** Сколько кандидатов обрабатывать параллельно. */
   concurrency: number;
@@ -88,7 +88,7 @@ export const DEFAULT_LIMITS: PipelineLimits = {
   pageTimeoutMs: 8_000,
   maxPageBytes: 1_500_000,
   maxCharsPerCandidate: 14_000,
-  candidateTimeoutMs: 60_000,
+  candidateTimeoutMs: 35_000,
   concurrency: 3,
 };
 
@@ -124,6 +124,8 @@ export type SearchRunResult = {
   invalid: { id: string; issues: string }[];
   stats: RunStats;
   warnings: string[];
+  /** Общий срок вышел во время обработки кандидатов: в suppliers только то, что успели собрать. */
+  timedOut: boolean;
 };
 
 /** Ошибка входа пользователя (непонятное место и т.п.) — показывается как есть. */
